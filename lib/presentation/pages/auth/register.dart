@@ -4,8 +4,8 @@ import 'package:client/config/theme/colors.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/input_field.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class RegisterWidget extends StatelessWidget {
   const RegisterWidget({super.key});
@@ -138,6 +138,7 @@ class RegisterWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Create Account',
+                          func: () => Get.offNamed(AppRoutes.kDashboard),
                         ),
                         const SizedBox(height: 25.0),
                         Center(

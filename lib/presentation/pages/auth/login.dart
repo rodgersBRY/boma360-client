@@ -5,6 +5,7 @@ import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class LoginWidget extends StatelessWidget {
   const LoginWidget({super.key});
@@ -101,6 +102,7 @@ class LoginWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Sign In',
+                          func: () => Get.offNamed(AppRoutes.kDashboard),
                         ),
                         const SizedBox(height: 25.0),
                         Row(

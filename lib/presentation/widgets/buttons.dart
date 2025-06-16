@@ -6,6 +6,7 @@ class MyElevatedButton extends StatelessWidget {
   final String label;
   final double height;
   final double? width;
+  final VoidCallback? func;
 
   const MyElevatedButton({
     super.key,
@@ -13,6 +14,7 @@ class MyElevatedButton extends StatelessWidget {
     required this.label,
     this.width,
     this.height = 60.0,
+    this.func,
   });
 
   @override
@@ -23,7 +25,7 @@ class MyElevatedButton extends StatelessWidget {
       width: width ?? screenWidth,
       height: height,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: func,
         child: Text(
           label,
           style: textTheme.headlineLarge?.copyWith(color: AppColors.white),
