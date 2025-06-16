@@ -27,7 +27,7 @@ class AccountSpan extends StatelessWidget {
             text: suffixText,
             style: TextStyle(color: AppColors.secondary),
             recognizer:
-                TapGestureRecognizer()..onTap = () => Get.toNamed(route),
+                TapGestureRecognizer()..onTap = () => Get.offNamed(route),
           ),
         ],
       ),

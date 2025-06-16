@@ -50,8 +50,9 @@ class LoginWidget extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   Text(
                     'Welcome Back',
-                    style: textTheme.headlineLarge?.copyWith(fontSize: 40.0),
+                    style: textTheme.headlineLarge?.copyWith(fontSize: 35.0),
                   ),
+                  const SizedBox(height: 15.0),
                   Text(
                     'Manage your cattle with ease',
                     style: textTheme.headlineMedium?.copyWith(
@@ -59,7 +60,7 @@ class LoginWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: kDefaultPadding),
+                  const SizedBox(height: 20.0),
                   Container(
                     padding: const EdgeInsets.all(kDefaultPadding),
                     width: screenWidth,
