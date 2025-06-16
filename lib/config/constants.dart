@@ -1,0 +1,1 @@
+const kDefaultRadius = 16.0;
