@@ -1,7 +1,9 @@
 import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/presentation/widgets/auth/account_span.dart';
+import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/input_field.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatelessWidget {
@@ -94,21 +96,12 @@ class LoginWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20.0),
-                        SizedBox(
-                          width: screenWidth,
-                          height: 60.0,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Sign In',
-                              style: textTheme.headlineLarge?.copyWith(
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ),
+                        const SizedBox(height: 25.0),
+                        MyElevatedButton(
+                          textTheme: textTheme,
+                          label: 'Sign In',
                         ),
-                        const SizedBox(height: 20.0),
+                        const SizedBox(height: 25.0),
                         Row(
                           children: [
                             Expanded(
@@ -122,7 +115,7 @@ class LoginWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20.0),
+                        const SizedBox(height: 25.0),
                         SizedBox(
                           width: screenWidth,
                           height: 60.0,
@@ -136,24 +129,11 @@ class LoginWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text.rich(
-                    TextSpan(
-                      text: 'Dont have an account? ',
-                      children: [
-                        TextSpan(
-                          text: 'Sign Up',
-                          style: TextStyle(color: AppColors.secondary),
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  // navigate to sign up screen
-                                },
-                        ),
-                      ],
-                    ),
-                    style: textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  AccountSpan(
+                    textTheme: textTheme,
+                    prefixText: 'Don\'t have',
+                    suffixText: 'Sign Up',
+                    route: AppRoutes.kRegister,
                   ),
                 ],
               ),
