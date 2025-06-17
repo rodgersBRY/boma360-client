@@ -27,7 +27,7 @@ class OverviewTile extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 50),
+          Icon(icon, size: 40),
           const SizedBox(height: 5.0),
           Text('$number', style: textTheme.headlineLarge),
           const SizedBox(height: 5.0),

@@ -9,7 +9,7 @@ class DashboardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -19,7 +19,7 @@ class DashboardWidget extends StatelessWidget {
         title: ListTile(
           leading: CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage(kFarmerImage),
+            backgroundImage: AssetImage(kOwnerImage),
           ),
           title: Text(
             'Good Morning, Mawi',
@@ -108,7 +108,7 @@ class DashboardWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Text(
-              'Farm Overview',
+              'Quick Actions',
               style: textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
