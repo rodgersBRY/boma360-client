@@ -6,6 +6,7 @@ class InputField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool? obscureText;
   final IconData? suffixIcon;
+  final IconData? prefixIcon;
 
   const InputField({
     super.key,
@@ -13,6 +14,7 @@ class InputField extends StatelessWidget {
     this.validator,
     this.obscureText,
     this.suffixIcon,
+    this.prefixIcon,
   });
 
   @override
@@ -45,6 +47,7 @@ class InputField extends StatelessWidget {
             width: 3.0,
           ),
         ),
+        prefix: Icon(prefixIcon, color: AppColors.danger.withValues(alpha: .5)),
         suffixIcon: IconButton(
           icon: Icon(suffixIcon, color: AppColors.danger.withValues(alpha: .5)),
           onPressed: () {},

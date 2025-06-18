@@ -158,8 +158,8 @@ class DashboardWidget extends StatelessWidget {
                       ),
                       title: item.title,
                       subtitle: item.subtitle,
-
                       shadow: true,
+                      func: item.func,
                     );
                   }),
                 ],

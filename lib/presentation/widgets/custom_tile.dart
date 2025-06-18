@@ -7,6 +7,7 @@ class CustomTile extends StatelessWidget {
   final Color color;
   final Widget leadWidget;
   final bool shadow;
+  final VoidCallback? func;
 
   const CustomTile({
     super.key,
@@ -15,38 +16,42 @@ class CustomTile extends StatelessWidget {
     required this.subtitle,
     required this.title,
     required this.color,
+    this.func,
     this.shadow = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow:
-            shadow
-                ? [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ]
-                : [],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          leadWidget,
-          const SizedBox(height: 15.0),
-          Text(title, style: textTheme.headlineMedium),
-          const SizedBox(height: 15.0),
-          Text(
-            subtitle,
-            style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
-        ],
+    return GestureDetector(
+      onTap: func,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow:
+              shadow
+                  ? [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
+                    ),
+                  ]
+                  : [],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            leadWidget,
+            const SizedBox(height: 15.0),
+            Text(title, style: textTheme.headlineMedium),
+            const SizedBox(height: 15.0),
+            Text(
+              subtitle,
+              style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

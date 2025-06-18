@@ -1,18 +1,22 @@
 import 'package:client/config/theme/colors.dart';
+import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class CustomTileModel {
   final IconData icon;
   final Color? color;
   final String title;
   final String subtitle;
+  final VoidCallback? func;
 
   const CustomTileModel({
     required this.title,
     required this.subtitle,
     required this.icon,
     this.color,
+    this.func,
   });
 }
 
@@ -47,6 +51,9 @@ final List<CustomTileModel> kQuickActionData = [
     subtitle: 'View all cattle',
     icon: FontAwesomeIcons.cow,
     color: AppColors.danger,
+    func: () {
+      Get.find<MainController>().changeIndex(1);
+    },
   ),
   CustomTileModel(
     title: 'Yield Records',
@@ -59,5 +66,8 @@ final List<CustomTileModel> kQuickActionData = [
     subtitle: 'Analytics & Insights',
     icon: FontAwesomeIcons.chartArea,
     color: AppColors.primary,
+    func: () {
+      Get.find<MainController>().changeIndex(2);
+    },
   ),
 ];

@@ -1,3 +1,4 @@
+import 'package:client/presentation/pages/main/cows/cows.dart';
 import 'package:client/presentation/pages/main/dashboard/dashboard.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class MainWidget extends StatelessWidget {
 
   final List<Widget> _pages = [
     DashboardWidget(),
-    Center(child: Text('Cattle')),
+    CowsWidget(),
     Center(child: Text('Reports')),
     Center(child: Text('Profile')),
   ];
