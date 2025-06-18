@@ -1,0 +1,63 @@
+import 'package:client/config/theme/colors.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class CustomTileModel {
+  final IconData icon;
+  final Color? color;
+  final String title;
+  final String subtitle;
+
+  const CustomTileModel({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    this.color,
+  });
+}
+
+final List<CustomTileModel> kOverViewData = [
+  CustomTileModel(
+    title: '53',
+    subtitle: 'Total Cattle',
+    icon: FontAwesomeIcons.cow,
+  ),
+  CustomTileModel(title: '4', subtitle: 'Breeds', icon: FontAwesomeIcons.list),
+  CustomTileModel(
+    title: '154L',
+    subtitle: 'Daily Milk Yields',
+    icon: FontAwesomeIcons.bottleWater,
+  ),
+  CustomTileModel(
+    title: '3',
+    subtitle: 'Recent Activity',
+    icon: FontAwesomeIcons.clock,
+  ),
+];
+
+final List<CustomTileModel> kQuickActionData = [
+  CustomTileModel(
+    title: 'Add Animal',
+    subtitle: 'Register New Cattle',
+    icon: FontAwesomeIcons.plus,
+    color: AppColors.primary,
+  ),
+  CustomTileModel(
+    title: 'Animal List',
+    subtitle: 'View all cattle',
+    icon: FontAwesomeIcons.cow,
+    color: AppColors.danger,
+  ),
+  CustomTileModel(
+    title: 'Yield Records',
+    subtitle: 'Track milk production',
+    icon: FontAwesomeIcons.bottleWater,
+    color: AppColors.secondary,
+  ),
+  CustomTileModel(
+    title: 'Reports',
+    subtitle: 'Analytics & Insights',
+    icon: FontAwesomeIcons.chartArea,
+    color: AppColors.primary,
+  ),
+];

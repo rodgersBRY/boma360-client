@@ -138,7 +138,7 @@ class RegisterWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Create Account',
-                          func: () => Get.offNamed(AppRoutes.kDashboard),
+                          func: () => Get.offNamed(AppRoutes.kMain),
                         ),
                         const SizedBox(height: 25.0),
                         Center(

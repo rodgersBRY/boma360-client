@@ -102,7 +102,7 @@ class LoginWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Sign In',
-                          func: () => Get.offNamed(AppRoutes.kDashboard),
+                          func: () => Get.offNamed(AppRoutes.kMain),
                         ),
                         const SizedBox(height: 25.0),
                         Row(

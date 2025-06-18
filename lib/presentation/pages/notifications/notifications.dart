@@ -1,10 +1,11 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/presentation/widgets/dashboard/overview_tile.dart';
+import 'package:client/presentation/widgets/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DashboardWidget extends StatelessWidget {
-  const DashboardWidget({super.key});
+class NotificationsWidget extends StatelessWidget {
+  const NotificationsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +18,8 @@ class DashboardWidget extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: ListTile(
-          leading: CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage(kOwnerImage),
-          ),
           title: Text(
-            'Good Morning, Mawi',
+            'Alerts & Notifications',
             style: textTheme.headlineMedium?.copyWith(
               color: AppColors.white,
               fontWeight: FontWeight.bold,
@@ -30,7 +27,7 @@ class DashboardWidget extends StatelessWidget {
             ),
           ),
           subtitle: Text(
-            'Monday, June 16',
+            'Stay updated with your farm',
             style: textTheme.headlineSmall?.copyWith(
               color: const Color.fromARGB(255, 213, 213, 213),
               fontWeight: FontWeight.bold,
@@ -54,18 +51,14 @@ class DashboardWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-              bottom: kDefaultPadding,
-            ),
-            width: screenWidth,
+          const SizedBox(height: 28.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Container(
               padding: const EdgeInsets.all(kDefaultPadding),
               width: screenWidth,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -78,43 +71,32 @@ class DashboardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Farm Overview',
-                    style: textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      'Recent Alerts',
+                      style: textTheme.headlineLarge,
+                    ),
+                    trailing: CircleAvatar(
+                      backgroundColor: Colors.red.withValues(alpha: .1),
+                      child: Icon(
+                        FontAwesomeIcons.solidBell,
+                        color: Colors.red,
+                        size: 20,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 310,
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      children: List.generate(4, (index) {
-                        return OverviewTile(
-                          textTheme: textTheme,
-                          icon: Icons.animation,
-                          text: 'Total Cattle',
-                          number: 53,
-                        );
-                      }),
-                    ),
+                  MyElevatedButton(
+                    textTheme: textTheme,
+                    label: 'Mark All as Read',
+                    func: () {},
                   ),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Text(
-              'Quick Actions',
-              style: textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 28),
         ],
       ),
     );

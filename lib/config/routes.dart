@@ -1,8 +1,7 @@
 abstract class AppRoutes {
   static const kLogin = '/login';
   static const kRegister = '/register';
-  static const kDashboard = '/dashboard';
-  static const kUserProfile = '/user-profile';
+  static const kMain = '/main';
   static const kEditUserProfile = '/edit-user-profile';
   static const kNotifications = '/notifications';
   static const kNotificationDetails = '/notification-details';
