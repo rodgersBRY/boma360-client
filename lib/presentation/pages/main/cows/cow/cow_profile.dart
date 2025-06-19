@@ -2,8 +2,8 @@ import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/cattle_data.dart';
 import 'package:client/presentation/widgets/buttons.dart';
-import 'package:client/presentation/widgets/cows/profile/health_status_tile.dart';
 import 'package:client/presentation/widgets/custom_tile.dart';
+import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -289,13 +289,19 @@ class CowProfileWidget extends StatelessWidget {
                     ),
                   ),
                   ...kCattleHealthStatus.map(
-                    (item) => HealthStatusTile(
-                      textTheme: textTheme,
-                      icon: item['icon'],
-                      color: item['color'],
+                    (item) => MyListTile(
+                      leadingWidget: Icon(
+                        item['icon'],
+                        color: item['color'],
+                        size: 18,
+                      ),
                       title: item['title'],
                       subtitle: item['subtitle'],
-                      trailing: item['trailing'],
+                      backgroundColor: item['color'].withValues(alpha: .2),
+                      trailingWidget: Text(
+                        item['trailing'],
+                        style: TextStyle(color: item['color']),
+                      ),
                     ),
                   ),
                 ],

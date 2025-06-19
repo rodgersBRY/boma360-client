@@ -5,7 +5,7 @@ import 'package:client/data/dashboard/dashboard_alerts.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/custom_tile.dart';
-import 'package:client/presentation/widgets/dashboard/alert_list_tile.dart';
+import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/route_manager.dart';
@@ -21,41 +21,11 @@ class DashboardWidget extends StatelessWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.primary,
-        title: ListTile(
-          leading: CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage(kOwnerImage),
-          ),
-          title: Text(
-            'Good Morning, Mawi',
-            style: textTheme.headlineMedium?.copyWith(
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
-          subtitle: Text(
-            'Monday, June 16',
-            style: textTheme.headlineSmall?.copyWith(
-              color: const Color.fromARGB(255, 213, 213, 213),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => Get.toNamed(AppRoutes.kNotifications),
-            icon: Icon(Icons.notifications),
-          ),
-        ],
-      ),
+
       body: ListView(
         children: [
           Container(
-            height: 60,
+            height: 130,
             width: screenWidth,
             decoration: BoxDecoration(
               color: AppColors.primary,
@@ -64,8 +34,66 @@ class DashboardWidget extends StatelessWidget {
                 bottomRight: Radius.circular(36),
               ),
             ),
+            child: Column(
+              children: [
+                const SizedBox(height: 28),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: AppBar(
+                    backgroundColor: Colors.transparent,
+                    leading: Container(
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          kOwnerImage, // or use Image.network(...)
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    title: ListTile(
+                      title: Text(
+                        'Good Evening, Mawi',
+                        style: textTheme.headlineLarge?.copyWith(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Tuesday, June 15',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white.withValues(alpha: .6),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      Container(
+                        height: 50,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: .2),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12),
+                            bottom: Radius.circular(12),
+                          ),
+                        ),
+                        child: Icon(
+                          FontAwesomeIcons.bell,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 28.0),
           Container(
             padding: const EdgeInsets.only(
               left: kDefaultPadding,
@@ -212,10 +240,15 @@ class DashboardWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ...kNotifications.sublist(0, 2).map((alert) {
-                    return AlertListTile(
-                      textTheme: textTheme,
-                      color: alert.priority.color,
-                      icon: alert.icon,
+                    return MyListTile(
+                      backgroundColor: alert.priority.color.withValues(
+                        alpha: .2,
+                      ),
+                      leadingWidget: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: alert.priority.color,
+                        child: Icon(alert.icon),
+                      ),
                       title: alert.title,
                       subtitle: alert.content,
                     );

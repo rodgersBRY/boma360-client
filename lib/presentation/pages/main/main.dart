@@ -40,7 +40,7 @@ class MainWidget extends StatelessWidget {
               label: 'Analytics',
             ),
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.circleUser),
+              icon: Icon(FontAwesomeIcons.solidCircleUser),
               label: 'Profile',
             ),
             // ...kNavItems.map((item) {

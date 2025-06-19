@@ -2,34 +2,34 @@ import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class HealthStatusTile extends StatelessWidget {
-  final TextTheme textTheme;
-  final Color color;
-  final IconData icon;
+class MyListTile extends StatelessWidget {
+  final Widget leadingWidget;
   final String title;
   final String subtitle;
-  final String trailing;
+  final Widget? trailingWidget;
+  final Color backgroundColor;
 
-  const HealthStatusTile({
+  const MyListTile({
     super.key,
-    required this.textTheme,
-    required this.color,
+    required this.leadingWidget,
     required this.title,
     required this.subtitle,
-    required this.trailing,
-    required this.icon,
+    required this.backgroundColor,
+    this.trailingWidget,
   });
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12.0),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: .1),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
       child: ListTile(
-        leading: Icon(icon, color: color, size: 18),
+        leading: leadingWidget,
         title: Text(
           title,
           style: textTheme.bodyLarge?.copyWith(color: AppColors.textPrimary),
@@ -38,10 +38,7 @@ class HealthStatusTile extends StatelessWidget {
           subtitle,
           style: textTheme.labelLarge?.copyWith(color: AppColors.textSecondary),
         ),
-        trailing: Text(
-          trailing,
-          style: textTheme.labelMedium?.copyWith(color: color),
-        ),
+        trailing: trailingWidget,
       ),
     );
   }
