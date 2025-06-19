@@ -7,6 +7,9 @@ class MyElevatedButton extends StatelessWidget {
   final double height;
   final double? width;
   final VoidCallback? func;
+  final Icon? icon;
+  final TextStyle? textStyle;
+  final Color? backgroundColor;
 
   const MyElevatedButton({
     super.key,
@@ -15,6 +18,9 @@ class MyElevatedButton extends StatelessWidget {
     this.width,
     this.height = 60.0,
     this.func,
+    this.icon,
+    this.textStyle,
+    this.backgroundColor = AppColors.primary,
   });
 
   @override
@@ -26,9 +32,16 @@ class MyElevatedButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         onPressed: func,
-        child: Text(
-          label,
-          style: textTheme.headlineLarge?.copyWith(color: AppColors.white),
+        style: ElevatedButton.styleFrom(backgroundColor: backgroundColor),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              icon ?? Container(),
+              const SizedBox(width: 8),
+            ],
+            Text(label, style: textStyle),
+          ],
         ),
       ),
     );

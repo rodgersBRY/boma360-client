@@ -1,5 +1,6 @@
 import 'package:client/config/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum Status { healthy, attention, treatment, observation, pregnant }
 
@@ -129,4 +130,65 @@ final List<CattleModel> kCattleList = [
     imageUrl: 'https://example.com/images/milo.jpg',
     vaccinationDue: true,
   ),
+];
+
+final List<String> kCattlebreeds = [];
+
+final List<Map<String, dynamic>> kCattleKeyStats = [
+  {
+    "icon": FontAwesomeIcons.clock,
+    "title": '485 kg',
+    "subtitle": 'Current Weight',
+    'subtext': '+5kg this month',
+    'subtextColor': Colors.green,
+    'iconColor': AppColors.primary,
+  },
+  {
+    "icon": FontAwesomeIcons.bottleDroplet,
+    "title": '28.5 L',
+    "subtitle": 'Daily Milk Yield',
+    'subtext': 'Above average',
+    'subtextColor': Colors.green,
+    'iconColor': AppColors.primary,
+  },
+  {
+    "icon": FontAwesomeIcons.solidHeart,
+    "title": 'Day 120',
+    "subtitle": 'Pregnancy',
+    'subtext': 'Due in 160 days',
+    'subtextColor': Colors.blue,
+    'iconColor': Colors.pink,
+  },
+  {
+    "icon": FontAwesomeIcons.stethoscope,
+    "title": '7 days',
+    "subtitle": 'Last Check-up',
+    'subtext': 'All clear',
+    'subtextColor': Colors.green,
+    'iconColor': AppColors.primary,
+  },
+];
+
+final List<Map<String, dynamic>> kCattleHealthStatus = [
+  {
+    "icon": FontAwesomeIcons.syringe,
+    "title": 'Vaccination',
+    "subtitle": 'FMD - Completed',
+    'trailing': '2 weeks ago',
+    'color': Colors.green,
+  },
+  {
+    "icon": FontAwesomeIcons.pills,
+    "title": 'Deworming',
+    "subtitle": 'Ivermectin',
+    'trailing': '1 month ago',
+    'color': AppColors.info,
+  },
+  {
+    "icon": FontAwesomeIcons.solidCalendarCheck,
+    "title": 'Next Check-up',
+    "subtitle": 'Routine examination',
+    'trailing': 'In 3 weeks',
+    'color': AppColors.warning,
+  },
 ];

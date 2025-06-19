@@ -1,8 +1,10 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/data/user_roles.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
+import 'package:client/presentation/widgets/dropdown_field.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -87,6 +89,7 @@ class RegisterWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Enter your phone number',
                           suffixIcon: Icons.call,
+                          inputType: TextInputType.phone,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Email Address', style: textTheme.labelLarge),
@@ -94,6 +97,21 @@ class RegisterWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Enter your email',
                           suffixIcon: Icons.email,
+                          inputType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 15.0),
+                        Text('Your Role', style: textTheme.labelLarge),
+                        const SizedBox(height: 10.0),
+                        MyDropDownWidget(
+                          hint: 'Select a role',
+                          itemList:
+                              kUserRoles.map((String role) {
+                                return DropdownMenuItem<String>(
+                                  value: role,
+                                  child: Text(role),
+                                );
+                              }).toList(),
+                          errorText: 'Please select a role',
                         ),
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),

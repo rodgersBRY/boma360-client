@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: kAppName,
-      initialRoute: AppRoutes.kMain,
+      initialRoute: AppRoutes.kCattleProfile,
       getPages: appPages,
       theme: AppTheme.light,
     );

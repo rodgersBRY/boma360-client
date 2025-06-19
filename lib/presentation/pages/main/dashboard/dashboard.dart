@@ -116,7 +116,12 @@ class DashboardWidget extends StatelessWidget {
                               color: AppColors.secondary,
                             ),
                             title: item.title,
-                            subtitle: item.subtitle,
+                            subtitle: Text(
+                              item.subtitle,
+                              style: textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           );
                         }),
                       ],
@@ -157,7 +162,12 @@ class DashboardWidget extends StatelessWidget {
                         child: Icon(item.icon, size: 25, color: Colors.white),
                       ),
                       title: item.title,
-                      subtitle: item.subtitle,
+                      subtitle: Text(
+                        item.subtitle,
+                        style: textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       shadow: true,
                       func: item.func,
                     );

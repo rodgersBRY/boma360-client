@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTile extends StatelessWidget {
   final TextTheme textTheme;
-  final String subtitle;
+  final Widget subtitle;
   final String title;
   final Color color;
   final Widget leadWidget;
@@ -46,10 +46,7 @@ class CustomTile extends StatelessWidget {
             const SizedBox(height: 15.0),
             Text(title, style: textTheme.headlineMedium),
             const SizedBox(height: 15.0),
-            Text(
-              subtitle,
-              style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
+            subtitle,
           ],
         ),
       ),

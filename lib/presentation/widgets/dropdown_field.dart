@@ -1,34 +1,24 @@
 import 'package:client/config/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class InputField extends StatelessWidget {
-  final String hintText;
-  final String? Function(String?)? validator;
-  final bool? obscureText;
-  final IconData? suffixIcon;
-  final IconData? prefixIcon;
-  final TextInputType? inputType;
+class MyDropDownWidget extends StatelessWidget {
+  final String hint;
+  final List<DropdownMenuItem<String>> itemList;
+  final String errorText;
 
-  const InputField({
+  const MyDropDownWidget({
     super.key,
-    required this.hintText,
-    this.validator,
-    this.obscureText,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.inputType = TextInputType.text
+    required this.hint,
+    required this.itemList,
+    required this.errorText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscureText ?? false,
-      validator: validator,
-      keyboardType: inputType,
+    return DropdownButtonFormField<String>(
       decoration: InputDecoration(
-        hintText: hintText,
+        hint: Text(hint),
         hintStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
-        fillColor: AppColors.danger.withValues(alpha: .1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
@@ -50,12 +40,12 @@ class InputField extends StatelessWidget {
             width: 3.0,
           ),
         ),
-        prefix: Icon(prefixIcon, color: AppColors.danger.withValues(alpha: .5)),
-        suffixIcon: IconButton(
-          icon: Icon(suffixIcon, color: AppColors.danger.withValues(alpha: .5)),
-          onPressed: () {},
-        ),
       ),
+      items: itemList,
+      onChanged: (value) {
+        if (value != null) {}
+      },
+      validator: (value) => value == null ? errorText : null,
     );
   }
 }

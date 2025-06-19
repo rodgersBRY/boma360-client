@@ -1,3 +1,4 @@
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:flutter/widgets.dart';
@@ -45,6 +46,7 @@ final List<CustomTileModel> kQuickActionData = [
     subtitle: 'Register New Cattle',
     icon: FontAwesomeIcons.plus,
     color: AppColors.primary,
+    func: () => Get.toNamed(AppRoutes.kNewCattle),
   ),
   CustomTileModel(
     title: 'Animal List',

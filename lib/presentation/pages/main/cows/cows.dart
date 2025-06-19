@@ -1,10 +1,12 @@
 import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/cattle_data.dart';
 import 'package:client/presentation/widgets/cows/cow_list_tile.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class CowsWidget extends StatelessWidget {
   const CowsWidget({super.key});
@@ -18,11 +20,12 @@ class CowsWidget extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        actionsPadding: const EdgeInsets.only(right: 8.0),
         backgroundColor: AppColors.primary,
         title: ListTile(
           title: Text(
             'Cattle List',
-            style: textTheme.headlineMedium?.copyWith(
+            style: textTheme.headlineLarge?.copyWith(
               color: AppColors.white,
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
@@ -30,7 +33,10 @@ class CowsWidget extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.filter)),
+          CircleAvatar(
+            backgroundColor: Colors.white.withValues(alpha: .2),
+            child: Icon(FontAwesomeIcons.filter, color: Colors.white, size: 20),
+          ),
         ],
       ),
       body: ListView(
@@ -113,7 +119,11 @@ class CowsWidget extends StatelessWidget {
                 ...kCattleList.map((cattle) {
                   return Container(
                     margin: const EdgeInsets.only(bottom: 12),
-                    child: CowListTile(textTheme: textTheme, cattle: cattle),
+                    child: CowListTile(
+                      textTheme: textTheme,
+                      cattle: cattle,
+                      func: () => Get.toNamed(AppRoutes.kCattleProfile),
+                    ),
                   );
                 }),
               ],
@@ -122,7 +132,7 @@ class CowsWidget extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Get.toNamed(AppRoutes.kNewCattle),
         shape: const CircleBorder(),
         child: Icon(FontAwesomeIcons.plus),
       ),
