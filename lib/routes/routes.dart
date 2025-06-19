@@ -9,5 +9,4 @@ final List<GetPage> appPages = [
   GetPage(name: AppRoutes.kNotifications, page: () => NotificationsWidget()),
   GetPage(name: AppRoutes.kNewCattle, page: () => NewCowWidget()),
   GetPage(name: AppRoutes.kCattleProfile, page: () => CowProfileWidget()),
-  GetPage(name: AppRoutes.kUserProfile, page: () => UserProfileWidget()),
 ];

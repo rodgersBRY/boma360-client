@@ -1,6 +1,7 @@
 import 'package:client/presentation/pages/main/cows/cows.dart';
 import 'package:client/presentation/pages/main/dashboard/dashboard.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
+import 'package:client/presentation/pages/main/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class MainWidget extends StatelessWidget {
     DashboardWidget(),
     CowsWidget(),
     Center(child: Text('Reports')),
-    Center(child: Text('Profile')),
+    UserProfileWidget(),
   ];
 
   @override
