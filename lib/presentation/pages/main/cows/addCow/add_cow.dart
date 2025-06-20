@@ -52,12 +52,6 @@ class NewCowWidget extends StatelessWidget {
             style: TextStyle(color: AppColors.white),
           ),
         ),
-        actions: [
-          CircleAvatar(
-            backgroundColor: Colors.white.withValues(alpha: .2),
-            child: Icon(FontAwesomeIcons.cow, color: Colors.white, size: 20),
-          ),
-        ],
       ),
       body: ListView(
         children: [
@@ -146,7 +140,7 @@ class NewCowWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Container(

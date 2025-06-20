@@ -72,20 +72,23 @@ class DashboardWidget extends StatelessWidget {
                       ),
                     ),
                     actions: [
-                      Container(
-                        height: 50,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: .2),
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(12),
-                            bottom: Radius.circular(12),
+                      GestureDetector(
+                        onTap: () => Get.toNamed(AppRoutes.kNotifications),
+                        child: Container(
+                          height: 50,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: .2),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(12),
+                              bottom: Radius.circular(12),
+                            ),
                           ),
-                        ),
-                        child: Icon(
-                          FontAwesomeIcons.bell,
-                          color: Colors.white,
-                          size: 20,
+                          child: Icon(
+                            FontAwesomeIcons.bell,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ],

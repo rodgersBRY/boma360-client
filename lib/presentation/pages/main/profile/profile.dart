@@ -1,10 +1,12 @@
 import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/presentation/widgets/appbar.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/route_manager.dart';
 
 class UserProfileWidget extends StatelessWidget {
   const UserProfileWidget({super.key});
@@ -318,7 +320,7 @@ class UserProfileWidget extends StatelessWidget {
             child: MyElevatedButton(
               textTheme: textTheme,
               label: 'Log Out',
-              func: () {},
+              func: () => Get.offNamed(AppRoutes.kLogin),
               backgroundColor: Colors.red,
               icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
               textStyle: textTheme.headlineMedium?.copyWith(

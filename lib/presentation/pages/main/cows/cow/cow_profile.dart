@@ -46,12 +46,6 @@ class CowProfileWidget extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          CircleAvatar(
-            backgroundColor: Colors.white.withValues(alpha: .2),
-            child: Icon(FontAwesomeIcons.cow, color: Colors.white, size: 20),
-          ),
-        ],
       ),
       body: ListView(
         children: [
