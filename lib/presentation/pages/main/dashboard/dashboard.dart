@@ -94,68 +94,68 @@ class DashboardWidget extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(
-              left: kDefaultPadding,
-              right: kDefaultPadding,
-              bottom: kDefaultPadding,
-            ),
-            width: screenWidth,
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
             child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              width: screenWidth,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ],
+              padding: const EdgeInsets.only(
+                left: kDefaultPadding,
+                right: kDefaultPadding,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Farm Overview',
-                    style: textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 330,
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(), // preve
-                      children: [
-                        ...kOverViewData.map((item) {
-                          return CustomTile(
-                            color: AppColors.background,
-                            textTheme: textTheme,
-                            leadWidget: Icon(
-                              item.icon,
-                              size: 25,
-                              color: AppColors.secondary,
-                            ),
-                            title: item.title,
-                            subtitle: Text(
-                              item.subtitle,
-                              style: textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Farm Overview',
+                      style: textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: 330,
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(), // preve
+                        children: [
+                          ...kOverViewData.map((item) {
+                            return CustomTile(
+                              color: AppColors.background,
+                              textTheme: textTheme,
+                              leadWidget: Icon(
+                                item.icon,
+                                size: 25,
+                                color: AppColors.secondary,
                               ),
-                            ),
-                          );
-                        }),
-                      ],
+                              title: item.title,
+                              subtitle: Text(
+                                item.subtitle,
+                                style: textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

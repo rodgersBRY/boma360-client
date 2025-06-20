@@ -72,79 +72,81 @@ class NewCowWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 28.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(kDefaultRadius),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: Icon(
-                      FontAwesomeIcons.idCard,
-                      color: AppColors.primary,
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
                     ),
-                    title: Text(
-                      'Basic Information',
-                      style: textTheme.headlineMedium,
-                    ),
-                  ),
-                  const SizedBox(height: 10.0),
-                  Text('Tag ID *', style: textTheme.labelLarge),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    children: [
-                      Expanded(child: InputField(hintText: 'Enter tag ID')),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(
-                          FontAwesomeIcons.qrcode,
-                          color: AppColors.white,
-                        ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Icon(
+                        FontAwesomeIcons.idCard,
+                        color: AppColors.primary,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 15.0),
-                  Text('Name (Optional)', style: textTheme.labelLarge),
-                  const SizedBox(height: 10.0),
-                  InputField(hintText: 'Enter cattle name'),
-                  const SizedBox(height: 15.0),
-                  Text('Gender *', style: textTheme.labelLarge),
-                  const SizedBox(height: 10.0),
-                  MyDropDownWidget(
-                    hint: 'Select gender',
-                    itemList:
-                        ['Male', 'Female'].map((String gender) {
-                          return DropdownMenuItem<String>(
-                            value: gender,
-                            child: Text(gender),
-                          );
-                        }).toList(),
-                    errorText: 'Please select gender',
-                  ),
-                ],
+                      title: Text(
+                        'Basic Information',
+                        style: textTheme.headlineMedium,
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Text('Tag ID *', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      children: [
+                        Expanded(child: InputField(hintText: 'Enter tag ID')),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Icon(
+                            FontAwesomeIcons.qrcode,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15.0),
+                    Text('Name (Optional)', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    InputField(hintText: 'Enter cattle name'),
+                    const SizedBox(height: 15.0),
+                    Text('Gender *', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    MyDropDownWidget(
+                      hint: 'Select gender',
+                      itemList:
+                          ['Male', 'Female'].map((String gender) {
+                            return DropdownMenuItem<String>(
+                              value: gender,
+                              child: Text(gender),
+                            );
+                          }).toList(),
+                      errorText: 'Please select gender',
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 28),
+          const SizedBox(height: 22),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Container(

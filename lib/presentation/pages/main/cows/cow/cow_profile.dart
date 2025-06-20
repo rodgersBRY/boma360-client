@@ -66,146 +66,147 @@ class CowProfileWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 28.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(kDefaultRadius),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: .2),
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                          child: Image.asset(
-                            kCowImage,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(kDefaultRadius),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FittedBox(
-                            child: Text(
-                              'Tag #0345',
-                              style: textTheme.headlineMedium,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(kDefaultRadius),
+                            child: Image.asset(
+                              kCowImage,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Holstein Friesian',
-                            style: textTheme.bodyLarge?.copyWith(
-                              color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FittedBox(
+                              child: Text(
+                                'Tag #0345',
+                                style: textTheme.headlineMedium,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Holstein Friesian',
+                              style: textTheme.bodyLarge?.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.briefcase,
+                                  size: 13,
+                                  color: AppColors.primary,
+                                ),
+                                const SizedBox(width: 8),
+                                Text('3.5 years', style: textTheme.bodySmall),
+                                const SizedBox(width: 12),
+                                Icon(
+                                  FontAwesomeIcons.marsStrokeUp,
+                                  size: 13,
+                                  color: Colors.pink,
+                                ),
+                                const SizedBox(width: 8),
+                                Text('Female', style: textTheme.bodySmall),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      spacing: 12,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(kDefaultRadius),
+                          ),
+                          child: Text(
+                            'Healthy',
+                            style: textTheme.labelMedium?.copyWith(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.briefcase,
-                                size: 13,
-                                color: AppColors.primary,
-                              ),
-                              const SizedBox(width: 8),
-                              Text('3.5 years', style: textTheme.bodySmall),
-                              const SizedBox(width: 12),
-                              Icon(
-                                FontAwesomeIcons.marsStrokeUp,
-                                size: 13,
-                                color: Colors.pink,
-                              ),
-                              const SizedBox(width: 8),
-                              Text('Female', style: textTheme.bodySmall),
-                            ],
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.green.withValues(alpha: .2),
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: Text(
-                          'Healthy',
-                          style: textTheme.labelMedium?.copyWith(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
+                          decoration: BoxDecoration(
+                            color: AppColors.info.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(kDefaultRadius),
+                          ),
+                          child: Text(
+                            'Pregnant',
+                            style: textTheme.labelMedium?.copyWith(
+                              color: AppColors.info,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.info.withValues(alpha: .2),
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: Text(
-                          'Pregnant',
-                          style: textTheme.labelMedium?.copyWith(
-                            color: AppColors.info,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.warning.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(kDefaultRadius),
+                          ),
+                          child: Text(
+                            'High Yield',
+                            style: textTheme.labelMedium?.copyWith(
+                              color: AppColors.warning,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.warning.withValues(alpha: .2),
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: Text(
-                          'High Yield',
-                          style: textTheme.labelMedium?.copyWith(
-                            color: AppColors.warning,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Text(
@@ -331,7 +332,7 @@ class CowProfileWidget extends StatelessWidget {
                     height: 50,
                     textTheme: textTheme,
                     icon: Icon(FontAwesomeIcons.plus),
-                    label: 'Edit Profile',
+                    label: 'Add Yield',
                     func: () {},
                     backgroundColor: AppColors.danger,
                     textStyle: textTheme.labelLarge?.copyWith(

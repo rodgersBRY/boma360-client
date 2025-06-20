@@ -141,80 +141,91 @@ class UserProfileWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 28.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              width: screenWidth,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(
-                      'Personal Information',
-                      style: textTheme.headlineLarge,
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
                     ),
-                  ),
-                  MyListTile(
-                    leadingWidget: CircleAvatar(
-                      backgroundColor: AppColors.primary,
-                      child: Icon(
-                        FontAwesomeIcons.phone,
-                        color: AppColors.white,
-                        size: 18,
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        'Personal Information',
+                        style: textTheme.headlineLarge,
                       ),
                     ),
-                    title: 'Phone Number',
-                    subtitle: '+254 (712) 413 243',
-                    backgroundColor: AppColors.background,
-                    trailingWidget: Icon(FontAwesomeIcons.angleRight, size: 16),
-                  ),
-                  MyListTile(
-                    leadingWidget: CircleAvatar(
-                      backgroundColor: AppColors.danger,
-                      child: Icon(
-                        FontAwesomeIcons.solidEnvelope,
-                        color: AppColors.white,
-                        size: 18,
+                    MyListTile(
+                      leadingWidget: CircleAvatar(
+                        backgroundColor: AppColors.primary,
+                        child: Icon(
+                          FontAwesomeIcons.phone,
+                          color: AppColors.white,
+                          size: 18,
+                        ),
+                      ),
+                      title: 'Phone Number',
+                      subtitle: '+254 (712) 413 243',
+                      backgroundColor: AppColors.background,
+                      trailingWidget: Icon(
+                        FontAwesomeIcons.angleRight,
+                        size: 16,
                       ),
                     ),
-                    title: 'Email Address',
-                    subtitle: 'rodgersbry99@gmail.com',
-                    backgroundColor: AppColors.background,
-                    trailingWidget: Icon(FontAwesomeIcons.angleRight, size: 16),
-                  ),
-                  MyListTile(
-                    leadingWidget: CircleAvatar(
-                      backgroundColor: AppColors.secondary,
-                      child: Icon(
-                        FontAwesomeIcons.map,
-                        color: AppColors.white,
-                        size: 18,
+                    MyListTile(
+                      leadingWidget: CircleAvatar(
+                        backgroundColor: AppColors.danger,
+                        child: Icon(
+                          FontAwesomeIcons.solidEnvelope,
+                          color: AppColors.white,
+                          size: 18,
+                        ),
+                      ),
+                      title: 'Email Address',
+                      subtitle: 'rodgersbry99@gmail.com',
+                      backgroundColor: AppColors.background,
+                      trailingWidget: Icon(
+                        FontAwesomeIcons.angleRight,
+                        size: 16,
                       ),
                     ),
-                    title: 'Farm Location',
-                    subtitle: 'Ukuu, Meru. Kenya',
-                    backgroundColor: AppColors.background,
-                    trailingWidget: Icon(FontAwesomeIcons.angleRight, size: 16),
-                  ),
-                ],
+                    MyListTile(
+                      leadingWidget: CircleAvatar(
+                        backgroundColor: AppColors.secondary,
+                        child: Icon(
+                          FontAwesomeIcons.map,
+                          color: AppColors.white,
+                          size: 18,
+                        ),
+                      ),
+                      title: 'Farm Location',
+                      subtitle: 'Ukuu, Meru. Kenya',
+                      backgroundColor: AppColors.background,
+                      trailingWidget: Icon(
+                        FontAwesomeIcons.angleRight,
+                        size: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 22),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Container(

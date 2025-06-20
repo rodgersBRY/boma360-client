@@ -2,6 +2,7 @@ import 'package:client/presentation/pages/main/cows/cows.dart';
 import 'package:client/presentation/pages/main/dashboard/dashboard.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:client/presentation/pages/main/profile/profile.dart';
+import 'package:client/presentation/pages/main/reports/reports.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ class MainWidget extends StatelessWidget {
   final List<Widget> _pages = [
     DashboardWidget(),
     CowsWidget(),
-    Center(child: Text('Reports')),
+    ReportsWidget(),
     UserProfileWidget(),
   ];
 
@@ -37,18 +38,12 @@ class MainWidget extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.chartColumn),
-              label: 'Analytics',
+              label: 'Reports',
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.solidCircleUser),
               label: 'Profile',
             ),
-            // ...kNavItems.map((item) {
-            //   return BottomNavigationBarItem(
-            //     icon: Icon(item.icon),
-            //     label: item.label,
-            //   );
-            // }),
           ],
         ),
       );

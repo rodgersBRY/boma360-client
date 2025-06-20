@@ -52,30 +52,32 @@ class CowsWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 28.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              width: screenWidth,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: InputField(
-                hintText: 'Search by tag, breed, or status',
-                prefixIcon: Icons.search,
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: InputField(
+                  hintText: 'Search by tag, breed, or status',
+                  prefixIcon: Icons.search,
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 28),
+          // const SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: Container(
