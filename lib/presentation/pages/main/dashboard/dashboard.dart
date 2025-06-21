@@ -3,6 +3,7 @@ import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/dashboard/dashboard_alerts.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
+import 'package:client/helper/dialog.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/custom_tile.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
@@ -73,7 +74,15 @@ class DashboardWidget extends StatelessWidget {
                     ),
                     actions: [
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRoutes.kNotifications),
+                        onTap:
+                            () => CustomDialogService.showConfirmationDialog(
+                              icon: FontAwesomeIcons.checkDouble,
+                              title: "success",
+                              message: "success message",
+                              confirmText: 'CONFIRM',
+                              cancelText: 'QUIT',
+                              barrierDismissible: false,
+                            ),
                         child: Container(
                           height: 50,
                           padding: const EdgeInsets.all(10),
