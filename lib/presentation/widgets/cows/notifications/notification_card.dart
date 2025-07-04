@@ -51,7 +51,7 @@ class NotificationCard extends StatelessWidget {
                     alpha: .2,
                   ),
                   child: Icon(
-                    notification.icon,
+                    AppNotification.iconFromString(notification.iconData),
                     color: notification.priority.color,
                     size: 30,
                   ),

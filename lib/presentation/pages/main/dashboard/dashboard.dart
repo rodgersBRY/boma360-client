@@ -195,7 +195,7 @@ class DashboardWidget extends StatelessWidget {
                       title: item.title,
                       subtitle: Text(
                         item.subtitle,
-                        style: textTheme.bodyLarge?.copyWith(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -250,7 +250,7 @@ class DashboardWidget extends StatelessWidget {
                       leadingWidget: CircleAvatar(
                         radius: 25,
                         backgroundColor: alert.priority.color,
-                        child: Icon(alert.icon),
+                        child: Icon(AppNotification.iconFromString(alert.iconData)),
                       ),
                       title: alert.title,
                       subtitle: alert.body,

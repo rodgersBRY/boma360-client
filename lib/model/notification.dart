@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'notification.g.dart';
 
 enum NotificationPriority { low, medium, high }
 
 enum NotificationTag { urgent, health, system, cattleYield }
 
+@JsonSerializable()
 class AppNotification {
-  final IconData icon;
+  final String iconData;
   final NotificationTag tag;
   final String title;
   final String body;
@@ -13,13 +18,16 @@ class AppNotification {
   final NotificationPriority priority;
 
   const AppNotification({
-    required this.icon,
+    required this.iconData,
     required this.tag,
     required this.title,
     required this.body,
     required this.date,
     required this.priority,
   });
+
+  factory AppNotification.fromJson(Map<String, dynamic> json) =>
+      _$AppNotificationFromJson(json);
 
   static NotificationTag tagFromString(String str) {
     switch (str) {
@@ -36,6 +44,21 @@ class AppNotification {
     }
   }
 
+  static IconData iconFromString(String str) {
+    switch (str) {
+      case 'fa-exclamation-triangle':
+        return FontAwesomeIcons.triangleExclamation;
+      case 'fa-heartbeat':
+        return FontAwesomeIcons.heartPulse;
+      case 'fa-gears':
+        return FontAwesomeIcons.gears;
+      case 'fa-chart-line':
+        return FontAwesomeIcons.chartLine;
+      default:
+        return FontAwesomeIcons.bell;
+    }
+  }
+
   static NotificationPriority priorityFromString(String str) {
     switch (str) {
       case 'low':
@@ -47,11 +70,6 @@ class AppNotification {
       default:
         return NotificationPriority.low;
     }
-  }
-
-  static int hexToColor(String hex) {
-    hex = hex.replaceAll('#', '');
-    return int.parse('FF$hex', radix: 16); // add opacity
   }
 }
 
