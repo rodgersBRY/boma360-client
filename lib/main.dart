@@ -7,10 +7,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/route_manager.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   try {
     await dotenv.load(fileName: '.env');
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+  }
+
+  try {
+    await Supabase.initialize(url: kSupabaseUri, anonKey: kSupabaseAnonKey);
   } catch (e) {
     if (kDebugMode) {
       print(e);
