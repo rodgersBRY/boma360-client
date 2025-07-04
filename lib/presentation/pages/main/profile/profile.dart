@@ -40,6 +40,7 @@ class UserProfileWidget extends StatelessWidget {
                     actionIcon: FontAwesomeIcons.penToSquare,
                     title: Text('Profile'),
                     centerTitle: true,
+                    popIcon: false,
                   ),
                 ),
                 const SizedBox(height: 16),

@@ -10,6 +10,7 @@ class MyElevatedButton extends StatelessWidget {
   final Icon? icon;
   final TextStyle? textStyle;
   final Color? backgroundColor;
+  final bool? fitText;
 
   const MyElevatedButton({
     super.key,
@@ -21,6 +22,7 @@ class MyElevatedButton extends StatelessWidget {
     this.icon,
     this.textStyle,
     this.backgroundColor = AppColors.primary,
+    this.fitText = false,
   });
 
   @override

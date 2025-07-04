@@ -1,8 +1,8 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/data/cattle_data.dart';
 import 'package:client/helper/extensions.dart';
 import 'package:client/helper/util.dart';
+import 'package:client/model/cattle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,6 +43,7 @@ class CowListTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -71,12 +72,6 @@ class CowListTile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        FontAwesomeIcons.marsStrokeUp,
-                        size: 18,
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
@@ -86,10 +81,12 @@ class CowListTile extends StatelessWidget {
                           color: cattle.status.color.withValues(alpha: .2),
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        child: Text(
-                          cattle.status.name.capitalize(),
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: cattle.status.color,
+                        child: FittedBox(
+                          child: Text(
+                            cattle.status.name.capitalize(),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: cattle.status.color,
+                            ),
                           ),
                         ),
                       ),

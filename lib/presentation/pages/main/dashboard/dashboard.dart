@@ -1,8 +1,9 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/data/dashboard/dashboard_alerts.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
+import 'package:client/data/notifications.dart';
+import 'package:client/model/notification.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/custom_tile.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
@@ -15,9 +16,8 @@ class DashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    // final screenHeight = MediaQuery.of(context).size.height;
-    final textTheme = Theme.of(context).textTheme;
+    final screenWidth = Get.width;
+    final textTheme = Get.textTheme;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -253,7 +253,7 @@ class DashboardWidget extends StatelessWidget {
                         child: Icon(alert.icon),
                       ),
                       title: alert.title,
-                      subtitle: alert.content,
+                      subtitle: alert.body,
                     );
                   }),
                   const SizedBox(height: 20),
