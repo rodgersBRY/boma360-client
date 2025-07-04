@@ -113,7 +113,6 @@ class NotificationsWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 28),
         ],
       ),
     );
