@@ -8,15 +8,17 @@ class InputField extends StatelessWidget {
   final IconData? suffixIcon;
   final IconData? prefixIcon;
   final TextInputType? inputType;
+  final TextEditingController? textController;
 
   const InputField({
     super.key,
     required this.hintText,
+    this.textController,
     this.validator,
     this.obscureText,
     this.suffixIcon,
     this.prefixIcon,
-    this.inputType = TextInputType.text
+    this.inputType = TextInputType.text,
   });
 
   @override
@@ -24,6 +26,7 @@ class InputField extends StatelessWidget {
     return TextFormField(
       obscureText: obscureText ?? false,
       validator: validator,
+      controller: textController,
       keyboardType: inputType,
       decoration: InputDecoration(
         hintText: hintText,

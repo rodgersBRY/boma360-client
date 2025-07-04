@@ -1,17 +1,20 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/presentation/pages/auth/auth_controller.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+  LoginWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AuthController controller = Get.find();
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
@@ -77,6 +80,7 @@ class LoginWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Email or Phone',
                           suffixIcon: Icons.person,
+                          textController: controller.emailTextController,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),
@@ -84,6 +88,7 @@ class LoginWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Enter your password',
                           suffixIcon: Icons.visibility_off,
+                          textController: controller.passwordTextController,
                         ),
                         const SizedBox(height: 10.0),
                         Row(
@@ -102,7 +107,7 @@ class LoginWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Sign In',
-                          func: () => Get.offNamed(AppRoutes.kMain),
+                          func: () async => await controller.login(),
                         ),
                         const SizedBox(height: 25.0),
                         Row(

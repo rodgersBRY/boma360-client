@@ -2,18 +2,21 @@ import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/user_roles.dart';
+import 'package:client/presentation/pages/auth/auth_controller.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/dropdown_field.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class RegisterWidget extends StatelessWidget {
   const RegisterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AuthController controller = Get.find();
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
@@ -82,6 +85,7 @@ class RegisterWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Enter your full name',
                           suffixIcon: Icons.person,
+                          textController: controller.nameTextController,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Phone Number', style: textTheme.labelLarge),
@@ -90,6 +94,7 @@ class RegisterWidget extends StatelessWidget {
                           hintText: 'Enter your phone number',
                           suffixIcon: Icons.call,
                           inputType: TextInputType.phone,
+                          textController: controller.phoneTextController,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Email Address', style: textTheme.labelLarge),
@@ -98,6 +103,7 @@ class RegisterWidget extends StatelessWidget {
                           hintText: 'Enter your email',
                           suffixIcon: Icons.email,
                           inputType: TextInputType.emailAddress,
+                          textController: controller.emailTextController,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Your Role', style: textTheme.labelLarge),
@@ -119,6 +125,7 @@ class RegisterWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Create a password',
                           suffixIcon: Icons.visibility_off,
+                          textController: controller.passwordTextController,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Confirm Password', style: textTheme.labelLarge),
@@ -126,6 +133,8 @@ class RegisterWidget extends StatelessWidget {
                         InputField(
                           hintText: 'Confirm your password',
                           suffixIcon: Icons.visibility_off,
+                          textController:
+                              controller.confirmPasswordTextController,
                         ),
                         const SizedBox(height: 10.0),
                         Wrap(
@@ -156,7 +165,7 @@ class RegisterWidget extends StatelessWidget {
                         MyElevatedButton(
                           textTheme: textTheme,
                           label: 'Create Account',
-                          func: () => Get.offNamed(AppRoutes.kMain),
+                          func: () async => await controller.register(),
                         ),
                         const SizedBox(height: 25.0),
                         Center(
