@@ -4,7 +4,6 @@ import 'package:client/helper/extensions.dart';
 import 'package:client/helper/util.dart';
 import 'package:client/model/cattle.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CowListTile extends StatelessWidget {
   final TextTheme textTheme;
