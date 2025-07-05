@@ -145,9 +145,17 @@ class RegisterWidget extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checkbox(
-                                  value: false,
-                                  onChanged: (bool? val) {},
+                                Obx(
+                                  () => Checkbox(
+                                    checkColor: AppColors.white,
+                                    activeColor: AppColors.primary,
+                                    value:
+                                        controller.acceptedTermsOfService.value,
+                                    onChanged: (bool? val) {
+                                      controller.acceptedTermsOfService.value =
+                                          val!;
+                                    },
+                                  ),
                                 ),
                                 Text('I agree to the '),
                                 Text(
@@ -162,10 +170,16 @@ class RegisterWidget extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 25.0),
-                        MyElevatedButton(
-                          textTheme: textTheme,
-                          label: 'Create Account',
-                          func: () async => await controller.register(),
+                        Obx(
+                          () => MyElevatedButton(
+                            textTheme: textTheme,
+                            label: 'Create Account',
+                            loading: controller.isLoading.value,
+                            func:
+                                controller.isLoading.isTrue
+                                    ? () {}
+                                    : () async => await controller.register(),
+                          ),
                         ),
                         const SizedBox(height: 25.0),
                         Center(

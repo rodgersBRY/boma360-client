@@ -1,7 +1,6 @@
 import 'package:client/config/env.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/app_theme.dart';
-import 'package:client/helper/toast.dart';
 import 'package:client/routes/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
