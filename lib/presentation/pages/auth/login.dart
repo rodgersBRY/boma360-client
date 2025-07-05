@@ -1,6 +1,7 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/helper/toast.dart';
 import 'package:client/presentation/pages/auth/auth_controller.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
@@ -104,10 +105,17 @@ class LoginWidget extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 25.0),
-                        MyElevatedButton(
-                          textTheme: textTheme,
-                          label: 'Sign In',
-                          func: () async => await controller.login(),
+                        Obx(
+                          () => MyElevatedButton(
+                            textTheme: textTheme,
+                            label: 'Sign In',
+                            loading: controller.isLoading.value,
+                            loadingBackgroundColor: AppColors.secondary,
+                            func:
+                                controller.isLoading.isTrue
+                                    ? () {}
+                                    : () async => await controller.login(),
+                          ),
                         ),
                         const SizedBox(height: 25.0),
                         Row(
@@ -129,7 +137,7 @@ class LoginWidget extends StatelessWidget {
                           height: 60.0,
                           child: OutlinedButton.icon(
                             icon: Icon(Icons.golf_course),
-                            onPressed: () {},
+                            onPressed: () => ToastUtils.show('asdscdsc'),
                             label: Text('Continue with Google'),
                           ),
                         ),

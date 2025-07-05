@@ -2,6 +2,8 @@ import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:delightful_toast/delight_toast.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/utils.dart';
 
 // Enum for different toast types
 enum ToastType { success, error, warning, info, custom }
@@ -39,20 +41,6 @@ class ToastConfig {
 
 // Main Toast Utility Class
 class ToastUtils {
-  static BuildContext? _context;
-
-  // Initialize with context (call this in your main widget or app)
-  static void init(BuildContext context) {
-    _context = context;
-  }
-
-  // Private method to get context
-  static BuildContext? get _getContext {
-    if (_context != null) return _context;
-    // Fallback: try to get context from navigator
-    return navigatorKey.currentContext;
-  }
-
   // Success Toast
   static void showSuccess({
     required String title,
@@ -77,7 +65,7 @@ class ToastUtils {
   static void showError({
     required String title,
     String? subtitle,
-    Duration duration = const Duration(seconds: 4),
+    Duration duration = const Duration(seconds: 3),
     DelightSnackbarPosition position = DelightSnackbarPosition.top,
     VoidCallback? onTap,
   }) {
@@ -178,7 +166,7 @@ class ToastUtils {
     String? subtitle,
     DelightSnackbarPosition position = DelightSnackbarPosition.top,
   }) {
-    final context = _getContext;
+    final context = Get.context;
     if (context == null) return null;
 
     return DelightToastBar(
@@ -223,7 +211,7 @@ class ToastUtils {
     required ToastConfig config,
     required ToastType type,
   }) {
-    final context = _getContext;
+    final context = Get.context;
     if (context == null) return;
 
     final toastData = _getToastData(type);

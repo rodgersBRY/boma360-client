@@ -13,7 +13,7 @@ class AuthenticationService {
 
       if (response.user != null) return response.user;
     } catch (err) {
-      if (kDebugMode) print(err);
+      rethrow;
     }
   }
 

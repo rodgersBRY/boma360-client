@@ -11,7 +11,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   try {
     await dotenv.load(fileName: '.env');
   } catch (e) {
@@ -22,7 +22,6 @@ void main() async {
 
   try {
     await Supabase.initialize(url: kSupabaseUri, anonKey: kSupabaseAnonKey);
-    print('supabase has been initialized');
   } catch (e) {
     if (kDebugMode) {
       print('supabase initialize error: $e');
@@ -37,8 +36,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ToastUtils.init(context);
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: kAppName,

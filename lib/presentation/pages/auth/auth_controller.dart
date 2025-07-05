@@ -1,3 +1,5 @@
+import 'package:client/core/errors/error_handler.dart';
+import 'package:client/helper/toast.dart';
 import 'package:client/services/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,29 +21,38 @@ class AuthController extends GetxController {
   Rx<bool> acceptedTermsOfService = false.obs;
 
   Future login() async {
+    isFailed.value = false;
+
+    if (isLoading.isTrue) return;
+
     var email = emailTextController.value.text;
     var password = passwordTextController.value.text;
 
     if (email == '' || password == '') {
-      if (kDebugMode) {
-        print('email and password is required');
-      }
+      ToastUtils.showError(
+        title: 'Authentication Error',
+        subtitle: 'Email and Password is required',
+      );
 
       return;
     }
+
+    isLoading.value = true;
 
     var userData = {'email': email, 'password': password};
 
     try {
       await AuthenticationService.login(userData);
     } on AuthApiException catch (err) {
-      if (kDebugMode) {
-        print(err.message);
-      }
+      handleError('Authentication Error', err);
+
+      isFailed.value = true;
     } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
+      handleError('Server Error', err);
+
+      isFailed.value = true;
+    } finally {
+      isLoading.value = false;
     }
   }
 
