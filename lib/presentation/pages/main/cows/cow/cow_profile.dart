@@ -311,9 +311,8 @@ class CowProfileWidget extends StatelessWidget {
                 Expanded(
                   child: MyElevatedButton(
                     height: 50,
-                    textTheme: textTheme,
                     icon: Icon(FontAwesomeIcons.penToSquare),
-                    label: 'Edit Profile',
+                    label: Text('Edit Profile'),
                     func: () {},
                     textStyle: textTheme.labelLarge?.copyWith(
                       color: AppColors.white,
@@ -324,9 +323,8 @@ class CowProfileWidget extends StatelessWidget {
                 Expanded(
                   child: MyElevatedButton(
                     height: 50,
-                    textTheme: textTheme,
                     icon: Icon(FontAwesomeIcons.plus),
-                    label: 'Add Yield',
+                    label: Text('Add Yield'),
                     func: () {},
                     backgroundColor: AppColors.danger,
                     textStyle: textTheme.labelLarge?.copyWith(

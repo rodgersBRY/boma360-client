@@ -117,8 +117,7 @@ class NotificationCard extends StatelessWidget {
                 Expanded(
                   child: MyElevatedButton(
                     height: 55.0,
-                    textTheme: textTheme,
-                    label: 'View',
+                    label: Text('View'),
                     func:
                         () => Get.toNamed(
                           '${AppRoutes.kNotifications}/${AppRoutes.kNotificationDetails}',

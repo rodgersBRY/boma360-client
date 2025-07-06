@@ -1,18 +1,22 @@
 import 'package:client/config/constants.dart';
-import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/presentation/pages/main/profile/profile_controller.dart';
 import 'package:client/presentation/widgets/appbar.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
+import 'package:client/presentation/widgets/spin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/instance_manager.dart';
 
 class UserProfileWidget extends StatelessWidget {
   const UserProfileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProfileController>();
+
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
@@ -318,17 +322,33 @@ class UserProfileWidget extends StatelessWidget {
           const SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: MyElevatedButton(
-              textTheme: textTheme,
-              label: 'Log Out',
-              func: () => Get.offNamed(AppRoutes.kLogin),
-              backgroundColor: Colors.red,
-              icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
-              textStyle: textTheme.headlineMedium?.copyWith(
-                color: AppColors.white,
+            child: Obx(
+              () => MyElevatedButton(
+                label:
+                    controller.isLoading.value
+                        ? SpinWidget()
+                        : Text(
+                          'Log Out',
+                          style: textTheme.headlineMedium?.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+                func:
+                    controller.isLoading.value
+                        ? null
+                        : () => controller.logout(),
+                backgroundColor:
+                    controller.isLoading.value
+                        ? Colors.red.withValues(alpha: .4)
+                        : Colors.red,
+                icon:
+                    controller.isLoading.value
+                        ? null
+                        : Icon(FontAwesomeIcons.arrowRightFromBracket),
               ),
             ),
           ),
+
           const SizedBox(height: 28),
         ],
       ),

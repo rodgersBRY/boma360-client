@@ -189,8 +189,7 @@ class RegisterWidget extends StatelessWidget {
                         const SizedBox(height: 25.0),
                         Obx(
                           () => MyElevatedButton(
-                            textTheme: textTheme,
-                            label: 'Create Account',
+                            label: Text('Create Account'),
                             loading: controller.isLoading.value,
                             func:
                                 controller.isLoading.isTrue

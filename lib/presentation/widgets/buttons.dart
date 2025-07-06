@@ -3,8 +3,7 @@ import 'package:client/presentation/widgets/spin_widget.dart';
 import 'package:flutter/material.dart';
 
 class MyElevatedButton extends StatelessWidget {
-  final TextTheme textTheme;
-  final String label;
+  final Widget label;
   final double height;
   final double? width;
   final VoidCallback? func;
@@ -17,7 +16,6 @@ class MyElevatedButton extends StatelessWidget {
 
   const MyElevatedButton({
     super.key,
-    required this.textTheme,
     required this.label,
     this.loadingBackgroundColor,
     this.width,
@@ -53,7 +51,7 @@ class MyElevatedButton extends StatelessWidget {
                       icon ?? Container(),
                       const SizedBox(width: 8),
                     ],
-                    Text(label, style: textStyle),
+                    label,
                   ],
                 ),
       ),

@@ -250,7 +250,9 @@ class DashboardWidget extends StatelessWidget {
                       leadingWidget: CircleAvatar(
                         radius: 25,
                         backgroundColor: alert.priority.color,
-                        child: Icon(AppNotification.iconFromString(alert.iconData)),
+                        child: Icon(
+                          AppNotification.iconFromString(alert.iconData),
+                        ),
                       ),
                       title: alert.title,
                       subtitle: alert.body,
@@ -258,8 +260,7 @@ class DashboardWidget extends StatelessWidget {
                   }),
                   const SizedBox(height: 20),
                   MyElevatedButton(
-                    textTheme: textTheme,
-                    label: 'View All Alerts',
+                    label: Text('View All Alerts'),
                     func: () => Get.toNamed(AppRoutes.kNotifications),
                   ),
                 ],

@@ -49,7 +49,7 @@ class AuthController extends GetxController {
 
       Future.delayed(
         const Duration(seconds: 2),
-        () => Get.offNamed(AppRoutes.kMain),
+        () => Get.offNamed(AppRoutes.kSplash),
       );
     } on AuthApiException catch (err) {
       handleError('Authentication Error', err);

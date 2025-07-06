@@ -365,9 +365,8 @@ class NotificationWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: MyElevatedButton(
               func: () {},
-              textTheme: textTheme,
               icon: Icon(FontAwesomeIcons.cow),
-              label: 'View Animal Profile',
+              label: Text('View Animal Profile'),
             ),
           ),
           const SizedBox(height: 12),
@@ -378,28 +377,30 @@ class NotificationWidget extends StatelessWidget {
                 Expanded(
                   child: MyElevatedButton(
                     height: 50,
-                    textTheme: textTheme,
                     icon: Icon(FontAwesomeIcons.check),
                     backgroundColor: AppColors.warning,
-                    label: 'Acknowledge',
-                    func: () {},
-                    textStyle: textTheme.labelLarge?.copyWith(
-                      color: AppColors.white,
+                    label: Text(
+                      'Acknowledge',
+                      style: textTheme.labelLarge?.copyWith(
+                        color: AppColors.white,
+                      ),
                     ),
+                    func: () {},
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: MyElevatedButton(
                     height: 50,
-                    textTheme: textTheme,
                     icon: Icon(FontAwesomeIcons.plus),
-                    label: 'Add Action',
+                    label: Text(
+                      'Add Action',
+                      style: textTheme.labelLarge?.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
                     func: () {},
                     backgroundColor: AppColors.info,
-                    textStyle: textTheme.labelLarge?.copyWith(
-                      color: AppColors.white,
-                    ),
                   ),
                 ),
               ],

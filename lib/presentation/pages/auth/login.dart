@@ -113,8 +113,7 @@ class LoginWidget extends StatelessWidget {
                         const SizedBox(height: 25.0),
                         Obx(
                           () => MyElevatedButton(
-                            textTheme: textTheme,
-                            label: 'Sign In',
+                            label: Text('Sign In'),
                             loading: controller.isLoading.value,
                             loadingBackgroundColor: AppColors.secondary,
                             func:

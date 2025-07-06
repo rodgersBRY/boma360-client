@@ -213,8 +213,7 @@ class NewCowWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: MyElevatedButton(
-              textTheme: textTheme,
-              label: 'Save Cattle',
+              label: Text('Save Cattle'),
               icon: Icon(
                 FontAwesomeIcons.floppyDisk,
                 color: AppColors.white,
