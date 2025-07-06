@@ -6,25 +6,55 @@ part of 'cattle.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CattleModel _$CattleModelFromJson(Map<String, dynamic> json) => CattleModel(
-  tag: json['tag'] as String,
-  status: $enumDecode(_$StatusEnumMap, json['status']),
-  breed: json['breed'] as String,
-  type: $enumDecode(_$BreedTypeEnumMap, json['type']),
-  age: json['age'] as String,
-  name: json['name'] as String?,
-  gender: json['gender'] as String?,
-  lastCheck:
-      json['lastCheck'] == null
-          ? null
-          : DateTime.parse(json['lastCheck'] as String),
-  dueDate:
-      json['dueDate'] == null
-          ? null
-          : DateTime.parse(json['dueDate'] as String),
-  imageUrl: json['imageUrl'] as String?,
-  vaccinationDue: json['vaccinationDue'] as bool?,
-);
+CattleModel _$CattleModelFromJson(Map<String, dynamic> json) =>
+    CattleModel(
+        tag: json['tag'] as String,
+        status: $enumDecode(_$StatusEnumMap, json['status']),
+        breed: json['breed'] as String,
+        type: $enumDecode(_$BreedTypeEnumMap, json['type']),
+        age: json['age'] as String,
+        name: json['name'] as String?,
+        gender: json['gender'] as String?,
+        lastCheck:
+            json['lastCheck'] == null
+                ? null
+                : DateTime.parse(json['lastCheck'] as String),
+        dueDate:
+            json['dueDate'] == null
+                ? null
+                : DateTime.parse(json['dueDate'] as String),
+        imageUrl: json['imageUrl'] as String?,
+        vaccinationDue: json['vaccinationDue'] as bool?,
+      )
+      ..id = json['id'] as String?
+      ..createdAt =
+          json['createdAt'] == null
+              ? null
+              : DateTime.parse(json['createdAt'] as String)
+      ..updatedAt =
+          json['updatedAt'] == null
+              ? null
+              : DateTime.parse(json['updatedAt'] as String)
+      ..deleted = json['deleted'] as bool?;
+
+Map<String, dynamic> _$CattleModelToJson(CattleModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'deleted': instance.deleted,
+      'tag': instance.tag,
+      'name': instance.name,
+      'status': _$StatusEnumMap[instance.status]!,
+      'breed': instance.breed,
+      'type': _$BreedTypeEnumMap[instance.type]!,
+      'age': instance.age,
+      'gender': instance.gender,
+      'lastCheck': instance.lastCheck?.toIso8601String(),
+      'dueDate': instance.dueDate?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
+      'vaccinationDue': instance.vaccinationDue,
+    };
 
 const _$StatusEnumMap = {
   Status.healthy: 'healthy',

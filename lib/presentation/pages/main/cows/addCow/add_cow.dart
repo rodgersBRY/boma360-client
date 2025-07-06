@@ -191,7 +191,7 @@ class NewCowWidget extends StatelessWidget {
                         }).toList(),
                     errorText: 'Please select purpose',
                     onChanged: (value) {
-                      controller.selectedType.value = value;
+                      controller.selectedType.value = value!;
                     },
                   ),
                   const SizedBox(height: 15.0),

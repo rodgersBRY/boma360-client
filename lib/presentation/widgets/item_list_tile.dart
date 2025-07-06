@@ -6,6 +6,7 @@ class MyListTile extends StatelessWidget {
   final Widget leadingWidget;
   final String title;
   final String subtitle;
+  final String? text;
   final Widget? trailingWidget;
   final Color backgroundColor;
 
@@ -16,6 +17,7 @@ class MyListTile extends StatelessWidget {
     required this.subtitle,
     required this.backgroundColor,
     this.trailingWidget,
+    this.text,
   });
 
   @override
@@ -34,9 +36,24 @@ class MyListTile extends StatelessWidget {
           title,
           style: textTheme.bodyLarge?.copyWith(color: AppColors.textPrimary),
         ),
-        subtitle: Text(
-          subtitle,
-          style: textTheme.labelLarge?.copyWith(color: AppColors.textSecondary),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              subtitle,
+              style: textTheme.labelLarge?.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+            text != null
+                ? Text(
+                  text!,
+                  style: textTheme.labelLarge?.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                )
+                : Container(),
+          ],
         ),
         trailing: trailingWidget,
       ),

@@ -1,3 +1,4 @@
+import 'package:client/helper/base_object.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -9,7 +10,7 @@ enum NotificationPriority { low, medium, high }
 enum NotificationTag { urgent, health, system, cattleYield }
 
 @JsonSerializable()
-class AppNotification {
+class AppNotification extends BaseObject {
   final String iconData;
   final NotificationTag tag;
   final String title;
@@ -17,7 +18,7 @@ class AppNotification {
   final DateTime date;
   final NotificationPriority priority;
 
-  const AppNotification({
+  AppNotification({
     required this.iconData,
     required this.tag,
     required this.title,

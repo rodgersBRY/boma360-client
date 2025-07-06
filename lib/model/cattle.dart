@@ -1,4 +1,5 @@
 import 'package:client/config/theme/colors.dart';
+import 'package:client/helper/base_object.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,7 +10,7 @@ enum Status { healthy, attention, treatment, observation, pregnant }
 enum BreedType { dairy, beef, dualPurpose }
 
 @JsonSerializable()
-class CattleModel {
+class CattleModel extends BaseObject {
   final String tag;
   final String? name;
   final Status status;
@@ -22,7 +23,7 @@ class CattleModel {
   final String? imageUrl;
   final bool? vaccinationDue;
 
-  const CattleModel({
+  CattleModel({
     required this.tag,
     required this.status,
     required this.breed,
@@ -38,6 +39,8 @@ class CattleModel {
 
   factory CattleModel.fromJson(Map<String, dynamic> json) =>
       _$CattleModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CattleModelToJson(this);
 }
 
 extension StatusColorExtenstion on Status {

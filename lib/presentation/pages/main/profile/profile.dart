@@ -1,5 +1,10 @@
+import 'dart:ffi';
+
 import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/helper/util.dart';
+import 'package:client/model/farm.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:client/presentation/pages/main/profile/profile_controller.dart';
 import 'package:client/presentation/widgets/appbar.dart';
@@ -8,6 +13,7 @@ import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:client/presentation/widgets/spin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/instance_manager.dart';
 
@@ -29,9 +35,10 @@ class UserProfileWidget extends StatelessWidget {
         var user = mainController.user.value;
 
         if (user != null) {
-          print(user);
           final displayName = user.userMetadata!['displayName'];
           final bool isVerified = user.userMetadata!['email_verified'];
+          final phone = user.userMetadata!['phone'];
+          final email = user.email;
 
           return ListView(
             children: [
@@ -121,7 +128,8 @@ class UserProfileWidget extends StatelessWidget {
                             vertical: 5,
                           ),
                           decoration: BoxDecoration(
-                            color: isVerified ? Colors.green : Colors.orangeAccent,
+                            color:
+                                isVerified ? Colors.green : Colors.orangeAccent,
                             borderRadius: BorderRadius.circular(kDefaultRadius),
                           ),
                           child: Text(
@@ -150,7 +158,7 @@ class UserProfileWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Member since 2021',
+                      'Member since ${Util.formatDate(DateTime.parse(user.createdAt), pattern: 'y')}',
                       style: textTheme.headlineSmall?.copyWith(
                         color: AppColors.white.withValues(alpha: .5),
                       ),
@@ -198,7 +206,7 @@ class UserProfileWidget extends StatelessWidget {
                             ),
                           ),
                           title: 'Phone Number',
-                          subtitle: '+254 (712) 413 243',
+                          subtitle: phone ?? '',
                           backgroundColor: AppColors.background,
                           trailingWidget: Icon(
                             FontAwesomeIcons.angleRight,
@@ -215,7 +223,7 @@ class UserProfileWidget extends StatelessWidget {
                             ),
                           ),
                           title: 'Email Address',
-                          subtitle: 'rodgersbry99@gmail.com',
+                          subtitle: email ?? '',
                           backgroundColor: AppColors.background,
                           trailingWidget: Icon(
                             FontAwesomeIcons.angleRight,
@@ -231,12 +239,22 @@ class UserProfileWidget extends StatelessWidget {
                               size: 18,
                             ),
                           ),
-                          title: 'Farm Location',
-                          subtitle: 'Ukuu, Meru. Kenya',
+                          title: 'Farm Details',
+                          subtitle: 'Mburugu Estate',
+                          text: 'Ukuu, Meru. kenya',
                           backgroundColor: AppColors.background,
-                          trailingWidget: Icon(
-                            FontAwesomeIcons.angleRight,
-                            size: 16,
+                          trailingWidget: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(FontAwesomeIcons.penToSquare, size: 16),
+                            onPressed: () async {
+                              var farmInfo = await Get.toNamed(
+                                AppRoutes.kUpdateFarm,
+                              );
+
+                              controller.farm.value = FarmModel.fromJson(
+                                farmInfo,
+                              );
+                            },
                           ),
                         ),
                       ],

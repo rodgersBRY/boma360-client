@@ -4,6 +4,7 @@ abstract class AppRoutes {
   static const kMain = '/main';
   static const kSplash = '/splash';
   static const kEditUserProfile = '/edit-user-profile';
+  static const kUpdateFarm = '/update-farm-info';
   static const kNotifications = '/notifications';
   static const kNotificationDetails = '/notification-details';
   static const kCattle = '/cattle';
