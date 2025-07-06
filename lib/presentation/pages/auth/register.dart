@@ -118,6 +118,9 @@ class RegisterWidget extends StatelessWidget {
                                 );
                               }).toList(),
                           errorText: 'Please select a role',
+                          onChanged: (String? value) {
+                            controller.roleTextController.text = value ?? '';
+                          },
                         ),
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),

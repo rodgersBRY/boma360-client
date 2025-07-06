@@ -134,6 +134,7 @@ class NewCowWidget extends StatelessWidget {
                             );
                           }).toList(),
                       errorText: 'Please select gender',
+                      onChanged: (value) {},
                     ),
                   ],
                 ),
@@ -183,12 +184,13 @@ class NewCowWidget extends StatelessWidget {
                           );
                         }).toList(),
                     errorText: 'Please select gender',
+                    onChanged: (value) {},
                   ),
                   const SizedBox(height: 15.0),
                   Text('Type *', style: textTheme.labelLarge),
                   const SizedBox(height: 10.0),
                   MyDropDownWidget(
-                    hint: 'Select type',
+                    hint: 'Select purpose',
                     itemList:
                         ['Dairy', 'Beef', 'Dual Purpose'].map((String gender) {
                           return DropdownMenuItem<String>(
@@ -196,7 +198,8 @@ class NewCowWidget extends StatelessWidget {
                             child: Text(gender),
                           );
                         }).toList(),
-                    errorText: 'Please select gender',
+                    errorText: 'Please select purpose',
+                    onChanged: (value) {},
                   ),
                   const SizedBox(height: 15.0),
                   Text('Initial Weight (kg)', style: textTheme.labelLarge),

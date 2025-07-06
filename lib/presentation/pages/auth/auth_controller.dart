@@ -1,7 +1,7 @@
+import 'package:client/config/routes.dart';
 import 'package:client/core/errors/error_handler.dart';
 import 'package:client/helper/toast.dart';
 import 'package:client/services/auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -43,6 +43,11 @@ class AuthController extends GetxController {
 
     try {
       await AuthenticationService.login(userData);
+
+      Future.delayed(
+        const Duration(seconds: 2),
+        () => Get.offNamed(AppRoutes.kMain),
+      );
     } on AuthApiException catch (err) {
       handleError('Authentication Error', err);
 
@@ -69,17 +74,28 @@ class AuthController extends GetxController {
     var confirmPass = confirmPasswordTextController.value.text;
 
     if (email == '' || password == '' || name == '' || phone == '') {
-      if (kDebugMode) {
-        print('All fields are required');
-      }
+      ToastUtils.showError(
+        title: 'Authentication Error',
+        subtitle: 'All fields are required',
+      );
+
+      return;
+    }
+
+    if (!(acceptedTermsOfService.isTrue)) {
+      ToastUtils.showError(
+        title: 'Authentication Error',
+        subtitle: 'Please accept the Terms of Service',
+      );
 
       return;
     }
 
     if (password != confirmPass) {
-      if (kDebugMode) {
-        print('Passwords do not match!');
-      }
+      ToastUtils.showError(
+        title: 'Authentication Error',
+        subtitle: 'Passwords do not match',
+      );
 
       return;
     }
@@ -90,25 +106,47 @@ class AuthController extends GetxController {
       'email': email,
       'displayName': name,
       'phone': phone,
+      'role': role,
       'password': password,
     };
 
     try {
       await AuthenticationService.signup(userData);
+
+      // clear all fields
+      nameTextController.clear();
+      emailTextController.clear();
+      phoneTextController.clear();
+      roleTextController.clear();
+      passwordTextController.clear();
+      confirmPasswordTextController.clear();
+
+      Future.delayed(
+        const Duration(seconds: 2),
+        () => Get.offNamed(AppRoutes.kLogin),
+      );
     } on AuthApiException catch (err) {
-      if (kDebugMode) {
-        print(err.message);
-      }
+      handleError('Authentication Error', err);
 
       isFailed.value = true;
     } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
+      handleError('Server Error', err);
 
       isFailed.value = true;
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void dispose() {
+    nameTextController.dispose();
+    emailTextController.dispose();
+    phoneTextController.dispose();
+    roleTextController.dispose();
+    passwordTextController.dispose();
+    confirmPasswordTextController.dispose();
+
+    super.dispose();
   }
 }

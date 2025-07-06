@@ -5,14 +5,14 @@ class MyDropDownWidget extends StatelessWidget {
   final String hint;
   final List<DropdownMenuItem<String>> itemList;
   final String errorText;
-  final String? selectedOption;
+  final Function(String?) onChanged;
 
   const MyDropDownWidget({
     super.key,
     required this.hint,
     required this.itemList,
     required this.errorText,
-    this.selectedOption,
+    required this.onChanged,
   });
 
   @override
@@ -44,11 +44,7 @@ class MyDropDownWidget extends StatelessWidget {
         ),
       ),
       items: itemList,
-      onChanged: (value) {
-        if (value != null) {
-          // selectedOption = value;
-        }
-      },
+      onChanged: onChanged,
       validator: (value) => value == null ? errorText : null,
     );
   }
