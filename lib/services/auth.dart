@@ -1,4 +1,5 @@
 import 'package:client/core/errors/error_handler.dart';
+import 'package:client/core/errors/session_manager.dart';
 import 'package:client/helper/toast.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,13 +13,20 @@ class AuthenticationService {
         password: userData['password']!,
       );
 
-      if (response.user != null) {
+      final user = response.user;
+
+      if (user != null) {
         ToastUtils.showSuccess(
           title: 'Authentication Success',
           subtitle: 'You have successfully logged in',
         );
-        
-        return response.user;
+
+        if (response.session != null) {
+          final session = response.session;
+          SessionManager.saveSession(session!);
+        }
+
+        return user;
       }
     } catch (err) {
       rethrow;
