@@ -47,10 +47,7 @@ class AuthController extends GetxController {
     try {
       await AuthenticationService.login(userData);
 
-      Future.delayed(
-        const Duration(seconds: 2),
-        () => Get.offNamed(AppRoutes.kSplash),
-      );
+      Get.offNamed(AppRoutes.kSplash);
     } on AuthApiException catch (err) {
       handleError('Authentication Error', err);
 

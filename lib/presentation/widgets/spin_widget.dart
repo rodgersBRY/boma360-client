@@ -9,6 +9,6 @@ class SpinWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpinKitThreeBounce(color: AppColors.white, size: 20);
+    return SpinKitThreeBounce(color: backgroundColor, size: 20);
   }
 }

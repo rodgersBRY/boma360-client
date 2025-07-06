@@ -4,11 +4,14 @@ import 'package:client/config/theme/colors.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
 import 'package:client/data/notifications.dart';
 import 'package:client/model/notification.dart';
+import 'package:client/presentation/pages/main/dashboard/dashboard_controller.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/custom_tile.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/route_manager.dart';
 
 class DashboardWidget extends StatelessWidget {
@@ -16,6 +19,8 @@ class DashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DashboardController>();
+
     final screenWidth = Get.width;
     final textTheme = Get.textTheme;
 
@@ -54,23 +59,35 @@ class DashboardWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: ListTile(
-                      title: Text(
-                        'Good Evening, Mawi',
-                        style: textTheme.headlineLarge?.copyWith(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Tuesday, June 15',
-                        style: textTheme.headlineSmall?.copyWith(
-                          color: Colors.white.withValues(alpha: .6),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    title: Obx(() {
+                      final user = controller.user.value;
+                      
+                      if (user != null) {
+                        final displayName =
+                            user.userMetadata!['displayName'] as String;
+                        final firstName = displayName.split(" ")[1];
+
+                        return ListTile(
+                          title: Text(
+                            'Good Evening, $firstName',
+                            style: textTheme.headlineLarge?.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Tuesday, June 15',
+                            style: textTheme.headlineSmall?.copyWith(
+                              color: Colors.white.withValues(alpha: .6),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }),
                     actions: [
                       GestureDetector(
                         onTap: () => Get.toNamed(AppRoutes.kNotifications),

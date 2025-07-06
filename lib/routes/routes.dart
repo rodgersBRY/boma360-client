@@ -24,7 +24,7 @@ final List<GetPage> appPages = [
   GetPage(
     name: AppRoutes.kMain,
     page: () => MainWidget(),
-    binding: DashboardBindings(),
+    binding: MainBindings(),
   ),
   GetPage(
     name: AppRoutes.kNotifications,

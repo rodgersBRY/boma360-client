@@ -13,16 +13,15 @@ class SplashController extends GetxController {
   }
 
   Future<void> checkAuthAndNavigate() async {
-    await Future.delayed(const Duration(seconds: 1)); // optional delay
-
     final user = await SessionManager.getUser();
 
-    if (user != null) {
-      // User is logged in
-      Get.offNamed(AppRoutes.kMain);
-    } else {
-      // User is not logged in
-      Get.offNamed(AppRoutes.kLogin);
-    }
+    // wait for 2 seconds before navigating
+    // await Future.delayed(const Duration(seconds: 2), () {
+    //   if (user != null) {
+    //     Get.offNamed(AppRoutes.kMain);
+    //   } else {
+    //     Get.offNamed(AppRoutes.kLogin);
+    //   }
+    // });
   }
 }

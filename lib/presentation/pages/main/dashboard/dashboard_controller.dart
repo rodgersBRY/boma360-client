@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DashboardController extends GetxController {
-  User? user;
+  Rx<User?> user = Rx(null);
 
   @override
   onInit() async {
@@ -13,6 +13,6 @@ class DashboardController extends GetxController {
   }
 
   fetch() async {
-    user = await SessionManager.getUser();
+    user.value = await SessionManager.getUser();
   }
 }

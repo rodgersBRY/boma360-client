@@ -3,6 +3,7 @@ import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/presentation/pages/auth/auth_controller.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
+import 'package:client/presentation/widgets/auth/logo_avatar.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +39,7 @@ class LoginWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: AppColors.primary,
-                    radius: 70,
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.background,
-                      radius: 40,
-                      child: Image.asset(
-                        kCowLogoImage,
-                        width: screenHeight,
-                        height: screenHeight,
-                      ),
-                    ),
-                  ),
+                  LogoAvatar(logoSize: screenHeight),
                   const SizedBox(height: 20.0),
                   Text(
                     'Welcome Back',
