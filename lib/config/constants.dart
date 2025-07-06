@@ -6,3 +6,5 @@ const kCowLogoImage = 'assets/images/cow.png';
 const kFarmerImage = 'assets/images/farmer.jpg';
 const kOwnerImage = 'assets/images/profile.jpg';
 const kCowImage = 'assets/images/cow1.webp';
+
+

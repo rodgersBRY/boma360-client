@@ -8,10 +8,11 @@ part of 'cattle.dart';
 
 CattleModel _$CattleModelFromJson(Map<String, dynamic> json) => CattleModel(
   tag: json['tag'] as String,
-  name: json['name'] as String,
   status: $enumDecode(_$StatusEnumMap, json['status']),
   breed: json['breed'] as String,
+  type: $enumDecode(_$BreedTypeEnumMap, json['type']),
   age: json['age'] as String,
+  name: json['name'] as String?,
   gender: json['gender'] as String?,
   lastCheck:
       json['lastCheck'] == null
@@ -31,4 +32,10 @@ const _$StatusEnumMap = {
   Status.treatment: 'treatment',
   Status.observation: 'observation',
   Status.pregnant: 'pregnant',
+};
+
+const _$BreedTypeEnumMap = {
+  BreedType.dairy: 'dairy',
+  BreedType.beef: 'beef',
+  BreedType.dualPurpose: 'dualPurpose',
 };

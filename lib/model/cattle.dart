@@ -6,12 +6,15 @@ part 'cattle.g.dart';
 
 enum Status { healthy, attention, treatment, observation, pregnant }
 
+enum BreedType { dairy, beef, dualPurpose }
+
 @JsonSerializable()
 class CattleModel {
   final String tag;
-  final String name;
+  final String? name;
   final Status status;
   final String breed;
+  final BreedType type;
   final String age;
   final String? gender;
   final DateTime? lastCheck;
@@ -21,10 +24,11 @@ class CattleModel {
 
   const CattleModel({
     required this.tag,
-    required this.name,
     required this.status,
     required this.breed,
+    required this.type,
     required this.age,
+    this.name,
     this.gender,
     this.lastCheck,
     this.dueDate,
@@ -47,6 +51,19 @@ extension StatusColorExtenstion on Status {
         return AppColors.warning;
       case Status.pregnant:
         return AppColors.info;
+    }
+  }
+}
+
+extension BreedTypeExtension on BreedType {
+  String get label {
+    switch (this) {
+      case BreedType.dairy:
+        return 'Dairy';
+      case BreedType.beef:
+        return 'Beef';
+      case BreedType.dualPurpose:
+        return 'Dual-purpose';
     }
   }
 }

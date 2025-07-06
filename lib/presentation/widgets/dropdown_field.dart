@@ -5,6 +5,7 @@ class MyDropDownWidget extends StatelessWidget {
   final String hint;
   final List<DropdownMenuItem<String>> itemList;
   final String errorText;
+  final String? value;
   final Function(String?) onChanged;
 
   const MyDropDownWidget({
@@ -13,6 +14,7 @@ class MyDropDownWidget extends StatelessWidget {
     required this.itemList,
     required this.errorText,
     required this.onChanged,
+    this.value,
   });
 
   @override
@@ -44,6 +46,7 @@ class MyDropDownWidget extends StatelessWidget {
         ),
       ),
       items: itemList,
+      value: value,
       onChanged: onChanged,
       validator: (value) => value == null ? errorText : null,
     );

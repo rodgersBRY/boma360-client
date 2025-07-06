@@ -313,7 +313,7 @@ class NotificationWidget extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     title: Text('Name'),
                     trailing: Text(
-                      cow.name,
+                      cow.name ?? '',
                       style: textTheme.bodyLarge?.copyWith(
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.bold,

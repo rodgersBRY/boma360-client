@@ -1,5 +1,6 @@
 import 'package:client/config/theme/colors.dart';
 import 'package:client/model/cattle.dart';
+import 'package:client/model/cattle_breed.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,6 +15,7 @@ final List<CattleModel> kCattleList = [
   CattleModel(
     tag: 'KE-001',
     name: 'Daisy',
+    type: BreedType.beef,
     status: Status.healthy,
     breed: 'Friesian',
     age: '2 yrs',
@@ -27,6 +29,7 @@ final List<CattleModel> kCattleList = [
     name: 'Bella',
     status: Status.observation,
     breed: 'Jersey',
+    type: BreedType.beef,
     age: '3.5 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 7)),
     dueDate: DateTime.now().add(Duration(days: 14)),
@@ -38,6 +41,7 @@ final List<CattleModel> kCattleList = [
     name: 'Simba',
     status: Status.treatment,
     breed: 'Sahiwal',
+    type: BreedType.dairy,
     age: '4 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 1)),
     dueDate: DateTime.now().add(Duration(days: 30)),
@@ -49,6 +53,7 @@ final List<CattleModel> kCattleList = [
     name: 'Luna',
     status: Status.healthy,
     breed: 'Ayrshire',
+    type: BreedType.dualPurpose,
     age: '1.5 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 2)),
     dueDate: DateTime.now().add(Duration(days: 60)),
@@ -60,6 +65,7 @@ final List<CattleModel> kCattleList = [
     name: 'Max',
     status: Status.pregnant,
     breed: 'Guernsey',
+    type: BreedType.dualPurpose,
     age: '3 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 10)),
     dueDate: DateTime.now().add(Duration(days: 90)),
@@ -71,6 +77,7 @@ final List<CattleModel> kCattleList = [
     name: 'Nala',
     status: Status.healthy,
     breed: 'Zebu',
+    type: BreedType.beef,
     age: '2.2 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 5)),
     dueDate: DateTime.now().add(Duration(days: 45)),
@@ -82,6 +89,7 @@ final List<CattleModel> kCattleList = [
     name: 'Milo',
     status: Status.attention,
     breed: 'Ankole',
+    type: BreedType.dualPurpose,
     age: '5 yrs',
     lastCheck: DateTime.now().subtract(Duration(days: 20)),
     dueDate: DateTime.now().add(Duration(days: 10)),
@@ -90,7 +98,17 @@ final List<CattleModel> kCattleList = [
   ),
 ];
 
-final List<String> kCattlebreeds = [];
+final List<CattleBreed> cowBreeds = [
+  CattleBreed(breed: 'Friesian', type: BreedType.dairy),
+  CattleBreed(breed: 'Ayrshire', type: BreedType.dairy),
+  CattleBreed(breed: 'Jersey', type: BreedType.dairy),
+  CattleBreed(breed: 'Guernsey', type: BreedType.dairy),
+  CattleBreed(breed: 'Zebu', type: BreedType.dualPurpose),
+  CattleBreed(breed: 'Sahiwal', type: BreedType.dualPurpose),
+  CattleBreed(breed: 'Boran', type: BreedType.beef),
+  CattleBreed(breed: 'Ankole', type: BreedType.beef),
+  CattleBreed(breed: 'Crossbreed', type: BreedType.dualPurpose),
+];
 
 final List<Map<String, dynamic>> kCattleKeyStats = [
   {

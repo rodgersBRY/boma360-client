@@ -1,12 +1,13 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/model/cattle.dart';
+import 'package:client/presentation/pages/main/cows/addCow/add_cow_controller.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:client/presentation/widgets/dropdown_field.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 
 class NewCowWidget extends StatelessWidget {
   final bool? action;
@@ -15,6 +16,8 @@ class NewCowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<AddCowController>();
+
     final screenWidth = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
 
@@ -120,7 +123,10 @@ class NewCowWidget extends StatelessWidget {
                     const SizedBox(height: 15.0),
                     Text('Name (Optional)', style: textTheme.labelLarge),
                     const SizedBox(height: 10.0),
-                    InputField(hintText: 'Enter cattle name'),
+                    InputField(
+                      hintText: 'Enter cattle name',
+                      inputType: TextInputType.name,
+                    ),
                     const SizedBox(height: 15.0),
                     Text('Gender *', style: textTheme.labelLarge),
                     const SizedBox(height: 10.0),
@@ -172,39 +178,64 @@ class NewCowWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10.0),
-                  Text('Breed *', style: textTheme.labelLarge),
-                  const SizedBox(height: 10.0),
-                  MyDropDownWidget(
-                    hint: 'Select breed',
-                    itemList:
-                        ['Dairy', 'Beef', 'Dual Purpose'].map((String gender) {
-                          return DropdownMenuItem<String>(
-                            value: gender,
-                            child: Text(gender),
-                          );
-                        }).toList(),
-                    errorText: 'Please select gender',
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(height: 15.0),
                   Text('Type *', style: textTheme.labelLarge),
                   const SizedBox(height: 10.0),
                   MyDropDownWidget(
-                    hint: 'Select purpose',
+                    hint: 'Select type',
                     itemList:
-                        ['Dairy', 'Beef', 'Dual Purpose'].map((String gender) {
+                        controller.breedTypes.map((BreedType type) {
                           return DropdownMenuItem<String>(
-                            value: gender,
-                            child: Text(gender),
+                            value: type.name,
+                            child: Text(type.label),
                           );
                         }).toList(),
                     errorText: 'Please select purpose',
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      controller.selectedType.value = value;
+                    },
+                  ),
+                  const SizedBox(height: 15.0),
+                  Text('Breed *', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  Obx(
+                    () => MyDropDownWidget(
+                      hint: 'Select breed',
+                      // value:
+                      //     controller.filteredBreeds.any(
+                      //           (String? b) =>
+                      //               b == controller.selectedBreed.value,
+                      //         )
+                      //         ? controller.selectedBreed.value
+                      //         : '',
+                      itemList:
+                          controller.filteredBreeds.map((String? breed) {
+                            return DropdownMenuItem<String>(
+                              value: breed,
+                              child: Text(breed ?? ''),
+                            );
+                          }).toList(),
+                      errorText: 'Please select a breed',
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.selectedBreed.value = value;
+                        }
+                      },
+                    ),
                   ),
                   const SizedBox(height: 15.0),
                   Text('Initial Weight (kg)', style: textTheme.labelLarge),
                   const SizedBox(height: 10.0),
-                  InputField(hintText: 'Enter weight in kg'),
+                  InputField(
+                    hintText: 'Enter weight in kg',
+                    inputType: TextInputType.number,
+                  ),
+                  const SizedBox(height: 15.0),
+                  Text('Age', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  InputField(
+                    hintText: 'Enter the age',
+                    inputType: TextInputType.number,
+                  ),
                 ],
               ),
             ),

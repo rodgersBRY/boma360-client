@@ -1,3 +1,4 @@
+import 'package:client/presentation/pages/main/cows/addCow/add_cow_controller.dart';
 import 'package:client/presentation/pages/main/dashboard/dashboard_controller.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:client/presentation/pages/main/profile/profile_controller.dart';
@@ -9,5 +10,6 @@ class MainBindings extends Bindings {
     Get.lazyPut<MainController>(() => MainController());
     Get.lazyPut<DashboardController>(() => DashboardController());
     Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.lazyPut<AddCowController>(() => AddCowController());
   }
 }
