@@ -9,6 +9,7 @@ class InputField extends StatelessWidget {
   final IconData? prefixIcon;
   final TextInputType? inputType;
   final TextEditingController? textController;
+  final VoidCallback? onPressed;
 
   const InputField({
     super.key,
@@ -18,6 +19,7 @@ class InputField extends StatelessWidget {
     this.obscureText,
     this.suffixIcon,
     this.prefixIcon,
+    this.onPressed,
     this.inputType = TextInputType.text,
   });
 
@@ -53,10 +55,16 @@ class InputField extends StatelessWidget {
             width: 3.0,
           ),
         ),
-        prefix: Icon(prefixIcon, color: AppColors.danger.withValues(alpha: .5)),
+        prefix:
+            prefixIcon != null
+                ? Icon(
+                  prefixIcon,
+                  color: AppColors.danger.withValues(alpha: .5),
+                )
+                : null,
         suffixIcon: IconButton(
           icon: Icon(suffixIcon, color: AppColors.danger.withValues(alpha: .5)),
-          onPressed: () {},
+          onPressed: onPressed,
         ),
       ),
     );

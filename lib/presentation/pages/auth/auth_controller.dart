@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class AuthController extends GetxController {
   var isLoading = false.obs;
   var isFailed = false.obs;
+  var obscureText = true.obs;
 
   final TextEditingController nameTextController = TextEditingController();
   final TextEditingController phoneTextController = TextEditingController();
@@ -19,6 +20,8 @@ class AuthController extends GetxController {
       TextEditingController();
 
   Rx<bool> acceptedTermsOfService = false.obs;
+
+  void toggleVisibility() => obscureText.value = !obscureText.value;
 
   Future login() async {
     isFailed.value = false;

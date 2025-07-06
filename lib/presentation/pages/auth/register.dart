@@ -125,19 +125,33 @@ class RegisterWidget extends StatelessWidget {
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),
                         const SizedBox(height: 10.0),
-                        InputField(
-                          hintText: 'Create a password',
-                          suffixIcon: Icons.visibility_off,
-                          textController: controller.passwordTextController,
+                        Obx(
+                          () => InputField(
+                            hintText: 'Create a password',
+                            suffixIcon:
+                                controller.obscureText.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                            obscureText: controller.obscureText.value,
+                            textController: controller.passwordTextController,
+                            onPressed: controller.toggleVisibility,
+                          ),
                         ),
                         const SizedBox(height: 15.0),
                         Text('Confirm Password', style: textTheme.labelLarge),
                         const SizedBox(height: 10.0),
-                        InputField(
-                          hintText: 'Confirm your password',
-                          suffixIcon: Icons.visibility_off,
-                          textController:
-                              controller.confirmPasswordTextController,
+                        Obx(
+                          () => InputField(
+                            hintText: 'Confirm your password',
+                            suffixIcon:
+                                controller.obscureText.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                            obscureText: controller.obscureText.value,
+                            textController:
+                                controller.confirmPasswordTextController,
+                            onPressed: controller.toggleVisibility,
+                          ),
                         ),
                         const SizedBox(height: 10.0),
                         Wrap(

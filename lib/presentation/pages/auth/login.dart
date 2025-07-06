@@ -1,7 +1,6 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/helper/toast.dart';
 import 'package:client/presentation/pages/auth/auth_controller.dart';
 import 'package:client/presentation/widgets/auth/account_span.dart';
 import 'package:client/presentation/widgets/buttons.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginWidget extends StatelessWidget {
-  LoginWidget({super.key});
+  const LoginWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +85,17 @@ class LoginWidget extends StatelessWidget {
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),
                         const SizedBox(height: 10.0),
-                        InputField(
-                          hintText: 'Enter your password',
-                          suffixIcon: Icons.visibility_off,
-                          textController: controller.passwordTextController,
+                        Obx(
+                          () => InputField(
+                            hintText: 'Enter your password',
+                            suffixIcon:
+                                controller.obscureText.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                            obscureText: controller.obscureText.value,
+                            textController: controller.passwordTextController,
+                            onPressed: controller.toggleVisibility,
+                          ),
                         ),
                         const SizedBox(height: 10.0),
                         Row(
@@ -137,7 +143,7 @@ class LoginWidget extends StatelessWidget {
                           height: 60.0,
                           child: OutlinedButton.icon(
                             icon: Icon(Icons.golf_course),
-                            onPressed: () => ToastUtils.show('asdscdsc'),
+                            onPressed: () {},
                             label: Text('Continue with Google'),
                           ),
                         ),
