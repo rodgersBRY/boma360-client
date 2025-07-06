@@ -3,6 +3,7 @@ import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
 import 'package:client/data/notifications.dart';
+import 'package:client/helper/util.dart';
 import 'package:client/model/notification.dart';
 import 'package:client/presentation/pages/main/dashboard/dashboard_controller.dart';
 import 'package:client/presentation/widgets/buttons.dart';
@@ -61,7 +62,7 @@ class DashboardWidget extends StatelessWidget {
                     ),
                     title: Obx(() {
                       final user = controller.user.value;
-                      
+
                       if (user != null) {
                         final displayName =
                             user.userMetadata!['displayName'] as String;
@@ -77,7 +78,10 @@ class DashboardWidget extends StatelessWidget {
                             ),
                           ),
                           subtitle: Text(
-                            'Tuesday, June 15',
+                            Util.formatDate(
+                              DateTime.now(),
+                              pattern: 'EEEE, MMMM d',
+                            ),
                             style: textTheme.headlineSmall?.copyWith(
                               color: Colors.white.withValues(alpha: .6),
                               fontWeight: FontWeight.bold,

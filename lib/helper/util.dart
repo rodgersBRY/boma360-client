@@ -1,10 +1,17 @@
 import 'package:intl/intl.dart';
 
 class Util {
-  static formatDate(DateTime date, {String pattern = 'dd MMM yyyy'}) {
-    return DateFormat(pattern).format(date);
+  static String formatDate(
+    DateTime? date, {
+    String pattern = 'dd MMM yyyy',
+    bool showTime = false,
+    String locale = 'en_US',
+    String fallback = '',
+  }) {
+    if (date == null) return fallback;
+
+    String fullPattern = showTime ? '$pattern, hh:mm a' : pattern;
+    final formatter = DateFormat(fullPattern, locale);
+    return formatter.format(date);
   }
-
-  
 }
-
