@@ -22,12 +22,9 @@ class ProfileController extends GetxController {
 
   Future<void> fetch() async {
     try {
-      var response = await FarmService.getFarm();
-      print(response);
-
       user.value = await UserService.getUserInfo();
 
-      farm.value = response;
+      farm.value = await FarmService.getFarm();
     } catch (err) {
       handleError('server error', err);
     }

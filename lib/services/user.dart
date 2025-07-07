@@ -8,10 +8,10 @@ class UserService {
     final user = await SessionManager.getUser();
 
     if (user != null) {
-      final response =
+      final userJson =
           await supabase.from('profiles').select().eq('id', user.id).single();
 
-      return User.fromJson(response);
+      return User.fromJson(userJson);
     }
   }
 }
