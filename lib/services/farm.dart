@@ -1,4 +1,3 @@
-import 'package:client/core/errors/session_manager.dart';
 import 'package:client/helper/toast.dart';
 import 'package:client/model/farm.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,30 +15,26 @@ class FarmService {
         subtitle: 'Your farm has been saved',
       );
 
-      return response;
+      return FarmModel.fromJson(response);
     } catch (err) {
       rethrow;
     }
   }
 
-  static Future getFarm() async {
-    final user = await SessionManager.getUser();
-
+  static Future<FarmModel?> getFarm(String userId) async {
     try {
-      if (user != null) {
-        final farmJson =
-            await supabase
-                .from('farms')
-                .select()
-                .eq('user_id', user.id)
-                .maybeSingle();
+      final farmJson =
+          await supabase
+              .from('farms')
+              .select()
+              .eq('user_id', userId)
+              .maybeSingle();
 
-        if (farmJson == null) {
-          throw Exception('No farm for this user');
-        }
-
-        return FarmModel.fromJson(farmJson);
+      if (farmJson == null) {
+        throw Exception('No farm for this user');
       }
+
+      return FarmModel.fromJson(farmJson);
     } catch (err) {
       rethrow;
     }

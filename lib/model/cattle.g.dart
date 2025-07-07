@@ -28,9 +28,9 @@ CattleModel _$CattleModelFromJson(Map<String, dynamic> json) =>
       )
       ..id = json['id'] as String?
       ..createdAt =
-          json['createdAt'] == null
+          json['created_at'] == null
               ? null
-              : DateTime.parse(json['createdAt'] as String)
+              : DateTime.parse(json['created_at'] as String)
       ..updatedAt =
           json['updatedAt'] == null
               ? null
@@ -40,7 +40,7 @@ CattleModel _$CattleModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CattleModelToJson(CattleModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'deleted': instance.deleted,
       'tag': instance.tag,

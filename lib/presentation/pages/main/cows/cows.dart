@@ -2,9 +2,12 @@ import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/cattle_data.dart';
+import 'package:client/model/cattle.dart';
+import 'package:client/presentation/pages/main/cows/cows_controller.dart';
 import 'package:client/presentation/widgets/cows/cow_list_tile.dart';
 import 'package:client/presentation/widgets/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +16,9 @@ class CowsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CowsController>();
+
     final screenWidth = MediaQuery.of(context).size.width;
-    // final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -39,100 +43,192 @@ class CowsWidget extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Container(
-            height: 60,
+      body: Obx(() {
+        bool isLoading = controller.isLoading.value;
+        bool isFailed = controller.isFailed.value;
+        List<CattleModel?> cows = controller.cattle;
+
+        if (isLoading) {
+          return SizedBox(
             width: screenWidth,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(36),
-                bottomRight: Radius.circular(36),
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [SpinKitCircle(color: AppColors.danger)],
             ),
-          ),
-          Transform.translate(
-            offset: Offset(0, kDefaultYOffset),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              child: Container(
-                padding: const EdgeInsets.all(kDefaultPadding),
+          );
+        } else if (isFailed) {
+          return Container();
+        } else {
+          return ListView(
+            children: [
+              Container(
+                height: 60,
                 width: screenWidth,
                 decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 6,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: InputField(
-                  hintText: 'Search by tag, breed, or status',
-                  prefixIcon: Icons.search,
+                  color: AppColors.primary,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(36),
+                    bottomRight: Radius.circular(36),
+                  ),
                 ),
               ),
-            ),
-          ),
-          // const SizedBox(height: 28),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                border: Border.all(color: Colors.grey.withValues(alpha: .2)),
-                borderRadius: BorderRadius.circular(kDefaultRadius),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ...kCattleOverviewData.map((item) {
-                    return Column(
-                      children: [
-                        Text(
-                          item['content'],
-                          style: textTheme.headlineMedium?.copyWith(
-                            color: item['color'],
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          item['label'],
-                          style: textTheme.labelLarge?.copyWith(
-                            color: AppColors.danger,
-                          ),
+              Transform.translate(
+                offset: Offset(0, kDefaultYOffset),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    width: screenWidth,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
                         ),
                       ],
-                    );
-                  }),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 28),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: Column(
-              children: [
-                ...kCattleList.map((cattle) {
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    child: CowListTile(
-                      textTheme: textTheme,
-                      cattle: cattle,
-                      func: () => Get.toNamed(AppRoutes.kCattleProfile),
                     ),
-                  );
-                }),
-              ],
-            ),
-          ),
-        ],
-      ),
+                    child: InputField(
+                      hintText: 'Search by tag, breed, or status',
+                      prefixIcon: Icons.search,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(kDefaultPadding),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    border: Border.all(
+                      color: Colors.grey.withValues(alpha: .2),
+                    ),
+                    borderRadius: BorderRadius.circular(kDefaultRadius),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '${cows.length}',
+                            style: textTheme.headlineMedium?.copyWith(
+                              color: AppColors.danger,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Total',
+                            style: textTheme.labelLarge?.copyWith(
+                              color: AppColors.danger,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '${cows.length}',
+                            style: textTheme.headlineMedium?.copyWith(
+                              color: AppColors.secondary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Healthy',
+                            style: textTheme.labelLarge?.copyWith(
+                              color: AppColors.danger,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '${cows.length}',
+                            style: textTheme.headlineMedium?.copyWith(
+                              color: AppColors.warning,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Attention',
+                            style: textTheme.labelLarge?.copyWith(
+                              color: AppColors.danger,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '${cows.length}',
+                            style: textTheme.headlineMedium?.copyWith(
+                              color: AppColors.info,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Pregnant',
+                            style: textTheme.labelLarge?.copyWith(
+                              color: AppColors.danger,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              if (cows.isEmpty)
+                SizedBox(
+                  height: screenWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          'No Cows Added',
+                          style: textTheme.titleLarge?.copyWith(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (cows.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding,
+                  ),
+                  child: Column(
+                    children: [
+                      ...kCattleList.map((cattle) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          child: CowListTile(
+                            textTheme: textTheme,
+                            cattle: cattle,
+                            func: () => Get.toNamed(AppRoutes.kCattleProfile),
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+            ],
+          );
+        }
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(AppRoutes.kNewCattle),
         shape: const CircleBorder(),
