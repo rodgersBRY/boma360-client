@@ -9,7 +9,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class AuthController extends GetxController {
   var isLoading = false.obs;
   var isFailed = false.obs;
-  var obscureText = true.obs;
+  var obscurePass = true.obs;
+  var obscureConfirmPass = true.obs;
 
   final TextEditingController nameTextController = TextEditingController();
   final TextEditingController phoneTextController = TextEditingController();
@@ -21,7 +22,9 @@ class AuthController extends GetxController {
 
   Rx<bool> acceptedTermsOfService = false.obs;
 
-  void toggleVisibility() => obscureText.value = !obscureText.value;
+  void togglePasswordVisibility() => obscurePass.value = !obscurePass.value;
+  void toggleConfirmPasswordVisibility() =>
+      obscureConfirmPass.value = !obscureConfirmPass.value;
 
   Future login() async {
     isFailed.value = false;
@@ -121,10 +124,7 @@ class AuthController extends GetxController {
       passwordTextController.clear();
       confirmPasswordTextController.clear();
 
-      Future.delayed(
-        const Duration(seconds: 2),
-        () => Get.offNamed(AppRoutes.kLogin),
-      );
+      Get.offNamed(AppRoutes.kLogin);
     } on AuthApiException catch (err) {
       handleError('Authentication Error', err);
 

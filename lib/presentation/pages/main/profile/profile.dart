@@ -1,12 +1,15 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/helper/dialog.dart';
+import 'package:client/helper/extensions.dart';
 import 'package:client/helper/util.dart';
 import 'package:client/model/farm.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:client/presentation/pages/main/profile/profile_controller.dart';
 import 'package:client/presentation/widgets/appbar.dart';
 import 'package:client/presentation/widgets/buttons.dart';
+import 'package:client/presentation/widgets/dialog.dart';
 import 'package:client/presentation/widgets/item_list_tile.dart';
 import 'package:client/presentation/widgets/spin_widget.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +40,7 @@ class UserProfileWidget extends StatelessWidget {
           final bool isVerified = user.userMetadata!['email_verified'];
           final phone = user.userMetadata!['phone'];
           final email = user.email;
+          final role = user.userMetadata!['role'];
 
           return ListView(
             children: [
@@ -131,7 +135,7 @@ class UserProfileWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(kDefaultRadius),
                           ),
                           child: Text(
-                            isVerified ? 'Farmer Verified' : 'Not Verified',
+                            (role ?? '').toUpperCase(),
                             style: textTheme.labelLarge?.copyWith(
                               color: AppColors.white,
                               fontWeight: FontWeight.bold,
@@ -228,31 +232,44 @@ class UserProfileWidget extends StatelessWidget {
                             size: 16,
                           ),
                         ),
-                        MyListTile(
-                          leadingWidget: CircleAvatar(
-                            backgroundColor: AppColors.secondary,
-                            child: Icon(
-                              FontAwesomeIcons.map,
-                              color: AppColors.white,
-                              size: 18,
+                        Obx(
+                          () => MyListTile(
+                            leadingWidget: CircleAvatar(
+                              backgroundColor: AppColors.secondary,
+                              child: Icon(
+                                FontAwesomeIcons.map,
+                                color: AppColors.white,
+                                size: 18,
+                              ),
                             ),
-                          ),
-                          title: 'Farm Details',
-                          subtitle: 'Mburugu Estate',
-                          text: 'Ukuu, Meru. kenya',
-                          backgroundColor: AppColors.background,
-                          trailingWidget: IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(FontAwesomeIcons.penToSquare, size: 16),
-                            onPressed: () async {
-                              var farmInfo = await Get.toNamed(
-                                AppRoutes.kUpdateFarm,
-                              );
+                            title: 'Farm Details',
+                            subtitle:
+                                controller.farm.value?.name.capitalize() ?? '',
+                            text:
+                                controller.farm.value?.location?.capitalize() ??
+                                '',
+                            backgroundColor: AppColors.background,
+                            trailingWidget:
+                                controller.farm.value == null
+                                    ? IconButton(
+                                      padding: EdgeInsets.zero,
+                                      icon: Icon(
+                                        FontAwesomeIcons.squarePlus,
+                                        size: 16,
+                                      ),
+                                      onPressed: () async {
+                                        var farmInfo = await Get.toNamed(
+                                          AppRoutes.kUpdateFarm,
+                                        );
 
-                              controller.farm.value = FarmModel.fromJson(
-                                farmInfo,
-                              );
-                            },
+                                        controller.farm.value =
+                                            FarmModel.fromJson(farmInfo);
+                                      },
+                                    )
+                                    : Icon(
+                                      FontAwesomeIcons.angleRight,
+                                      size: 16,
+                                    ),
                           ),
                         ),
                       ],
@@ -380,7 +397,23 @@ class UserProfileWidget extends StatelessWidget {
                     func:
                         controller.isLoading.value
                             ? null
-                            : () => controller.logout(),
+                            : () {
+                              Get.dialog(
+                                CustomDialogWidget(
+                                  config: DialogConfig(
+                                    confirmText: 'Log Out',
+                                    cancelText: 'Cancel',
+                                    icon:
+                                        FontAwesomeIcons.arrowRightFromBracket,
+                                    type: DialogType.confirmation,
+                                    title: 'Log Out',
+                                    message:
+                                        'You are about to log out of your account',
+                                    onConfirm: () => controller.logout(),
+                                  ),
+                                ),
+                              );
+                            },
                     backgroundColor:
                         controller.isLoading.value
                             ? Colors.red.withValues(alpha: .4)

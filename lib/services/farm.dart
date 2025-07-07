@@ -1,3 +1,4 @@
+import 'package:client/core/errors/session_manager.dart';
 import 'package:client/helper/toast.dart';
 import 'package:client/model/farm.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,11 +9,7 @@ class FarmService {
   static Future newFarm(FarmModel farm) async {
     try {
       final response =
-          await supabase
-              .from('farms')
-              .insert(farm.toJson())
-              .select('name')
-              .single();
+          await supabase.from('farms').insert(farm.toJson()).select().single();
 
       ToastUtils.showSuccess(
         title: 'New Farm: ${response['name']}',
@@ -26,12 +23,23 @@ class FarmService {
   }
 
   static Future getFarm() async {
-    // final userId = SessionManager.getUser();
+    final user = await SessionManager.getUser();
 
     try {
-      final response = await supabase.from('farms').select().single();
+      if (user != null) {
+        final farmJson =
+            await supabase
+                .from('farms')
+                .select()
+                .eq('user_id', user.id)
+                .maybeSingle();
 
-      return response;
+        if (farmJson == null) {
+          throw Exception('No farm for this user');
+        }
+
+        return FarmModel.fromJson(farmJson);
+      }
     } catch (err) {
       rethrow;
     }

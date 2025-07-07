@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: kAppName,
-      initialRoute: AppRoutes.kMain,
+      initialRoute: AppRoutes.kSplash,
       getPages: appPages,
       theme: AppTheme.light,
     );

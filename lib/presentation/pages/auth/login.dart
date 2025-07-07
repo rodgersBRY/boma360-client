@@ -21,6 +21,7 @@ class LoginWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SizedBox(
         width: screenWidth,
         child: Stack(
@@ -70,6 +71,7 @@ class LoginWidget extends StatelessWidget {
                           hintText: 'Email or Phone',
                           suffixIcon: Icons.person,
                           textController: controller.emailTextController,
+                          inputType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 15.0),
                         Text('Password', style: textTheme.labelLarge),
@@ -78,12 +80,12 @@ class LoginWidget extends StatelessWidget {
                           () => InputField(
                             hintText: 'Enter your password',
                             suffixIcon:
-                                controller.obscureText.value
+                                controller.obscurePass.value
                                     ? Icons.visibility
                                     : Icons.visibility_off,
-                            obscureText: controller.obscureText.value,
+                            obscureText: controller.obscurePass.value,
                             textController: controller.passwordTextController,
-                            onPressed: controller.toggleVisibility,
+                            onPressed: controller.togglePasswordVisibility,
                           ),
                         ),
                         const SizedBox(height: 10.0),

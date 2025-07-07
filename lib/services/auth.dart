@@ -15,16 +15,9 @@ class AuthenticationService {
 
       final user = response.user;
 
-      if (user != null) {
-        ToastUtils.showSuccess(
-          title: 'Authentication Success',
-          subtitle: 'You have successfully logged in',
-        );
-
-        if (response.session != null) {
-          final session = response.session;
-          SessionManager.saveSession(session!);
-        }
+      if (user != null && response.session != null) {
+        final session = response.session;
+        SessionManager.saveSession(session!);
 
         return user;
       }
@@ -45,11 +38,7 @@ class AuthenticationService {
       );
 
       user = response.user;
-    } catch (err) {
-      handleError('Sign Up', err);
-    }
 
-    try {
       if (user != null) {
         await supabase.from('profiles').insert({
           'id': user.id,
