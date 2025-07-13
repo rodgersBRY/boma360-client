@@ -1,4 +1,5 @@
 import 'package:client/bindings/auth_bindings.dart';
+import 'package:client/bindings/cattle_bindings.dart';
 import 'package:client/bindings/dashboard_bindings.dart';
 import 'package:client/config/routes.dart';
 import 'package:client/presentation/pages/main/notifications/notification/notification.dart';
@@ -44,5 +45,9 @@ final List<GetPage> appPages = [
     ],
   ),
   GetPage(name: AppRoutes.kNewCattle, page: () => NewCowWidget()),
-  GetPage(name: AppRoutes.kCattleProfile, page: () => CowProfileWidget()),
+  GetPage(
+    name: '${AppRoutes.kCattleProfile}:cattleId',
+    page: () => CowProfileWidget(cattleId: Get.parameters['cattleId']!),
+    binding: CattleBindings(),
+  ),
 ];

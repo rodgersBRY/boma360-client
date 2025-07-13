@@ -14,6 +14,7 @@ AppNotification _$AppNotificationFromJson(Map<String, dynamic> json) =>
         body: json['body'] as String,
         date: DateTime.parse(json['date'] as String),
         priority: $enumDecode(_$NotificationPriorityEnumMap, json['priority']),
+        isRead: json['isRead'] as bool? ?? false,
       )
       ..id = json['id'] as String?
       ..createdAt =
@@ -21,24 +22,10 @@ AppNotification _$AppNotificationFromJson(Map<String, dynamic> json) =>
               ? null
               : DateTime.parse(json['created_at'] as String)
       ..updatedAt =
-          json['updatedAt'] == null
+          json['updated_at'] == null
               ? null
-              : DateTime.parse(json['updatedAt'] as String)
+              : DateTime.parse(json['updated_at'] as String)
       ..deleted = json['deleted'] as bool?;
-
-Map<String, dynamic> _$AppNotificationToJson(AppNotification instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'deleted': instance.deleted,
-      'iconData': instance.iconData,
-      'tag': _$NotificationTagEnumMap[instance.tag]!,
-      'title': instance.title,
-      'body': instance.body,
-      'date': instance.date.toIso8601String(),
-      'priority': _$NotificationPriorityEnumMap[instance.priority]!,
-    };
 
 const _$NotificationTagEnumMap = {
   NotificationTag.urgent: 'urgent',

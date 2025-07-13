@@ -9,21 +9,45 @@ enum Status { healthy, attention, treatment, observation, pregnant }
 
 enum BreedType { dairy, beef, dualPurpose }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class CattleModel extends BaseObject {
   final String tag;
+
   final String? name;
+
   final Status status;
+
   final String breed;
-  final BreedType type;
+
+  final String type;
+
   final String age;
+
   final String? gender;
+
+  @JsonKey(name: 'user_id')
+  final String userId;
+
+  @JsonKey(name: 'farm_id')
+  final String farmId;
+
+  final String? weight;
+
+  @JsonKey(name: 'last_check')
   final DateTime? lastCheck;
+
+  @JsonKey(name: 'due_date')
   final DateTime? dueDate;
+
+  @JsonKey(name: 'image_url')
   final String? imageUrl;
+
+  @JsonKey(name: 'vaccination_due')
   final bool? vaccinationDue;
 
   CattleModel({
+    required this.userId,
+    required this.farmId,
     required this.tag,
     required this.status,
     required this.breed,
@@ -31,6 +55,7 @@ class CattleModel extends BaseObject {
     required this.age,
     this.name,
     this.gender,
+    this.weight,
     this.lastCheck,
     this.dueDate,
     this.imageUrl,

@@ -31,7 +31,7 @@ class CowListTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(kDefaultRadius),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(kDefaultRadius),
@@ -54,17 +54,21 @@ class CowListTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${cattle.breed} - ${cattle.age}',
+                  '${cattle.breed} - ${cattle.age} yrs',
                   style: textTheme.bodyLarge?.copyWith(
                     color: AppColors.textSecondary,
                   ),
                 ),
-                Text(
-                  'Last check: ${Util.formatDate(cattle.lastCheck!)}',
-                  style: textTheme.labelMedium?.copyWith(color: Colors.black54),
-                ),
+                if (cattle.lastCheck != null)
+                  Text(
+                    'Last check: ${Util.formatDate(cattle.lastCheck)}',
+                    style: textTheme.labelMedium?.copyWith(
+                      color: Colors.black54,
+                    ),
+                  ),
               ],
             ),
+            Expanded(child: Container()),
             if (trailing) ...[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,

@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class CattleService {
   static final supabase = Supabase.instance.client;
 
-  static Future newCattle(CattleModel cattle) async {
+  static Future<CattleModel> newCattle(CattleModel cattle) async {
     try {
       final cattleJson =
           await supabase
@@ -55,5 +55,14 @@ class CattleService {
     }
   }
 
-  static Future<void> getCattleWIthId(String id) async {}
+  static Future<CattleModel?> getCattleWIthId(String id) async {
+    final cattleJson =
+        await supabase.from('cattle').select().eq('id', id).maybeSingle();
+
+    if (cattleJson != null) {
+      return CattleModel.fromJson(cattleJson);
+    }
+
+    return null;
+  }
 }

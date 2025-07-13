@@ -1,16 +1,30 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/notifications.dart';
+import 'package:client/presentation/pages/main/main_controller.dart';
 import 'package:client/presentation/widgets/cows/notifications/notification_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 class NotificationsWidget extends StatelessWidget {
   const NotificationsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mainController = Get.find<MainController>();
+
     final screenWidth = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(Duration(days: 1));
+
+    final unreadNotifications =
+        mainController.notifications
+            .where((notification) => !notification!.isRead)
+            .toList();
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -70,26 +84,34 @@ class NotificationsWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:
-                      ['All', 'Urgent', 'Health', 'Yield']
+                      [
+                            'All',
+                            'Unread(${unreadNotifications.length})',
+                            'Health',
+                            'Yield',
+                          ]
                           .map(
-                            (item) => Container(
-                              padding: const EdgeInsets.all(22),
-                              decoration: BoxDecoration(
-                                color:
-                                    item == 'All'
-                                        ? AppColors.primary
-                                        : AppColors.white,
-                                borderRadius: BorderRadius.circular(
-                                  kDefaultRadius,
-                                ),
-                              ),
-                              child: Text(
-                                item,
-                                style: textTheme.bodyLarge?.copyWith(
+                            (item) => GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.all(22),
+                                decoration: BoxDecoration(
                                   color:
                                       item == 'All'
-                                          ? AppColors.white
-                                          : AppColors.textSecondary,
+                                          ? AppColors.primary
+                                          : AppColors.white,
+                                  borderRadius: BorderRadius.circular(
+                                    kDefaultRadius,
+                                  ),
+                                ),
+                                child: Text(
+                                  item,
+                                  style: textTheme.bodyLarge?.copyWith(
+                                    color:
+                                        item == 'All'
+                                            ? AppColors.white
+                                            : AppColors.textSecondary,
+                                  ),
                                 ),
                               ),
                             ),
@@ -103,16 +125,73 @@ class NotificationsWidget extends StatelessWidget {
             padding: const EdgeInsets.all(kDefaultPadding),
             child: Text('Today', style: textTheme.headlineMedium),
           ),
-          ...kNotifications.map(
-            (notification) => Container(
-              margin: const EdgeInsets.only(bottom: 22),
-              child: NotificationCard(
-                screenWidth: screenWidth,
-                textTheme: textTheme,
-                notification: notification,
+          ...kNotifications
+              .where((notification) {
+                final date = DateTime(
+                  notification.date.year,
+                  notification.date.month,
+                  notification.date.day,
+                );
+
+                return date == today;
+              })
+              .map(
+                (notification) => Container(
+                  margin: const EdgeInsets.only(bottom: 22),
+                  child: NotificationCard(
+                    screenWidth: screenWidth,
+                    textTheme: textTheme,
+                    notification: notification,
+                  ),
+                ),
               ),
-            ),
+          Padding(
+            padding: const EdgeInsets.all(kDefaultPadding),
+            child: Text('Yesterday', style: textTheme.headlineMedium),
           ),
+          ...kNotifications
+              .where((notification) {
+                final date = DateTime(
+                  notification.date.year,
+                  notification.date.month,
+                  notification.date.day,
+                );
+                return date == yesterday;
+              })
+              .map(
+                (notification) => Container(
+                  margin: const EdgeInsets.only(bottom: 22),
+                  child: NotificationCard(
+                    screenWidth: screenWidth,
+                    textTheme: textTheme,
+                    notification: notification,
+                  ),
+                ),
+              ),
+          Padding(
+            padding: const EdgeInsets.all(kDefaultPadding),
+            child: Text('Older', style: textTheme.headlineMedium),
+          ),
+          ...kNotifications
+              .where((notification) {
+                final date = DateTime(
+                  notification.date.year,
+                  notification.date.month,
+                  notification.date.day,
+                );
+
+                return date.isBefore(yesterday);
+              })
+              .map(
+                (notification) => Container(
+                  margin: const EdgeInsets.only(bottom: 22),
+                  child: NotificationCard(
+                    screenWidth: screenWidth,
+                    textTheme: textTheme,
+                    notification: notification,
+                  ),
+                ),
+              ),
         ],
       ),
     );

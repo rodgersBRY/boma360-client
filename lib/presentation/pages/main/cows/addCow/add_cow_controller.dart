@@ -1,8 +1,12 @@
+import 'package:client/config/routes.dart';
 import 'package:client/core/errors/error_handler.dart';
+import 'package:client/core/errors/session_manager.dart';
 import 'package:client/data/cattle_data.dart';
 import 'package:client/helper/toast.dart';
 import 'package:client/model/cattle.dart';
 import 'package:client/services/cattle.dart';
+import 'package:client/services/farm.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddCowController extends GetxController {
@@ -14,10 +18,10 @@ class AddCowController extends GetxController {
   var selectedType = ''.obs;
   var selectedBreed = ''.obs;
   var selectedGender = 'Female';
-  var tagId = '';
-  var name = '';
-  var weight = 0;
-  var age = '';
+  var tagIdTextController = TextEditingController();
+  var nameTextController = TextEditingController();
+  var weightTextController = TextEditingController();
+  var ageTextController = TextEditingController();
 
   List<BreedType> get breedTypes =>
       cowBreeds.map((b) => b.type).toSet().toList();
@@ -48,7 +52,7 @@ class AddCowController extends GetxController {
     }
   }
 
-  void save() async {
+  save() async {
     if (isLoading.isTrue) return;
 
     if (isEmpty()) {
@@ -60,22 +64,48 @@ class AddCowController extends GetxController {
       return;
     }
 
-    var newCattle = CattleModel(
-      tag: tagId,
-      status: Status.healthy,
-      breed: selectedBreed.value,
-      type: selectedType.value as BreedType,
-      age: age,
-    );
+    isFailed.value = false;
+    isLoading.value = true;
 
-    try {
-      CattleService.newCattle(newCattle);
-    } catch (err) {
-      handleError('Cattle Service Error', err);
+    var tagId = tagIdTextController.text;
+    var name = nameTextController.text;
+    var age = ageTextController.text;
+    var weight = weightTextController.text;
+
+    final user = await SessionManager.getUser();
+    if (user != null) {
+      final farm = await FarmService.getFarm(user.id);
+
+      var newCattle = CattleModel(
+        userId: user.id,
+        farmId: farm!.id!,
+        tag: tagId,
+        name: name,
+        status: Status.healthy,
+        breed: selectedBreed.value,
+        type: selectedType.value,
+        age: age,
+        gender: selectedGender,
+        weight: weight,
+      );
+
+      try {
+        await CattleService.newCattle(newCattle);
+
+        await Get.offNamed(AppRoutes.kCattle);
+      } catch (err) {
+        handleError('Cattle Service Error', err);
+      } finally {
+        isLoading.value = false;
+      }
     }
   }
 
   bool isEmpty() {
+    var tagId = tagIdTextController.text;
+    var age = ageTextController.text;
+    var weight = int.parse(weightTextController.text);
+
     if (selectedType.value == '' ||
         selectedBreed.value == '' ||
         selectedGender == '' ||

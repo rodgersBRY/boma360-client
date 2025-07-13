@@ -9,7 +9,7 @@ enum NotificationPriority { low, medium, high }
 
 enum NotificationTag { urgent, health, system, cattleYield }
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AppNotification extends BaseObject {
   final String iconData;
   final NotificationTag tag;
@@ -17,6 +17,7 @@ class AppNotification extends BaseObject {
   final String body;
   final DateTime date;
   final NotificationPriority priority;
+  final bool isRead;
 
   AppNotification({
     required this.iconData,
@@ -25,6 +26,7 @@ class AppNotification extends BaseObject {
     required this.body,
     required this.date,
     required this.priority,
+    this.isRead = false,
   });
 
   factory AppNotification.fromJson(Map<String, dynamic> json) =>

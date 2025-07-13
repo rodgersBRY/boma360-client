@@ -1,8 +1,5 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/data/cattle_data.dart';
-import 'package:client/helper/extensions.dart';
-import 'package:client/model/cattle.dart';
 import 'package:client/presentation/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,7 +18,7 @@ class NotificationWidget extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
 
-    final cow = kCattleList.first;
+    // final cow = kCattleList.first;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -297,65 +294,65 @@ class NotificationWidget extends StatelessWidget {
                       style: textTheme.titleMedium,
                     ),
                   ),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Tag ID'),
-                    trailing: Text(
-                      cow.tag,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   title: Text('Tag ID'),
+                  //   trailing: Text(
+                  //     cow.tag,
+                  //     style: textTheme.bodyLarge?.copyWith(
+                  //       color: AppColors.textSecondary,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   Divider(color: Colors.grey, thickness: .3),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Name'),
-                    trailing: Text(
-                      cow.name ?? '',
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   title: Text('Name'),
+                  //   trailing: Text(
+                  //     cow.name ?? '',
+                  //     style: textTheme.bodyLarge?.copyWith(
+                  //       color: AppColors.textSecondary,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   Divider(color: Colors.grey, thickness: .3),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Breed'),
-                    trailing: Text(
-                      cow.breed,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   title: Text('Breed'),
+                  //   trailing: Text(
+                  //     cow.breed,
+                  //     style: textTheme.bodyLarge?.copyWith(
+                  //       color: AppColors.textSecondary,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   Divider(color: Colors.grey, thickness: .3),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Age'),
-                    trailing: Text(
-                      cow.age,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   title: Text('Age'),
+                  //   trailing: Text(
+                  //     cow.age,
+                  //     style: textTheme.bodyLarge?.copyWith(
+                  //       color: AppColors.textSecondary,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                   Divider(color: Colors.grey, thickness: .3),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Health Status'),
-                    trailing: Text(
-                      cow.status.name.capitalize(),
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: cow.status.color,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   title: Text('Health Status'),
+                  //   trailing: Text(
+                  //     cow.status.name.capitalize(),
+                  //     style: textTheme.bodyLarge?.copyWith(
+                  //       color: cow.status.color,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

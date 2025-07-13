@@ -105,7 +105,12 @@ class NewCowWidget extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     Row(
                       children: [
-                        Expanded(child: InputField(hintText: 'Enter tag ID')),
+                        Expanded(
+                          child: InputField(
+                            hintText: 'Enter tag ID',
+                            textController: controller.tagIdTextController,
+                          ),
+                        ),
                         const SizedBox(width: 8),
                         Container(
                           padding: const EdgeInsets.all(12),
@@ -126,6 +131,7 @@ class NewCowWidget extends StatelessWidget {
                     InputField(
                       hintText: 'Enter cattle name',
                       inputType: TextInputType.name,
+                      textController: controller.nameTextController,
                     ),
                     const SizedBox(height: 15.0),
                     Text('Gender *', style: textTheme.labelLarge),
@@ -140,7 +146,9 @@ class NewCowWidget extends StatelessWidget {
                             );
                           }).toList(),
                       errorText: 'Please select gender',
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        controller.selectedGender = value ?? '';
+                      },
                     ),
                   ],
                 ),
@@ -190,8 +198,8 @@ class NewCowWidget extends StatelessWidget {
                           );
                         }).toList(),
                     errorText: 'Please select purpose',
-                    onChanged: (value) {
-                      controller.selectedType.value = value!;
+                    onChanged: (String? value) {
+                      controller.selectedType.value = value ?? '';
                     },
                   ),
                   const SizedBox(height: 15.0),
@@ -228,6 +236,7 @@ class NewCowWidget extends StatelessWidget {
                   InputField(
                     hintText: 'Enter weight in kg',
                     inputType: TextInputType.number,
+                    textController: controller.weightTextController,
                   ),
                   const SizedBox(height: 15.0),
                   Text('Age', style: textTheme.labelLarge),
@@ -235,6 +244,7 @@ class NewCowWidget extends StatelessWidget {
                   InputField(
                     hintText: 'Enter the age',
                     inputType: TextInputType.number,
+                    textController: controller.ageTextController,
                   ),
                 ],
               ),
@@ -243,14 +253,17 @@ class NewCowWidget extends StatelessWidget {
           const SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: MyElevatedButton(
-              label: Text('Save Cattle'),
-              icon: Icon(
-                FontAwesomeIcons.floppyDisk,
-                color: AppColors.white,
-                size: 20,
+            child: Obx(
+              () => MyElevatedButton(
+                label: Text('Save Information'),
+                loading: controller.isLoading.value,
+                loadingBackgroundColor: AppColors.secondary,
+                icon: Icon(FontAwesomeIcons.floppyDisk),
+                func:
+                    controller.isLoading.isTrue
+                        ? () {}
+                        : () async => await controller.save(),
               ),
-              func: () {},
             ),
           ),
           const SizedBox(height: 28),

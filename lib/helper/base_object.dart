@@ -6,6 +6,7 @@ abstract class BaseObject {
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
 
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
 
   bool? deleted;
