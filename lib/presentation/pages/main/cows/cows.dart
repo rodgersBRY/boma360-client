@@ -142,7 +142,7 @@ class CowsWidget extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              '${cows.length}',
+                              '${cows.where((cow) => cow!.status == Status.healthy).length}',
                               style: textTheme.headlineMedium?.copyWith(
                                 color: AppColors.secondary,
                               ),
@@ -159,7 +159,7 @@ class CowsWidget extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              '${cows.length}',
+                              '${cows.where((cow) => cow!.status == Status.attention).length}',
                               style: textTheme.headlineMedium?.copyWith(
                                 color: AppColors.warning,
                               ),
@@ -176,7 +176,7 @@ class CowsWidget extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              '${cows.length}',
+                              '${cows.where((cow) => cow!.status == Status.pregnant).length}',
                               style: textTheme.headlineMedium?.copyWith(
                                 color: AppColors.info,
                               ),

@@ -44,7 +44,7 @@ class CowProfileWidget extends StatelessWidget {
         ),
         title: ListTile(
           title: Text(
-            'Cattle Profile',
+            'Cattle "${controller.cattle.value?.name}\'s" Profile',
             style: textTheme.headlineLarge?.copyWith(
               color: AppColors.white,
               fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ class CowProfileWidget extends StatelessWidget {
         final cattle = controller.cattle.value;
 
         if (loading) {
-          return SpinKitDancingSquare(color: AppColors.danger);
+          return SpinKitRipple(color: AppColors.danger);
         }
 
         if (failed) return Text('Server error. Try Again');
