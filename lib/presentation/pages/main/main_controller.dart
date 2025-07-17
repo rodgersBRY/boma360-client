@@ -44,7 +44,8 @@ class MainController extends GetxController {
       notifications.assignAll(kNotifications);
     } catch (err) {
       isFailed.value = true;
-      handleError('Error Fetching data', err);
+      
+      handleGenericError(err);
     } finally {
       isLoading.value = false;
     }

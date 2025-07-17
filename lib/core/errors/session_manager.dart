@@ -42,8 +42,6 @@ class SessionManager {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_sessionKey);
-
-    await Future.delayed(const Duration(milliseconds: 200));
   }
 
   static Future<User?> getUser() async =>

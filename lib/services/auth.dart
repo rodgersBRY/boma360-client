@@ -1,4 +1,3 @@
-import 'package:client/core/errors/error_handler.dart';
 import 'package:client/core/errors/session_manager.dart';
 import 'package:client/helper/toast.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -58,7 +57,7 @@ class AuthenticationService {
         return user;
       }
     } catch (err) {
-      handleError('Sign Up', err);
+      rethrow;
     }
   }
 }

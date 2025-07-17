@@ -27,7 +27,8 @@ class CowsController extends GetxController {
       cattle.assignAll(cows);
     } catch (err) {
       isFailed.value = true;
-      handleError('Error Fetching data', err);
+      
+      handleGenericError(err);
     } finally {
       isLoading.value = false;
     }

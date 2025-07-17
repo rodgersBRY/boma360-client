@@ -191,6 +191,39 @@ class UserProfileWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                          padding: const EdgeInsets.all(18),
+                          decoration: BoxDecoration(
+                            color: AppColors.secondary.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    color: AppColors.danger,
+                                    onPressed: () {
+                                      
+                                    },
+                                    icon: Icon(FontAwesomeIcons.xmark),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                'Complete your profile by adding farm details',
+                              ),
+                              const SizedBox(height: 8),
+                              IconButton(
+                                color: AppColors.primary,
+                                onPressed: () {},
+                                icon: Icon(FontAwesomeIcons.arrowRight),
+                              ),
+                            ],
+                          ),
+                        ),
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: Text(

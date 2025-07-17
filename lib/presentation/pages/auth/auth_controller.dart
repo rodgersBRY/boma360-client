@@ -52,11 +52,11 @@ class AuthController extends GetxController {
 
       Get.offNamed(AppRoutes.kSplash);
     } on AuthApiException catch (err) {
-      handleError('Authentication Error', err);
+      handleAuthError(err);
 
       isFailed.value = true;
     } catch (err) {
-      handleError('Server Error', err);
+      handleGenericError(err);
 
       isFailed.value = true;
     } finally {
@@ -125,14 +125,27 @@ class AuthController extends GetxController {
       confirmPasswordTextController.clear();
 
       Get.offNamed(AppRoutes.kLogin);
-    } on AuthApiException catch (err) {
-      handleError('Authentication Error', err);
+    } on AuthException catch (err) {
+      handleAuthError(err);
 
       isFailed.value = true;
-    } catch (err) {
-      handleError('Server Error', err);
+
+      passwordTextController.clear();
+      confirmPasswordTextController.clear();
+    } on PostgrestException catch (err) {
+      handleError(err);
 
       isFailed.value = true;
+
+      passwordTextController.clear();
+      confirmPasswordTextController.clear();
+    } catch (e) {
+      handleGenericError(e);
+
+      isFailed.value = true;
+
+      passwordTextController.clear();
+      confirmPasswordTextController.clear();
     } finally {
       isLoading.value = false;
     }

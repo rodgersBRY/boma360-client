@@ -1,3 +1,4 @@
+import 'package:client/helper/toast.dart';
 import 'package:intl/intl.dart';
 
 class Util {
@@ -13,5 +14,9 @@ class Util {
     String fullPattern = showTime ? '$pattern, hh:mm a' : pattern;
     final formatter = DateFormat(fullPattern, locale);
     return formatter.format(date);
+  }
+
+  static showError(String message) {
+    ToastUtils.showError(title: 'Auth Error', subtitle: message);
   }
 }

@@ -46,7 +46,7 @@ class UpdateFarmController extends GetxController {
 
         Get.back(result: response);
       } catch (err) {
-        handleError('Server Error', err);
+        handleGenericError(err);
 
         isFailed.value = true;
       } finally {

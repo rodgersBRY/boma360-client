@@ -99,7 +99,7 @@ class AddCowController extends GetxController {
 
         Get.back();
       } catch (err) {
-        handleError('Cattle Service Error', err);
+        handleGenericError(err);
       } finally {
         isLoading.value = false;
       }

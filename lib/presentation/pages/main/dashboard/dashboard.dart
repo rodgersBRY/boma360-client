@@ -70,7 +70,9 @@ class DashboardWidget extends StatelessWidget {
                         if (user != null) {
                           final displayName =
                               user.userMetadata!['displayName'] as String;
-                          final firstName = displayName.split(" ")[1];
+                          final parts = displayName.trim().split(" ");
+                          final firstName =
+                              parts.length > 1 ? parts[1] : parts[0];
 
                           return ListTile(
                             title: Text(

@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileController extends GetxController {
   var isLoading = false.obs;
+  var showNoFarmInfo = true.obs;
 
   Rx<User?> user = Rx(null);
   Rx<FarmModel?> farm = Rx(null);
@@ -30,7 +31,7 @@ class ProfileController extends GetxController {
         farm.value = await FarmService.getFarm(userData.id);
       }
     } catch (err) {
-      handleError('server error', err);
+      handleGenericError(err);
     }
   }
 
@@ -44,7 +45,7 @@ class ProfileController extends GetxController {
 
       Get.offAllNamed(AppRoutes.kSplash);
     } catch (err) {
-      handleError('Internal Error', err);
+      handleGenericError(err);
     } finally {
       isLoading.value = false;
     }

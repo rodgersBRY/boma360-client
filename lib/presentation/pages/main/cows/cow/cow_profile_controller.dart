@@ -14,7 +14,7 @@ class CowProfileController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    
+
     cattleId = Get.parameters['cattleId']!;
 
     await fetch();
@@ -33,8 +33,8 @@ class CowProfileController extends GetxController {
         cattle.value = cattleData;
       }
     } catch (err) {
-      handleError('Server Error', err);
-      
+      handleGenericError(err);
+
       isFailed.value = true;
     } finally {
       isLoading.value = false;
