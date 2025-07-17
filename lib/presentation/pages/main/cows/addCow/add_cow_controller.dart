@@ -1,4 +1,3 @@
-import 'package:client/config/routes.dart';
 import 'package:client/core/errors/error_handler.dart';
 import 'package:client/core/errors/session_manager.dart';
 import 'package:client/data/cattle_data.dart';
@@ -18,6 +17,7 @@ class AddCowController extends GetxController {
   var selectedType = ''.obs;
   var selectedBreed = ''.obs;
   var selectedGender = 'Female';
+
   var tagIdTextController = TextEditingController();
   var nameTextController = TextEditingController();
   var weightTextController = TextEditingController();
@@ -73,6 +73,7 @@ class AddCowController extends GetxController {
     var weight = weightTextController.text;
 
     final user = await SessionManager.getUser();
+
     if (user != null) {
       final farm = await FarmService.getFarm(user.id);
 
@@ -92,13 +93,29 @@ class AddCowController extends GetxController {
       try {
         await CattleService.newCattle(newCattle);
 
-        await Get.offNamed(AppRoutes.kCattle);
+        clearForm();
+
+        await Future.delayed(const Duration(seconds: 2), () {});
+
+        Get.back();
       } catch (err) {
         handleError('Cattle Service Error', err);
       } finally {
         isLoading.value = false;
       }
     }
+  }
+
+  void clearForm() {
+    tagIdTextController.clear();
+    nameTextController.clear();
+    weightTextController.clear();
+    ageTextController.clear();
+    filteredBreeds.clear();
+
+    selectedType.value = '';
+    selectedBreed.value = '';
+    selectedGender = 'Female';
   }
 
   bool isEmpty() {

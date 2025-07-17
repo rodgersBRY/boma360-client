@@ -15,9 +15,9 @@ final List<AppNotification> kNotifications = [
     tag: NotificationTag.health,
     title: 'Vaccination Due',
     body: 'Cattle #432 needs vaccination by end of the week.',
-    date: DateTime.parse('2025-07-12T12:00:00Z'),
+    date: DateTime.parse('2025-07-17T12:00:00Z'),
     priority: NotificationPriority.medium,
-    isRead: true,
+    isRead: false,
   ),
   AppNotification(
     iconData: 'fa-gears',

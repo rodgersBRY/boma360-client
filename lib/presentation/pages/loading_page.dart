@@ -6,10 +6,10 @@ class LoadingPage extends StatefulWidget {
   final String? subtitle;
 
   const LoadingPage({
-    Key? key,
+    super.key,
     this.title = "Loading",
     this.subtitle = "Please wait while we prepare your content",
-  }) : super(key: key);
+  });
 
   @override
   State<LoadingPage> createState() => _LoadingPageState();

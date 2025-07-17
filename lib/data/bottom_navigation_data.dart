@@ -13,5 +13,4 @@ final List<BottomNavModel> kNavItems = [
   BottomNavModel(label: 'Cattle', icon: FontAwesomeIcons.cow),
   BottomNavModel(label: 'Analytics', icon: FontAwesomeIcons.chartBar),
   BottomNavModel(label: 'Profile', icon: FontAwesomeIcons.person),
-
 ];

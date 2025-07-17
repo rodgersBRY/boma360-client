@@ -354,23 +354,43 @@ class DashboardWidget extends StatelessWidget {
                       const SizedBox(height: 20),
                       if (mainController.isLoading.isTrue)
                         SpinKitRipple(color: AppColors.danger),
-                      if (mainController.isLoading.isFalse)
-                        ...recentNotifications.sublist(0, 3).map((alert) {
-                          return MyListTile(
-                            backgroundColor: alert!.priority.color.withValues(
-                              alpha: .2,
-                            ),
-                            leadingWidget: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: alert.priority.color,
-                              child: Icon(
-                                AppNotification.iconFromString(alert.iconData),
+                      if (recentNotifications.isEmpty)
+                        Container(
+                          padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: AppColors.primary.withValues(alpha: .1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Recent notificationa appear here',
+                              style: textTheme.labelSmall?.copyWith(
+                                color: Colors.black54,
                               ),
                             ),
-                            title: alert.title,
-                            subtitle: alert.body,
-                          );
-                        }),
+                          ),
+                        ),
+                      if (mainController.isLoading.isFalse &&
+                          recentNotifications.isNotEmpty)
+                        ...recentNotifications
+                            .sublist(0, recentNotifications.length.clamp(0, 3))
+                            .map((alert) {
+                              return MyListTile(
+                                backgroundColor: alert!.priority.color
+                                    .withValues(alpha: .2),
+                                leadingWidget: CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: alert.priority.color,
+                                  child: Icon(
+                                    AppNotification.iconFromString(
+                                      alert.iconData,
+                                    ),
+                                  ),
+                                ),
+                                title: alert.title,
+                                subtitle: alert.body,
+                              );
+                            }),
                       const SizedBox(height: 20),
                       MyElevatedButton(
                         label: Text('View All Alerts'),
