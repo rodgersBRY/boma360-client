@@ -9,7 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileController extends GetxController {
   var isLoading = false.obs;
-  var showNoFarmInfo = true.obs;
+  var notifyAboutFarm = true.obs;
 
   Rx<User?> user = Rx(null);
   Rx<FarmModel?> farm = Rx(null);
