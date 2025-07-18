@@ -11,5 +11,6 @@ abstract class AppRoutes {
   static const kNewCattle = '/new-cattle';
   static const kCattleProfile = '/cattle-profile';
   static const kYieldRecords = '/yield-records';
+  static const kNewYieldRecord = '/add-yield-record';
   static const kYieldRecordDetails = '/yield-record-detail';
 }

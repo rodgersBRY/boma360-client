@@ -2,7 +2,7 @@ import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/notifications.dart';
 import 'package:client/presentation/pages/main/main_controller.dart';
-import 'package:client/presentation/widgets/cows/notifications/notification_card.dart';
+import 'package:client/presentation/widgets/notifications/notification_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
@@ -94,7 +94,7 @@ class NotificationsWidget extends StatelessWidget {
                             (item) => GestureDetector(
                               onTap: () {},
                               child: Container(
-                                padding: const EdgeInsets.all(22),
+                                padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
                                   color:
                                       item == 'All'

@@ -1,9 +1,9 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/helper/extensions.dart';
-import 'package:client/helper/util.dart';
 import 'package:client/model/cattle.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CowListTile extends StatelessWidget {
   final TextTheme textTheme;
@@ -46,26 +46,56 @@ class CowListTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FittedBox(
-                  child: Text(
-                    '#${cattle.tag} - ${cattle.name}',
-                    style: textTheme.headlineMedium,
-                  ),
+                Row(
+                  spacing: 8,
+                  children: [
+                    FittedBox(
+                      child: Text(
+                        '#${cattle.tag}',
+                        style: textTheme.headlineMedium,
+                      ),
+                    ),
+                    Icon(
+                      FontAwesomeIcons.solidCircle,
+                      color: Colors.grey,
+                      size: 5,
+                    ),
+                    Text(cattle.name ?? ''),
+                  ],
+                ),
+
+                const SizedBox(height: 8),
+                Row(
+                  spacing: 8,
+                  children: [
+                    Text('#${cattle.breed}', style: textTheme.headlineMedium),
+                    Icon(
+                      FontAwesomeIcons.solidCircle,
+                      color: Colors.grey,
+                      size: 5,
+                    ),
+                    Text('${cattle.age} yrs'),
+                  ],
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  '${cattle.breed} - ${cattle.age} yrs',
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+                Row(
+                  spacing: 8,
+                  children: [
+                    if (cattle.gender == 'Female')
+                      Icon(
+                        FontAwesomeIcons.marsStrokeRight,
+                        size: 13,
+                        color: Colors.pink,
+                      ),
+                    if (cattle.gender == 'Male')
+                      Icon(
+                        FontAwesomeIcons.marsStrokeUp,
+                        size: 13,
+                        color: Colors.pink,
+                      ),
+                    Text(cattle.gender ?? ''),
+                  ],
                 ),
-                if (cattle.lastCheck != null)
-                  Text(
-                    'Last check: ${Util.formatDate(cattle.lastCheck)}',
-                    style: textTheme.labelMedium?.copyWith(
-                      color: Colors.black54,
-                    ),
-                  ),
               ],
             ),
             Expanded(child: Container()),

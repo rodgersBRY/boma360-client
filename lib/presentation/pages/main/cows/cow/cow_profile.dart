@@ -1,4 +1,5 @@
 import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
 import 'package:client/data/cattle_data.dart';
 import 'package:client/presentation/pages/main/cows/cow/cow_profile_controller.dart';
@@ -43,12 +44,14 @@ class CowProfileWidget extends StatelessWidget {
           ),
         ),
         title: ListTile(
-          title: Text(
-            'Cattle "${controller.cattle.value?.name}\'s" Profile',
-            style: textTheme.headlineLarge?.copyWith(
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
+          title: Obx(
+            () => Text(
+              '${controller.cattle.value?.name}\'s Profile',
+              style: textTheme.headlineLarge?.copyWith(
+                color: AppColors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
             ),
           ),
         ),
@@ -153,16 +156,24 @@ class CowProfileWidget extends StatelessWidget {
                                       '${cattle.age} years',
                                       style: textTheme.bodySmall,
                                     ),
-                                    const SizedBox(width: 12),
-                                    Icon(
-                                      FontAwesomeIcons.marsStrokeUp,
-                                      size: 13,
-                                      color: Colors.pink,
-                                    ),
                                     const SizedBox(width: 8),
-                                    Text(
-                                      cattle.gender ?? '',
-                                      style: textTheme.bodySmall,
+                                    Row(
+                                      spacing: 8,
+                                      children: [
+                                        if (cattle.gender == 'Female')
+                                          Icon(
+                                            FontAwesomeIcons.marsStrokeRight,
+                                            size: 13,
+                                            color: Colors.pink,
+                                          ),
+                                        if (cattle.gender == 'Male')
+                                          Icon(
+                                            FontAwesomeIcons.marsStrokeUp,
+                                            size: 13,
+                                            color: Colors.pink,
+                                          ),
+                                        Text(cattle.gender ?? ''),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -189,25 +200,6 @@ class CowProfileWidget extends StatelessWidget {
                                 cattle.status.name.capitalize ?? '',
                                 style: textTheme.labelMedium?.copyWith(
                                   color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.info.withValues(alpha: .2),
-                                borderRadius: BorderRadius.circular(
-                                  kDefaultRadius,
-                                ),
-                              ),
-                              child: Text(
-                                'Pregnant',
-                                style: textTheme.labelMedium?.copyWith(
-                                  color: AppColors.info,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -263,37 +255,122 @@ class CowProfileWidget extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(), // preve
                     children: [
-                      ...kCattleKeyStats.map((item) {
-                        return CustomTile(
-                          color: AppColors.white,
-                          textTheme: textTheme,
-                          leadWidget: Icon(
-                            item['icon'],
-                            size: 25,
-                            color: item['iconColor'],
-                          ),
-                          title: item['title'],
-                          subtitle: Column(
-                            children: [
-                              Text(
-                                item['subtitle'],
-                                style: textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.weightScale,
+                          size: 25,
+                          color: AppColors.secondary,
+                        ),
+                        title: '${cattle.weight} kgs',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Current Weight',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                item['subtext'],
-                                style: textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: item['subtextColor'],
-                                ),
+                            ),
+                            Text(
+                              '+5kg this month',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
                               ),
-                            ],
-                          ),
-                          shadow: true,
-                          func: () {},
-                        );
-                      }),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.bottleDroplet,
+                          size: 25,
+                          color: AppColors.primary,
+                        ),
+                        title: '${cattle.age} L',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Daily Milk Yield',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Above average',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.solidHeart,
+                          size: 25,
+                          color: Colors.pink,
+                        ),
+                        title: 'Day 120',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Pregnancy',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Due in 160 days',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.stethoscope,
+                          size: 25,
+                          color: AppColors.primary,
+                        ),
+                        title: '7 days',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Last Check-up',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'All clear',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
                     ],
                   ),
                 ),
@@ -370,7 +447,10 @@ class CowProfileWidget extends StatelessWidget {
                         height: 50,
                         icon: Icon(FontAwesomeIcons.plus),
                         label: Text('Add Yield'),
-                        func: () {},
+                        func:
+                            () => Get.toNamed(
+                              '${AppRoutes.kNewYieldRecord}$cattleId',
+                            ),
                         backgroundColor: AppColors.danger,
                         textStyle: textTheme.labelLarge?.copyWith(
                           color: AppColors.white,
