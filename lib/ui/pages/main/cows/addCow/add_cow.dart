@@ -1,0 +1,274 @@
+import 'package:client/config/constants.dart';
+import 'package:client/config/theme/colors.dart';
+import 'package:client/model/cattle.dart';
+import 'package:client/ui/pages/main/cows/addCow/add_cow_controller.dart';
+import 'package:client/ui/widgets/buttons.dart';
+import 'package:client/ui/widgets/dropdown_field.dart';
+import 'package:client/ui/widgets/input_field.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+
+class NewCowWidget extends StatelessWidget {
+  final bool? action;
+
+  const NewCowWidget({super.key, this.action});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<AddCowController>();
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        actionsPadding: const EdgeInsets.only(right: 8.0),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: CircleAvatar(
+            radius: 5,
+            backgroundColor: Colors.white.withValues(alpha: .2),
+            child: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                FontAwesomeIcons.arrowLeft,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+        ),
+        title: ListTile(
+          title: Text(
+            'Add New Cattle',
+            style: textTheme.headlineLarge?.copyWith(
+              color: AppColors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+          ),
+          subtitle: Text(
+            'Register new livestock',
+            style: TextStyle(color: AppColors.white),
+          ),
+        ),
+      ),
+      body: ListView(
+        children: [
+          Container(
+            height: 60,
+            width: screenWidth,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36),
+              ),
+            ),
+          ),
+          Transform.translate(
+            offset: Offset(0, kDefaultYOffset),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: Container(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Icon(
+                        FontAwesomeIcons.idCard,
+                        color: AppColors.primary,
+                      ),
+                      title: Text(
+                        'Basic Information',
+                        style: textTheme.headlineMedium,
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Text('Tag ID *', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            hintText: 'Enter tag ID',
+                            textController: controller.tagIdTextController,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Icon(
+                            FontAwesomeIcons.qrcode,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15.0),
+                    Text('Name (Optional)', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    InputField(
+                      hintText: 'Enter cattle name',
+                      inputType: TextInputType.name,
+                      textController: controller.nameTextController,
+                    ),
+                    const SizedBox(height: 15.0),
+                    Text('Gender *', style: textTheme.labelLarge),
+                    const SizedBox(height: 10.0),
+                    MyDropDownWidget(
+                      hint: 'Select gender',
+                      itemList:
+                          ['Male', 'Female'].map((String gender) {
+                            return DropdownMenuItem<String>(
+                              value: gender,
+                              child: Text(gender),
+                            );
+                          }).toList(),
+                      errorText: 'Please select gender',
+                      onChanged: (value) {
+                        controller.selectedGender = value ?? '';
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Container(
+              padding: const EdgeInsets.all(kDefaultPadding),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(kDefaultRadius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(
+                      FontAwesomeIcons.hourglassEnd,
+                      color: AppColors.primary,
+                    ),
+                    title: Text(
+                      'Physical Details',
+                      style: textTheme.headlineMedium,
+                    ),
+                  ),
+                  const SizedBox(height: 10.0),
+                  Text('Type *', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  MyDropDownWidget(
+                    hint: 'Select type',
+                    itemList:
+                        controller.breedTypes.map((BreedType type) {
+                          return DropdownMenuItem<String>(
+                            value: type.name,
+                            child: Text(type.label),
+                          );
+                        }).toList(),
+                    errorText: 'Please select purpose',
+                    onChanged: (String? value) {
+                      controller.selectedType.value = value ?? '';
+                    },
+                  ),
+                  const SizedBox(height: 15.0),
+                  Text('Breed *', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  Obx(
+                    () => MyDropDownWidget(
+                      hint: 'Select breed',
+                      // value:
+                      //     controller.filteredBreeds.any(
+                      //           (String? b) =>
+                      //               b == controller.selectedBreed.value,
+                      //         )
+                      //         ? controller.selectedBreed.value
+                      //         : '',
+                      itemList:
+                          controller.filteredBreeds.map((String? breed) {
+                            return DropdownMenuItem<String>(
+                              value: breed,
+                              child: Text(breed ?? ''),
+                            );
+                          }).toList(),
+                      errorText: 'Please select a breed',
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.selectedBreed.value = value;
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15.0),
+                  Text('Initial Weight (kg)', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  InputField(
+                    hintText: 'Enter weight in kg',
+                    inputType: TextInputType.number,
+                    textController: controller.weightTextController,
+                  ),
+                  const SizedBox(height: 15.0),
+                  Text('Age', style: textTheme.labelLarge),
+                  const SizedBox(height: 10.0),
+                  InputField(
+                    hintText: 'Enter the age',
+                    inputType: TextInputType.number,
+                    textController: controller.ageTextController,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Obx(
+              () => MyElevatedButton(
+                label: Text('Save Information'),
+                loading: controller.isLoading.value,
+                loadingBackgroundColor: AppColors.secondary,
+                icon: Icon(FontAwesomeIcons.floppyDisk),
+                onPressed:
+                    controller.isLoading.isTrue
+                        ? () {}
+                        : () async => await controller.save(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+        ],
+      ),
+    );
+  }
+}

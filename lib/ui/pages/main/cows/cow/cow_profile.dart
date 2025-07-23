@@ -1,0 +1,503 @@
+import 'package:client/config/constants.dart';
+import 'package:client/config/routes.dart';
+import 'package:client/config/theme/colors.dart';
+import 'package:client/data/cattle_data.dart';
+import 'package:client/ui/pages/main/cows/cow/cow_profile_controller.dart';
+import 'package:client/ui/widgets/buttons.dart';
+import 'package:client/ui/widgets/custom_tile.dart';
+import 'package:client/ui/widgets/item_list_tile.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+
+class CowProfileWidget extends StatelessWidget {
+  final String cattleId;
+
+  const CowProfileWidget({super.key, required this.cattleId});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<CowProfileController>();
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: AppColors.primary,
+        actionsPadding: const EdgeInsets.only(right: 8.0),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: CircleAvatar(
+            radius: 5,
+            backgroundColor: Colors.white.withValues(alpha: .2),
+            child: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                FontAwesomeIcons.arrowLeft,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+        ),
+        title: ListTile(
+          title: Obx(
+            () => Text(
+              '${controller.cattle.value?.name}\'s Profile',
+              style: textTheme.headlineLarge?.copyWith(
+                color: AppColors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: Obx(() {
+        final loading = controller.isLoading.value;
+        final failed = controller.isLoading.value;
+        final cattle = controller.cattle.value;
+
+        if (loading) {
+          return SpinKitRipple(color: AppColors.danger);
+        }
+
+        if (failed) return Text('Server error. Try Again');
+
+        if (cattle != null) {
+          return ListView(
+            children: [
+              Container(
+                height: 60,
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(36),
+                    bottomRight: Radius.circular(36),
+                  ),
+                ),
+              ),
+
+              Transform.translate(
+                offset: Offset(0, kDefaultYOffset),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(kDefaultRadius),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: .2),
+                                borderRadius: BorderRadius.circular(
+                                  kDefaultRadius,
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                  kDefaultRadius,
+                                ),
+                                child: Image.asset(
+                                  kCowImage,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FittedBox(
+                                  child: Text(
+                                    'Tag #${cattle.tag}',
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  cattle.breed,
+                                  style: textTheme.bodyLarge?.copyWith(
+                                    color: AppColors.textSecondary,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      FontAwesomeIcons.briefcase,
+                                      size: 13,
+                                      color: AppColors.primary,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '${cattle.age} years',
+                                      style: textTheme.bodySmall,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Row(
+                                      spacing: 8,
+                                      children: [
+                                        if (cattle.gender == 'Female')
+                                          Icon(
+                                            FontAwesomeIcons.marsStrokeRight,
+                                            size: 13,
+                                            color: Colors.pink,
+                                          ),
+                                        if (cattle.gender == 'Male')
+                                          Icon(
+                                            FontAwesomeIcons.marsStrokeUp,
+                                            size: 13,
+                                            color: Colors.pink,
+                                          ),
+                                        Text(cattle.gender ?? ''),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          spacing: 12,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withValues(alpha: .2),
+                                borderRadius: BorderRadius.circular(
+                                  kDefaultRadius,
+                                ),
+                              ),
+                              child: Text(
+                                cattle.status.name.capitalize ?? '',
+                                style: textTheme.labelMedium?.copyWith(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.warning.withValues(alpha: .2),
+                                borderRadius: BorderRadius.circular(
+                                  kDefaultRadius,
+                                ),
+                              ),
+                              child: Text(
+                                'High Yield',
+                                style: textTheme.labelMedium?.copyWith(
+                                  color: AppColors.warning,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: Text(
+                  'Key Statistics',
+                  style: textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: SizedBox(
+                  height: 420,
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(), // preve
+                    children: [
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.weightScale,
+                          size: 25,
+                          color: AppColors.secondary,
+                        ),
+                        title: '${cattle.weight} kgs',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Current Weight',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              '+5kg this month',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.bottleDroplet,
+                          size: 25,
+                          color: AppColors.primary,
+                        ),
+                        title: '${cattle.age} L',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Daily Milk Yield',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Above average',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.solidHeart,
+                          size: 25,
+                          color: Colors.pink,
+                        ),
+                        title: 'Day 120',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Pregnancy',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Due in 160 days',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                      CustomTile(
+                        color: AppColors.white,
+                        textTheme: textTheme,
+                        leadWidget: Icon(
+                          FontAwesomeIcons.stethoscope,
+                          size: 25,
+                          color: AppColors.primary,
+                        ),
+                        title: '7 days',
+                        subtitle: Column(
+                          children: [
+                            Text(
+                              'Last Check-up',
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'All clear',
+                              style: textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        shadow: true,
+                        func: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(kDefaultPadding),
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          'Health Status',
+                          style: textTheme.headlineLarge,
+                        ),
+                      ),
+                      ...kCattleHealthStatus.map(
+                        (item) => MyListTile(
+                          leadingWidget: Icon(
+                            item['icon'],
+                            color: item['color'],
+                            size: 18,
+                          ),
+                          title: item['title'],
+                          subtitle: item['subtitle'],
+                          backgroundColor: item['color'].withValues(alpha: .2),
+                          trailingWidget: Text(
+                            item['trailing'],
+                            style: TextStyle(color: item['color']),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: MyElevatedButton(
+                        height: 50,
+                        icon: Icon(FontAwesomeIcons.penToSquare),
+                        label: Text('Edit Profile'),
+                        onPressed: () {},
+                        textStyle: textTheme.labelLarge?.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: MyElevatedButton(
+                        height: 50,
+                        icon: Icon(FontAwesomeIcons.plus),
+                        label: Text('Add Yield'),
+                        onPressed:
+                            () => Get.toNamed(
+                              '${AppRoutes.kNewYieldRecord}$cattleId',
+                            ),
+                        backgroundColor: AppColors.danger,
+                        textStyle: textTheme.labelLarge?.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding,
+                ),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      color: AppColors.primary.withValues(alpha: .4),
+                      width: 3.0,
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.fileCircleMinus,
+                        color: AppColors.primary,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'View Medical History',
+                        style: textTheme.headlineMedium?.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+            ],
+          );
+        } else {
+          return Text('No data found');
+        }
+      }),
+    );
+  }
+}

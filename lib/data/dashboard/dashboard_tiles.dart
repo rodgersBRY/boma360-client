@@ -1,6 +1,6 @@
 import 'package:client/config/routes.dart';
 import 'package:client/config/theme/colors.dart';
-import 'package:client/presentation/pages/main/main_controller.dart';
+import 'package:client/ui/pages/main/main_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';

@@ -2,8 +2,8 @@ import 'package:client/bindings/auth_bindings.dart';
 import 'package:client/bindings/cattle_bindings.dart';
 import 'package:client/bindings/dashboard_bindings.dart';
 import 'package:client/config/routes.dart';
-import 'package:client/presentation/pages/main/cows/cow/yield/add_yield/add_yield.dart';
-import 'package:client/presentation/pages/pages.dart';
+import 'package:client/ui/pages/main/cows/cow/yield/add_yield/add_yield.dart';
+import 'package:client/ui/pages/pages.dart';
 import 'package:get/route_manager.dart';
 
 final List<GetPage> appPages = [

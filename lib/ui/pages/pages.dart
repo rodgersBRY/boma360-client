@@ -1,0 +1,10 @@
+export 'package:client/ui/pages/auth/login.dart';
+export 'package:client/ui/pages/auth/register.dart';
+export 'package:client/ui/pages/main/main.dart';
+export 'package:client/ui/pages/main/notifications/notifications.dart';
+export 'package:client/ui/pages/main/cows/addCow/add_cow.dart';
+export 'package:client/ui/pages/main/cows/cow/cow_profile.dart';
+export 'package:client/ui/pages/main/notifications/notification/notification.dart';
+export 'package:client/ui/pages/main/profile/farm_details/update_farm.dart';
+export 'package:client/ui/pages/pages.dart';
+export 'package:client/ui/pages/splash/splash.dart';
