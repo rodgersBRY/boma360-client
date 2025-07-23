@@ -10,6 +10,7 @@ class InputField extends StatelessWidget {
   final TextInputType? inputType;
   final TextEditingController? textController;
   final VoidCallback? onPressed;
+  final ValueChanged? onChanged;
 
   const InputField({
     super.key,
@@ -20,6 +21,7 @@ class InputField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.onPressed,
+    this.onChanged,
     this.inputType = TextInputType.text,
   });
 
@@ -30,6 +32,7 @@ class InputField extends StatelessWidget {
       validator: validator,
       controller: textController,
       keyboardType: inputType,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
@@ -62,10 +65,10 @@ class InputField extends StatelessWidget {
                   color: AppColors.danger.withValues(alpha: .5),
                 )
                 : null,
-        suffixIcon: suffixIcon != null ? IconButton(
-          icon: suffixIcon!,
-          onPressed: onPressed,
-        ) : null,
+        suffixIcon:
+            suffixIcon != null
+                ? IconButton(icon: suffixIcon!, onPressed: onPressed)
+                : null,
       ),
     );
   }

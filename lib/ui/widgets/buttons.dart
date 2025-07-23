@@ -36,7 +36,7 @@ class MyElevatedButton extends StatelessWidget {
       width: width ?? screenWidth,
       height: height,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: loading == true ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor:
               loading == true ? loadingBackgroundColor : backgroundColor,

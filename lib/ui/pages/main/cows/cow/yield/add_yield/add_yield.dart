@@ -198,7 +198,20 @@ class AddYieldWidget extends StatelessWidget {
                       textController: TextEditingController(
                         text: controller.quantity.value,
                       ),
-                      suffixIcon: Text('L'),
+                      suffixIcon:
+                          controller.yieldType.value != 'milk'
+                              ? Text(
+                                'KG',
+                                style: textTheme.headlineSmall?.copyWith(
+                                  color: AppColors.danger.withValues(alpha: .6),
+                                ),
+                              )
+                              : Text(
+                                'L',
+                                style: textTheme.headlineSmall?.copyWith(
+                                  color: AppColors.danger.withValues(alpha: .6),
+                                ),
+                              ),
                     );
                   }),
                   Row(
@@ -228,6 +241,11 @@ class AddYieldWidget extends StatelessWidget {
                   InputField(
                     hintText: 'Select Date',
                     inputType: TextInputType.datetime,
+                    onChanged: (value) {
+                      if (value != null) {
+                        controller.date = value;
+                      }
+                    },
                     suffixIcon: Icon(
                       FontAwesomeIcons.calendarDays,
                       color: AppColors.danger.withValues(alpha: .5),
@@ -235,9 +253,13 @@ class AddYieldWidget extends StatelessWidget {
                   ),
                   Text('Notes (Optional)', style: textTheme.labelLarge),
                   InputField(
-                    hintText: 'Select Date',
+                    hintText: 'Additional Info',
                     inputType: TextInputType.datetime,
-                    // textController: ,
+                    onChanged: (value) {
+                      if (value != null) {
+                        controller.notes = value;
+                      }
+                    },
                   ),
                 ],
               ),
@@ -246,12 +268,15 @@ class AddYieldWidget extends StatelessWidget {
           const SizedBox(height: 28),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: MyElevatedButton(
-              label: Text('Save Yield Record'),
-              onPressed: () {},
-              icon: Icon(FontAwesomeIcons.floppyDisk),
-              backgroundColor: AppColors.primary,
-            ),
+            child: Obx(() {
+              return MyElevatedButton(
+                label: Text('Save Yield Record'),
+                onPressed: controller.saveInfo,
+                loading: controller.isLoading.value,
+                icon: Icon(FontAwesomeIcons.floppyDisk),
+                backgroundColor: AppColors.primary,
+              );
+            }),
           ),
           const SizedBox(height: 28),
         ],
