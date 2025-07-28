@@ -10,7 +10,14 @@ class AddYieldController extends GetxController {
   var isFailed = false.obs;
 
   var yieldType = 'milk'.obs;
+  var milkingSession = 'evening'.obs;
+  var lactationStage = 'peak'.obs;
   var quantity = ''.obs;
+  
+  var milkQualityScore = '';
+  var slaughterWeight = '';
+  var carcassWeight = '';
+  var meatGrade = '';
   var date = '';
   var notes = '';
 
@@ -51,7 +58,6 @@ class AddYieldController extends GetxController {
       quantity.value = '';
       date = '';
       notes = '';
-      
     } on PostgrestException catch (err) {
       isFailed.value = true;
 

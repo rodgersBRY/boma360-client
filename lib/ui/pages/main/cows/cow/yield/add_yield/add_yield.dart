@@ -1,7 +1,9 @@
 import 'package:client/config/constants.dart';
 import 'package:client/config/theme/colors.dart';
+import 'package:client/model/yield.dart';
 import 'package:client/ui/pages/main/cows/cow/yield/add_yield/add_yield_controller.dart';
 import 'package:client/ui/widgets/buttons.dart';
+import 'package:client/ui/widgets/dropdown_field.dart';
 import 'package:client/ui/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,17 +14,7 @@ class AddYieldWidget extends StatelessWidget {
 
   AddYieldWidget({super.key, required this.cattleId});
 
-  final List<int> _quickEntries = [25, 30, 35, 40];
-
-  final List<Map<String, dynamic>> _yieldTypes = [
-    {"icon": FontAwesomeIcons.bottleDroplet, "name": "milk", "desc": "liters"},
-    {
-      "icon": FontAwesomeIcons.weightScale,
-      "name": "weight",
-      "desc": "kilograms",
-    },
-    {"icon": FontAwesomeIcons.bone, "name": "meat", "desc": "kilograms"},
-  ];
+  final List<int> _kQuickEntries = [25, 30, 35, 40];
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +91,13 @@ class AddYieldWidget extends StatelessWidget {
                   children: [
                     Text('Yield Type', style: textTheme.titleMedium),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      spacing: 20,
                       children: [
-                        ..._yieldTypes.map(
-                          (yieldType) => GestureDetector(
+                        ...YieldType.values.map(
+                          (YieldType yieldType) => GestureDetector(
                             onTap: () {
-                              controller.yieldType.value = yieldType['name'];
+                              controller.yieldType.value = yieldType.name;
                             },
                             child: Obx(() {
                               String selectedYield = controller.yieldType.value;
@@ -114,7 +107,7 @@ class AddYieldWidget extends StatelessWidget {
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color:
-                                      yieldType['name'] != selectedYield
+                                      yieldType.name != selectedYield
                                           ? AppColors.primary.withValues(
                                             alpha: .2,
                                           )
@@ -126,30 +119,30 @@ class AddYieldWidget extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Icon(
-                                      yieldType['icon'],
+                                      yieldType.icon,
                                       color:
-                                          yieldType['name'] != selectedYield
+                                          yieldType.name != selectedYield
                                               ? AppColors.textSecondary
                                               : AppColors.white,
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
-                                      yieldType['name'].toString().capitalize ??
+                                      yieldType.name.toString().capitalize ??
                                           '',
                                       style: textTheme.labelLarge?.copyWith(
                                         color:
-                                            yieldType['name'] != selectedYield
+                                            yieldType.name != selectedYield
                                                 ? AppColors.danger
                                                 : AppColors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      yieldType['desc'].toString().capitalize ??
+                                      yieldType.unit.toString().capitalize ??
                                           '',
                                       style: textTheme.labelMedium?.copyWith(
                                         color:
-                                            yieldType['name'] != selectedYield
+                                            yieldType.name != selectedYield
                                                 ? AppColors.danger.withValues(
                                                   alpha: .7,
                                                 )
@@ -217,7 +210,7 @@ class AddYieldWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ..._quickEntries.map(
+                      ..._kQuickEntries.map(
                         (entry) => GestureDetector(
                           onTap: () {
                             controller.quantity.value = entry.toString();
@@ -228,16 +221,18 @@ class AddYieldWidget extends StatelessWidget {
                               color: AppColors.secondary.withValues(alpha: .3),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Text(
-                              '${entry}L',
-                              style: textTheme.labelLarge,
+                            child: Obx(
+                              () => Text(
+                                '$entry${controller.yieldType.value == 'milk' ? 'L' : 'kg'}',
+                                style: textTheme.labelLarge,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Text('Date', style: textTheme.labelLarge),
+                  Text('Date Collected', style: textTheme.labelLarge),
                   InputField(
                     hintText: 'Select Date',
                     inputType: TextInputType.datetime,
@@ -249,6 +244,127 @@ class AddYieldWidget extends StatelessWidget {
                     suffixIcon: Icon(
                       FontAwesomeIcons.calendarDays,
                       color: AppColors.danger.withValues(alpha: .5),
+                    ),
+                  ),
+                  Obx(
+                    () => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 12,
+                      children:
+                          controller.yieldType.value == 'milk'
+                              ? [
+                                Text(
+                                  'Milking Session',
+                                  style: textTheme.labelLarge,
+                                ),
+                                MyDropDownWidget(
+                                  hint: 'Select session',
+                                  itemList:
+                                      MilkingSession.values.map((session) {
+                                        return DropdownMenuItem<String>(
+                                          value: session.name,
+                                          child: Text(
+                                            session.name.capitalize ?? '',
+                                          ),
+                                        );
+                                      }).toList(),
+                                  errorText: 'Please select a session',
+                                  onChanged: (String? value) {
+                                    if (value != null) {
+                                      controller.milkingSession.value = value;
+                                    }
+                                  },
+                                ),
+                                Text(
+                                  'Lactation Stage',
+                                  style: textTheme.labelLarge,
+                                ),
+                                MyDropDownWidget(
+                                  hint: 'Select stage',
+                                  itemList:
+                                      LactationStage.values.map((stage) {
+                                        return DropdownMenuItem<String>(
+                                          value: stage.name,
+                                          child: Text(
+                                            stage.name.capitalize ?? '',
+                                          ),
+                                        );
+                                      }).toList(),
+                                  errorText: 'Stage cannot be empty',
+                                  onChanged: (String? value) {
+                                    if (value != null) {
+                                      controller.lactationStage.value = value;
+                                    }
+                                  },
+                                ),
+                                Text(
+                                  'Milk Quality Score',
+                                  style: textTheme.labelLarge,
+                                ),
+                                InputField(
+                                  hintText: '0.0',
+                                  inputType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.milkQualityScore = value;
+                                    }
+                                  },
+                                ),
+                              ]
+                              : [
+                                Text(
+                                  'Slaughter Weight',
+                                  style: textTheme.labelLarge,
+                                ),
+                                Text(
+                                  'Weight before slaughter',
+                                  style: textTheme.labelMedium?.copyWith(
+                                    color: AppColors.textSecondary.withValues(
+                                      alpha: .4,
+                                    ),
+                                  ),
+                                ),
+                                InputField(
+                                  hintText: '0.0',
+                                  inputType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.slaughterWeight = value;
+                                    }
+                                  },
+                                ),
+                                Text(
+                                  'Carcass Weight',
+                                  style: textTheme.labelLarge,
+                                ),
+                                Text(
+                                  'Usable meat yield',
+                                  style: textTheme.labelMedium?.copyWith(
+                                    color: AppColors.textSecondary.withValues(
+                                      alpha: .4,
+                                    ),
+                                  ),
+                                ),
+                                InputField(
+                                  hintText: '0.0',
+                                  inputType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.carcassWeight = value;
+                                    }
+                                  },
+                                ),
+                                Text('Meat Grade', style: textTheme.labelLarge),
+                                InputField(
+                                  hintText: '0.0',
+                                  inputType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      controller.meatGrade = value;
+                                    }
+                                  },
+                                ),
+                              ],
                     ),
                   ),
                   Text('Notes (Optional)', style: textTheme.labelLarge),

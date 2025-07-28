@@ -21,13 +21,13 @@ class YieldModel extends BaseObject {
   final String cattleId;
 
   @JsonKey(name: 'date_collected')
-  final String dateCollected;
+  final DateTime dateCollected;
 
   @JsonKey(name: 'milking_session')
-  final String? milkingSession;
+  final MilkingSession? milkingSession;
 
   @JsonKey(name: 'lactation_stage')
-  final String? lactationStage;
+  final LactationStage? lactationStage;
 
   @JsonKey(name: 'milk_quality_score')
   final String? milkQualityScore;
@@ -65,11 +65,31 @@ class YieldModel extends BaseObject {
   Map<String, dynamic> toJson() => _$YieldModelToJson(this);
 }
 
+enum LactationStage {
+  @JsonValue('early')
+  early,
+  @JsonValue('milk')
+  peak,
+  @JsonValue('mid')
+  mid,
+  @JsonValue('late')
+  late,
+  @JsonValue('dry')
+  dry,
+}
+
+enum MilkingSession {
+  @JsonValue('morning')
+  morning,
+  @JsonValue('afternoon')
+  afternoon,
+  @JsonValue('evening')
+  evening,
+}
+
 enum YieldType {
   @JsonValue('milk')
   milk,
-  @JsonValue('weight')
-  weight,
   @JsonValue('meat')
   meat,
 }
@@ -78,33 +98,27 @@ extension YieldTypeExtension on YieldType {
   String get name {
     switch (this) {
       case YieldType.meat:
-        return 'Meat';
+        return 'meat';
       case YieldType.milk:
-        return 'Milk';
-      case YieldType.weight:
-        return 'Weight';
+        return 'milk';
     }
   }
 
-  Widget get icon {
+  IconData get icon {
     switch (this) {
       case YieldType.meat:
-        return Icon(FontAwesomeIcons.bone);
+        return FontAwesomeIcons.bone;
       case YieldType.milk:
-        return Icon(FontAwesomeIcons.bottleDroplet);
-      case YieldType.weight:
-        return Icon(FontAwesomeIcons.weightScale);
+        return FontAwesomeIcons.bottleDroplet;
     }
   }
 
-  String get label {
+  String get unit {
     switch (this) {
       case YieldType.meat:
         return 'Kilograms';
       case YieldType.milk:
         return 'Liters';
-      case YieldType.weight:
-        return 'Kilograms';
     }
   }
 }

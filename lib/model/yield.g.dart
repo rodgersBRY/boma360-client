@@ -13,9 +13,15 @@ YieldModel _$YieldModelFromJson(Map<String, dynamic> json) =>
         date: DateTime.parse(json['date'] as String),
         cattleId: json['cattle_id'] as String,
         farmerId: json['farmer_id'] as String,
-        dateCollected: json['date_collected'] as String,
-        milkingSession: json['milking_session'] as String?,
-        lactationStage: json['lactation_stage'] as String?,
+        dateCollected: DateTime.parse(json['date_collected'] as String),
+        milkingSession: $enumDecodeNullable(
+          _$MilkingSessionEnumMap,
+          json['milking_session'],
+        ),
+        lactationStage: $enumDecodeNullable(
+          _$LactationStageEnumMap,
+          json['lactation_stage'],
+        ),
         milkQualityScore: json['milk_quality_score'] as String?,
         slaughterWeight: json['slaughter_weight'] as String?,
         carcassWeight: json['carcass_weight'] as String?,
@@ -53,9 +59,11 @@ Map<String, dynamic> _$YieldModelToJson(
   'date': instance.date.toIso8601String(),
   'farmer_id': instance.farmerId,
   'cattle_id': instance.cattleId,
-  'date_collected': instance.dateCollected,
-  if (instance.milkingSession case final value?) 'milking_session': value,
-  if (instance.lactationStage case final value?) 'lactation_stage': value,
+  'date_collected': instance.dateCollected.toIso8601String(),
+  if (_$MilkingSessionEnumMap[instance.milkingSession] case final value?)
+    'milking_session': value,
+  if (_$LactationStageEnumMap[instance.lactationStage] case final value?)
+    'lactation_stage': value,
   if (instance.milkQualityScore case final value?) 'milk_quality_score': value,
   if (instance.slaughterWeight case final value?) 'slaughter_weight': value,
   if (instance.carcassWeight case final value?) 'carcass_weight': value,
@@ -63,8 +71,18 @@ Map<String, dynamic> _$YieldModelToJson(
   if (instance.notes case final value?) 'notes': value,
 };
 
-const _$YieldTypeEnumMap = {
-  YieldType.milk: 'milk',
-  YieldType.weight: 'weight',
-  YieldType.meat: 'meat',
+const _$YieldTypeEnumMap = {YieldType.milk: 'milk', YieldType.meat: 'meat'};
+
+const _$MilkingSessionEnumMap = {
+  MilkingSession.morning: 'morning',
+  MilkingSession.afternoon: 'afternoon',
+  MilkingSession.evening: 'evening',
+};
+
+const _$LactationStageEnumMap = {
+  LactationStage.early: 'early',
+  LactationStage.peak: 'milk',
+  LactationStage.mid: 'mid',
+  LactationStage.late: 'late',
+  LactationStage.dry: 'dry',
 };
