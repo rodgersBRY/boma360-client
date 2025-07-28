@@ -11,6 +11,9 @@ abstract class BaseObject {
 
   bool? deleted;
 
+  @JsonKey(name: 'deleted_at')
+  DateTime? deletedAt;
+
   @override
   String toString() {
     return id ?? super.toString();

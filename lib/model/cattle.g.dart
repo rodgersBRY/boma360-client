@@ -38,7 +38,11 @@ CattleModel _$CattleModelFromJson(Map<String, dynamic> json) =>
           json['updated_at'] == null
               ? null
               : DateTime.parse(json['updated_at'] as String)
-      ..deleted = json['deleted'] as bool?;
+      ..deleted = json['deleted'] as bool?
+      ..deletedAt =
+          json['deleted_at'] == null
+              ? null
+              : DateTime.parse(json['deleted_at'] as String);
 
 Map<String, dynamic> _$CattleModelToJson(
   CattleModel instance,
@@ -49,6 +53,8 @@ Map<String, dynamic> _$CattleModelToJson(
   if (instance.updatedAt?.toIso8601String() case final value?)
     'updated_at': value,
   if (instance.deleted case final value?) 'deleted': value,
+  if (instance.deletedAt?.toIso8601String() case final value?)
+    'deleted_at': value,
   'tag': instance.tag,
   if (instance.name case final value?) 'name': value,
   'status': _$StatusEnumMap[instance.status]!,

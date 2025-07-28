@@ -1,4 +1,5 @@
 import 'package:client/core/errors/error_handler.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -42,10 +43,15 @@ class AddYieldController extends GetxController {
       "notes": notes,
     };
 
-    print(yieldData);
+    if (kDebugMode) print(yieldData);
 
     try {
       await Future.delayed(const Duration(seconds: 3), () {});
+
+      quantity.value = '';
+      date = '';
+      notes = '';
+      
     } on PostgrestException catch (err) {
       isFailed.value = true;
 

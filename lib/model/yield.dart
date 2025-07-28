@@ -14,12 +14,48 @@ class YieldModel extends BaseObject {
 
   final DateTime date;
 
+  @JsonKey(name: 'farmer_id')
+  final String farmerId;
+
+  @JsonKey(name: 'cattle_id')
+  final String cattleId;
+
+  @JsonKey(name: 'date_collected')
+  final String dateCollected;
+
+  @JsonKey(name: 'milking_session')
+  final String? milkingSession;
+
+  @JsonKey(name: 'lactation_stage')
+  final String? lactationStage;
+
+  @JsonKey(name: 'milk_quality_score')
+  final String? milkQualityScore;
+
+  @JsonKey(name: 'slaughter_weight')
+  final String? slaughterWeight;
+
+  @JsonKey(name: 'carcass_weight')
+  final String? carcassWeight;
+
+  @JsonKey(name: 'meat_grade')
+  final String? meatGrade;
+
   final String? notes;
 
   YieldModel({
     required this.yieldType,
     required this.quantity,
     required this.date,
+    required this.cattleId,
+    required this.farmerId,
+    required this.dateCollected,
+    this.milkingSession,
+    this.lactationStage,
+    this.milkQualityScore,
+    this.slaughterWeight,
+    this.carcassWeight,
+    this.meatGrade,
     this.notes,
   });
 
