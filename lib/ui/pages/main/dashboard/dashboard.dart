@@ -4,6 +4,7 @@ import 'package:client/config/theme/colors.dart';
 import 'package:client/data/dashboard/dashboard_tiles.dart';
 import 'package:client/helper/util.dart';
 import 'package:client/model/notification.dart';
+import 'package:client/ui/pages/main/dashboard/dashboard_controller.dart';
 import 'package:client/ui/pages/main/main_controller.dart';
 import 'package:client/ui/widgets/buttons.dart';
 import 'package:client/ui/widgets/custom_tile.dart';
@@ -21,14 +22,17 @@ class DashboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.find<DashboardController>();
+    final controller = Get.find<DashboardController>();
     final mainController = Get.find<MainController>();
 
     final screenWidth = Get.width;
     final textTheme = Get.textTheme;
 
     return RefreshIndicator(
-      onRefresh: () async => await mainController.fetch(refresh: true),
+      onRefresh: () async {
+        await mainController.fetch(refresh: true);
+        await controller.fetch(refresh: true);
+      },
       child: Scaffold(
         extendBodyBehindAppBar: true,
 
@@ -134,6 +138,8 @@ class DashboardWidget extends StatelessWidget {
                 child: Obx(() {
                   final loading = mainController.isLoading.value;
                   final cows = mainController.cattle;
+                  final totalYield = controller.totalMilkYield.value;
+
                   final breeds = cows.map((cow) => cow?.breed).toSet().toList();
 
                   final now = DateTime.now();
@@ -225,7 +231,7 @@ class DashboardWidget extends StatelessWidget {
                                     size: 25,
                                     color: AppColors.secondary,
                                   ),
-                                  title: '154L',
+                                  title: '$totalYield L',
                                   subtitle: Text(
                                     'Daily Milk Yields',
                                     style: textTheme.bodyLarge?.copyWith(

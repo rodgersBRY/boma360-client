@@ -292,7 +292,7 @@ class CowProfileWidget extends StatelessWidget {
                           size: 25,
                           color: AppColors.primary,
                         ),
-                        title: '${cattle.age} L',
+                        title: '${controller.totalYield} L',
                         subtitle: Column(
                           children: [
                             Text(
@@ -447,10 +447,15 @@ class CowProfileWidget extends StatelessWidget {
                         height: 50,
                         icon: Icon(FontAwesomeIcons.plus),
                         label: Text('Add Yield'),
-                        onPressed:
-                            () => Get.toNamed(
-                              '${AppRoutes.kNewYieldRecord}$cattleId',
-                            ),
+                        onPressed: () async {
+                          var yieldRecord = await Get.toNamed(
+                            '${AppRoutes.kNewYieldRecord}$cattleId',
+                          );
+
+                          if (yieldRecord != null) {
+                            controller.fetch(refresh: true);
+                          }
+                        },
                         backgroundColor: AppColors.danger,
                         textStyle: textTheme.labelLarge?.copyWith(
                           color: AppColors.white,

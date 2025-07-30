@@ -3,6 +3,7 @@ import 'package:client/config/theme/colors.dart';
 import 'package:client/model/yield.dart';
 import 'package:client/ui/pages/main/cows/cow/yield/add_yield/add_yield_controller.dart';
 import 'package:client/ui/widgets/buttons.dart';
+import 'package:client/ui/widgets/datepicker.dart';
 import 'package:client/ui/widgets/dropdown_field.dart';
 import 'package:client/ui/widgets/input_field.dart';
 import 'package:flutter/material.dart';
@@ -97,17 +98,17 @@ class AddYieldWidget extends StatelessWidget {
                         ...YieldType.values.map(
                           (YieldType yieldType) => GestureDetector(
                             onTap: () {
-                              controller.yieldType.value = yieldType.name;
+                              controller.yieldType.value = yieldType;
                             },
                             child: Obx(() {
-                              String selectedYield = controller.yieldType.value;
+                              var selectedYield = controller.yieldType.value;
 
                               return Container(
                                 width: 100,
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color:
-                                      yieldType.name != selectedYield
+                                      yieldType != selectedYield
                                           ? AppColors.primary.withValues(
                                             alpha: .2,
                                           )
@@ -121,7 +122,7 @@ class AddYieldWidget extends StatelessWidget {
                                     Icon(
                                       yieldType.icon,
                                       color:
-                                          yieldType.name != selectedYield
+                                          yieldType != selectedYield
                                               ? AppColors.textSecondary
                                               : AppColors.white,
                                     ),
@@ -131,7 +132,7 @@ class AddYieldWidget extends StatelessWidget {
                                           '',
                                       style: textTheme.labelLarge?.copyWith(
                                         color:
-                                            yieldType.name != selectedYield
+                                            yieldType != selectedYield
                                                 ? AppColors.danger
                                                 : AppColors.white,
                                         fontWeight: FontWeight.bold,
@@ -142,7 +143,7 @@ class AddYieldWidget extends StatelessWidget {
                                           '',
                                       style: textTheme.labelMedium?.copyWith(
                                         color:
-                                            yieldType.name != selectedYield
+                                            yieldType != selectedYield
                                                 ? AppColors.danger.withValues(
                                                   alpha: .7,
                                                 )
@@ -191,8 +192,9 @@ class AddYieldWidget extends StatelessWidget {
                       textController: TextEditingController(
                         text: controller.quantity.value,
                       ),
+                      onChanged: (value) => controller.quantity.value = value,
                       suffixIcon:
-                          controller.yieldType.value != 'milk'
+                          controller.yieldType.value != YieldType.milk
                               ? Text(
                                 'KG',
                                 style: textTheme.headlineSmall?.copyWith(
@@ -223,7 +225,7 @@ class AddYieldWidget extends StatelessWidget {
                             ),
                             child: Obx(
                               () => Text(
-                                '$entry${controller.yieldType.value == 'milk' ? 'L' : 'kg'}',
+                                '$entry${controller.yieldType.value == YieldType.milk ? 'L' : 'kg'}',
                                 style: textTheme.labelLarge,
                               ),
                             ),
@@ -233,25 +235,17 @@ class AddYieldWidget extends StatelessWidget {
                     ],
                   ),
                   Text('Date Collected', style: textTheme.labelLarge),
-                  InputField(
-                    hintText: 'Select Date',
-                    inputType: TextInputType.datetime,
-                    onChanged: (value) {
-                      if (value != null) {
-                        controller.date = value;
-                      }
-                    },
-                    suffixIcon: Icon(
-                      FontAwesomeIcons.calendarDays,
-                      color: AppColors.danger.withValues(alpha: .5),
-                    ),
+                  DatePickerField(
+                    label: 'Select Date',
+                    selectedDate: controller.date,
                   ),
+
                   Obx(
                     () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 12,
                       children:
-                          controller.yieldType.value == 'milk'
+                          controller.yieldType.value == YieldType.milk
                               ? [
                                 Text(
                                   'Milking Session',
@@ -271,7 +265,10 @@ class AddYieldWidget extends StatelessWidget {
                                   errorText: 'Please select a session',
                                   onChanged: (String? value) {
                                     if (value != null) {
-                                      controller.milkingSession.value = value;
+                                      controller
+                                          .milkingSession
+                                          .value = MilkingSession.values
+                                          .firstWhere((e) => e.name == value);
                                     }
                                   },
                                 ),
@@ -293,7 +290,10 @@ class AddYieldWidget extends StatelessWidget {
                                   errorText: 'Stage cannot be empty',
                                   onChanged: (String? value) {
                                     if (value != null) {
-                                      controller.lactationStage.value = value;
+                                      controller
+                                          .lactationStage
+                                          .value = LactationStage.values
+                                          .firstWhere((e) => e.name == value);
                                     }
                                   },
                                 ),

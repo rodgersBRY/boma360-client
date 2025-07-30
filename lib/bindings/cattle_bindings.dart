@@ -8,8 +8,14 @@ class CattleBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CowProfileController>(() => CowProfileController());
-    Get.lazyPut<AddCowController>(() => AddCowController());
     Get.lazyPut<AddYieldController>(() => AddYieldController());
     Get.lazyPut<YieldController>(() => YieldController());
+  }
+}
+
+class NewCattleBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AddCowController>(() => AddCowController());
   }
 }

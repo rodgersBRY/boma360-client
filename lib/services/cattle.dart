@@ -40,14 +40,6 @@ class CattleService {
             .eq('user_id', userId)
             .eq('farm_id', farm.id!);
 
-        // final callback = List<CattleModel>.from(
-        //   cattleList.map((cow) => CattleModel.fromJson(cow)),
-        // );
-
-        // final parsedCattle = await compute(callback, cattleList);
-
-        // return parsedCattle;
-
         return List<CattleModel>.from(
           cattleList.map((cow) => CattleModel.fromJson(cow)),
         );

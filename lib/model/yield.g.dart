@@ -9,8 +9,7 @@ part of 'yield.dart';
 YieldModel _$YieldModelFromJson(Map<String, dynamic> json) =>
     YieldModel(
         yieldType: $enumDecode(_$YieldTypeEnumMap, json['yield_type']),
-        quantity: json['quantity'] as String,
-        date: DateTime.parse(json['date'] as String),
+        quantity: (json['quantity'] as num).toDouble(),
         cattleId: json['cattle_id'] as String,
         farmerId: json['farmer_id'] as String,
         dateCollected: DateTime.parse(json['date_collected'] as String),
@@ -22,10 +21,10 @@ YieldModel _$YieldModelFromJson(Map<String, dynamic> json) =>
           _$LactationStageEnumMap,
           json['lactation_stage'],
         ),
-        milkQualityScore: json['milk_quality_score'] as String?,
-        slaughterWeight: json['slaughter_weight'] as String?,
-        carcassWeight: json['carcass_weight'] as String?,
-        meatGrade: json['meat_grade'] as String?,
+        milkQualityScore: (json['milk_quality_score'] as num?)?.toDouble(),
+        slaughterWeight: (json['slaughter_weight'] as num?)?.toDouble(),
+        carcassWeight: (json['carcass_weight'] as num?)?.toDouble(),
+        meatGrade: (json['meat_grade'] as num?)?.toDouble(),
         notes: json['notes'] as String?,
       )
       ..id = json['id'] as String?
@@ -56,7 +55,6 @@ Map<String, dynamic> _$YieldModelToJson(
     'deleted_at': value,
   'yield_type': _$YieldTypeEnumMap[instance.yieldType]!,
   'quantity': instance.quantity,
-  'date': instance.date.toIso8601String(),
   'farmer_id': instance.farmerId,
   'cattle_id': instance.cattleId,
   'date_collected': instance.dateCollected.toIso8601String(),

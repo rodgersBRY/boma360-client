@@ -42,7 +42,11 @@ final List<GetPage> appPages = [
       ),
     ],
   ),
-  GetPage(name: AppRoutes.kNewCattle, page: () => NewCowWidget()),
+  GetPage(
+    name: AppRoutes.kNewCattle,
+    page: () => NewCowWidget(),
+    binding: NewCattleBinding(),
+  ),
   GetPage(
     name: '${AppRoutes.kCattleProfile}:cattleId',
     page: () => CowProfileWidget(cattleId: Get.parameters['cattleId']!),

@@ -1,4 +1,8 @@
 import 'package:client/core/errors/error_handler.dart';
+import 'package:client/core/errors/session_manager.dart';
+import 'package:client/helper/toast.dart';
+import 'package:client/model/yield.dart';
+import 'package:client/services/yield_record.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -9,16 +13,16 @@ class AddYieldController extends GetxController {
   var isLoading = false.obs;
   var isFailed = false.obs;
 
-  var yieldType = 'milk'.obs;
-  var milkingSession = 'evening'.obs;
-  var lactationStage = 'peak'.obs;
+  var yieldType = YieldType.milk.obs;
+  var milkingSession = MilkingSession.morning.obs;
+  var lactationStage = LactationStage.early.obs;
   var quantity = ''.obs;
-  
+
   var milkQualityScore = '';
   var slaughterWeight = '';
   var carcassWeight = '';
   var meatGrade = '';
-  var date = '';
+  var date = Rx<DateTime?>(null);
   var notes = '';
 
   @override
@@ -31,33 +35,53 @@ class AddYieldController extends GetxController {
   saveInfo() async {
     if (isLoading.isTrue) return;
 
-    // if (quantity.value == '' || date == '') {
-    //   ToastUtils.showError(
-    //     title: 'Alert',
-    //     subtitle: 'Quantity and date fields are required',
-    //   );
-    //
-    //   return;
-    // }
+    if (quantity.value == '' || date.value == null) {
+      ToastUtils.showError(
+        title: 'Alert',
+        subtitle: 'Quantity and date fields are required',
+      );
+
+      return;
+    }
+
+    if (yieldType.value == YieldType.meat &&
+        (slaughterWeight == '' || carcassWeight == '' || meatGrade == '')) {
+      ToastUtils.showError(
+        title: 'Alert',
+        subtitle: 'Fill all details for current ${yieldType.value} yield',
+      );
+
+      return;
+    }
 
     isFailed.value = false;
     isLoading.value = true;
 
-    final yieldData = {
-      "yieldType": yieldType.value,
-      "quantity": quantity.value,
-      "date": date,
-      "notes": notes,
-    };
-
-    if (kDebugMode) print(yieldData);
-
     try {
-      await Future.delayed(const Duration(seconds: 3), () {});
+      User? farmer = await SessionManager.getUser();
 
-      quantity.value = '';
-      date = '';
-      notes = '';
+      if (farmer != null) {
+        final yieldData = YieldModel(
+          farmerId: farmer.id,
+          cattleId: cattleId,
+          yieldType: yieldType.value,
+          milkingSession: milkingSession.value,
+          lactationStage: lactationStage.value,
+          quantity: double.tryParse(quantity.value) ?? 0.0,
+          milkQualityScore: double.tryParse(milkQualityScore),
+          slaughterWeight: double.tryParse(slaughterWeight),
+          carcassWeight: double.tryParse(carcassWeight),
+          meatGrade: double.tryParse(meatGrade),
+          dateCollected: date.value!,
+          notes: notes,
+        );
+
+        if (kDebugMode) print(yieldData.yieldType);
+
+        var yieldRecord = await YieldRecordService.newYieldRecord(yieldData);
+
+        Get.back(result: yieldRecord);
+      }
     } on PostgrestException catch (err) {
       isFailed.value = true;
 

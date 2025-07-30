@@ -11,6 +11,7 @@ class InputField extends StatelessWidget {
   final TextEditingController? textController;
   final VoidCallback? onPressed;
   final ValueChanged? onChanged;
+  final bool? enabled;
 
   const InputField({
     super.key,
@@ -22,6 +23,7 @@ class InputField extends StatelessWidget {
     this.prefixIcon,
     this.onPressed,
     this.onChanged,
+    this.enabled,
     this.inputType = TextInputType.text,
   });
 
@@ -32,6 +34,7 @@ class InputField extends StatelessWidget {
       validator: validator,
       controller: textController,
       keyboardType: inputType,
+      enabled: enabled ?? true,
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,

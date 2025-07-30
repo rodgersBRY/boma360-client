@@ -10,9 +10,7 @@ class YieldModel extends BaseObject {
   @JsonKey(name: 'yield_type')
   final YieldType yieldType;
 
-  final String quantity;
-
-  final DateTime date;
+  final double quantity;
 
   @JsonKey(name: 'farmer_id')
   final String farmerId;
@@ -30,23 +28,22 @@ class YieldModel extends BaseObject {
   final LactationStage? lactationStage;
 
   @JsonKey(name: 'milk_quality_score')
-  final String? milkQualityScore;
+  final double? milkQualityScore;
 
   @JsonKey(name: 'slaughter_weight')
-  final String? slaughterWeight;
+  final double? slaughterWeight;
 
   @JsonKey(name: 'carcass_weight')
-  final String? carcassWeight;
+  final double? carcassWeight;
 
   @JsonKey(name: 'meat_grade')
-  final String? meatGrade;
+  final double? meatGrade;
 
   final String? notes;
 
   YieldModel({
     required this.yieldType,
     required this.quantity,
-    required this.date,
     required this.cattleId,
     required this.farmerId,
     required this.dateCollected,
